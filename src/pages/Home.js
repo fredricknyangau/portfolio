@@ -128,17 +128,11 @@ const Home = () => {
           <div className="skill">MongoDB</div>
           <div className="skill">MySQL</div>
           <div className="skill">PostgreSQL</div>
-          <div className="skill">Python</div>
           <div className="skill">Flask</div>
           <div className="skill">Git</div>
           <div className="skill">RESTful APIs</div>
-          <div className="skill">Agile Methodology</div>
           <div className="skill">UI/UX Design</div>
-          <div className="skill">Responsive Design</div>
-          <div className="skill">Algorithmic Trading</div>
           <div className="skill">Technical Writing</div>
-          <div className="skill">Cloud Computing</div>
-          <div className="skill">AI & Machine Learning</div>
           <div className="skill">Flutter</div>
           <div className="skill">Dart</div>
           <div className="skill">Firebase</div>

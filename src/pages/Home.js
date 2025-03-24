@@ -95,7 +95,7 @@ const Home = () => {
         <h2>About Me</h2>
         <p>
           I am a <strong>Full-Stack Developer, Algorithmic Trading Specialist, and SaaS Engineer</strong>, passionate about building 
-          <strong>scalable, secure, and user-friendly applications</strong>. My expertise spans <strong>MERN stack (MongoDB, Express.js, React.js, Node.js)</strong> along with <strong>MySQL, PostgreSQL, and Flask</strong>, 
+          <strong> scalable, secure, and user-friendly applications</strong>. My expertise spans <strong>MERN stack (MongoDB, Express.js, React.js, Node.js)</strong> along with <strong>MySQL, PostgreSQL, and Flask</strong>, 
           allowing me to develop <strong>high-performance web, mobile, and algorithmic trading solutions</strong>.
         </p>
         <p>

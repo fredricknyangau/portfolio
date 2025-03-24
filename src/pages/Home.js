@@ -7,9 +7,9 @@ import linkedinIcon from "../assets/images/linkedin-icon.png";
 import githubIcon from "../assets/images/github-icon.png";
 
 const Home = () => {
-  const linkedInUrl = process.env.LINKEDIN_URL;
-  const githubUrl = process.env.GITHUB_URL;
-  const cvPath = process.env.CV_PATH;
+  const linkedInUrl = process.env.REACT_APP_LINKEDIN_URL;
+  const githubUrl = process.env.REACT_APP_GITHUB_URL;
+  const cvPath = process.env.REACT_APP_CV_PATH;
 
   // State for form fields
   const [formData, setFormData] = useState({
@@ -30,9 +30,9 @@ const Home = () => {
     e.preventDefault();
     setStatus("Sending...");
 
-    const serviceId = process.env.EMAILJS_SERVICE_ID;
-    const templateId = process.env.EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
     emailjs
       .send(serviceId, templateId, formData, publicKey)

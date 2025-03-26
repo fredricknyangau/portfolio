@@ -132,7 +132,6 @@ const Home = () => {
           <div className="skill">Git</div>
           <div className="skill">RESTful APIs</div>
           <div className="skill">UI/UX Design</div>
-          <div className="skill">Technical Writing</div>
           <div className="skill">Flutter</div>
           <div className="skill">Dart</div>
           <div className="skill">Firebase</div>

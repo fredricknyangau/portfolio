@@ -5,15 +5,51 @@
   box-sizing: border-box;
 }
 
+/* Default Light Mode */
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --highlight-color: #007bff;
+  --button-background: #007bff;
+  --button-text-color: #ffffff;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  --background-color: #121212;
+  --text-color: #ffffff;
+  --highlight-color: #1e90ff;
+  --button-background: #1e90ff;
+  --button-text-color: #000000;
+}
+
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #121212;
-  color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button.dark-mode-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+button.dark-mode-toggle:hover {
+  opacity: 0.8;
 }
 
 a {
   text-decoration: none;
   color: #00adb5;
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   backdrop-filter: blur(10px);
   padding: 15px 0;
 }

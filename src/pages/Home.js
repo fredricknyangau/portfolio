@@ -11,13 +11,6 @@ const Home = () => {
   const githubUrl = process.env.REACT_APP_GITHUB_URL;
   const cvPath = process.env.REACT_APP_CV_PATH;
 
-  //State for dark and light mode
-  const [darkMode, setDarkMode] = useState(false);
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle("dark-mode", !darkMode);
-  };
-
   // State for form fields
   const [formData, setFormData] = useState({
     name: "",
@@ -54,12 +47,7 @@ const Home = () => {
   };
 
   return (
-    <div className={`home ${darkMode ? "dark" : "light"}`}>
-      {/* Dark Mode Toggle Button */}
-      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-        {darkMode ? "Light Mode" : "Dark Mode"}
-      </button>
-      
+    <div className="home">
       {/* Hero Section */}
       <motion.section
         id="hero"
@@ -144,6 +132,7 @@ const Home = () => {
           <div className="skill">Git</div>
           <div className="skill">RESTful APIs</div>
           <div className="skill">UI/UX Design</div>
+          <div className="skill">Technical Writing</div>
           <div className="skill">Flutter</div>
           <div className="skill">Dart</div>
           <div className="skill">Firebase</div>

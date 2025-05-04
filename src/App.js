@@ -1,12 +1,24 @@
 import React from "react";
+import { ThemeProvider } from "./context/ThemeContext";
 import Home from "./pages/Home";
-import "./styles/App.css";
+import SEO from "./components/SEO";
+import ErrorBoundary from "./components/ErrorBoundary";
+import SkipLink from "./components/SkipLink";
+import "./global.css";
 
 function App() {
   return (
-    <div className="App">
-      <Home />
-    </div>
+    <ThemeProvider>
+      <ErrorBoundary>
+        <div className="App">
+          <SEO />
+          <SkipLink />
+          <main id="main-content">
+            <Home />
+          </main>
+        </div>
+      </ErrorBoundary>
+    </ThemeProvider>
   );
 }
 

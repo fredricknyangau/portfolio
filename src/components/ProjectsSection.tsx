@@ -8,47 +8,69 @@ import { Github, ExternalLink, Eye, Star } from 'lucide-react';
 const ProjectsSection = () => {
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'A comprehensive full-stack e-commerce solution featuring real-time inventory management, secure payment processing, advanced analytics dashboard, and seamless user experience across all devices.',
-      image: '/placeholder.svg',
-      tags: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Redux'],
-      githubUrl: '#',
-      liveUrl: '#',
+      title: "AfriSound",
+      description:
+        "AfriSound is an interactive digital archive dedicated to preserving and exploring traditional African musical instruments. Built with modern web technologies, it features a searchable database, region-based filtering, media-rich entries with Cloudinary-hosted images, audio, and video, as well as educational tools like quizzes, timelines, and multilingual glossaries. Users can contribute via a secure contributor dashboard, powered by TanStack Query v5 for seamless data handling.",
+      image: "/afrisound.png",
+      tags: [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Tailwind CSS",
+        "Shadcn UI",
+        "MongoDB",
+        "TanStack Query",
+        "Cloudinary",
+      ],
+      githubUrl:
+        "https://github.com/fredricknyangau/African-Music-Instruments-Archive",
+      liveUrl: "https://afrisound.vercel.app",
       featured: true,
-      status: 'Live',
-      metrics: { stars: 247, forks: 89 }
+      status: "Live",
+      metrics: { stars: 247, forks: 89 },
     },
-    {
-      title: 'AI Task Management',
-      description: 'Intelligent project management platform with AI-powered task prioritization, collaborative workspaces, real-time team chat, automated reporting, and predictive analytics for project success.',
-      image: '/placeholder.svg',
-      tags: ['Next.js', 'FastAPI', 'OpenAI', 'Socket.io', 'TailwindCSS'],
-      githubUrl: '#',
-      liveUrl: '#',
-      featured: true,
-      status: 'Beta',
-      metrics: { stars: 156, forks: 43 }
-    },
-    {
-      title: 'Real-time Analytics Dashboard',
-      description: 'Interactive data visualization platform with real-time metrics, customizable widgets, and advanced filtering capabilities for business intelligence.',
-      image: '/placeholder.svg',
-      tags: ['Vue.js', 'D3.js', 'WebSocket', 'Express'],
-      githubUrl: '#',
-      liveUrl: '#',
-      featured: false,
-      status: 'Live'
-    },
-    {
-      title: 'Social Media Automation',
-      description: 'Multi-platform social media management tool with AI content generation, scheduled posting, and comprehensive analytics tracking.',
-      image: '/placeholder.svg',
-      tags: ['React', 'Python', 'MongoDB', 'Redis'],
-      githubUrl: '#',
-      liveUrl: '#',
-      featured: false,
-      status: 'Development'
-    }
+    //{
+    //title: 'DevConnect',
+    //description: 'A community-driven platform for developers to connect, share knowledge, and collaborate on projects. Features include user profiles, project showcases, discussion forums, and event calendars.',
+    //image: '/placeholder.svg',
+    //   tags: ['Next.js', 'GraphQL', 'Apollo', 'TailwindCSS'],
+    //   githubUrl: '#',
+    //   liveUrl: '#',
+    //   featured: true,
+    //   status: 'Beta',
+    //   metrics: { stars: 320, forks: 75 }
+    // },
+    // {
+    //   title: 'AI Task Management',
+    //   description: 'Intelligent project management platform with AI-powered task prioritization, collaborative workspaces, real-time team chat, automated reporting, and predictive analytics for project success.',
+    //   image: '/placeholder.svg',
+    //   tags: ['Next.js', 'FastAPI', 'OpenAI', 'Socket.io', 'TailwindCSS'],
+    //   githubUrl: '#',
+    //   liveUrl: '#',
+    //   featured: true,
+    //   status: 'Beta',
+    //   metrics: { stars: 156, forks: 43 }
+    // },
+    // {
+    //   title: 'Real-time Analytics Dashboard',
+    //   description: 'Interactive data visualization platform with real-time metrics, customizable widgets, and advanced filtering capabilities for business intelligence.',
+    //   image: '/placeholder.svg',
+    //   tags: ['Vue.js', 'D3.js', 'WebSocket', 'Express'],
+    //   githubUrl: '#',
+    //   liveUrl: '#',
+    //   featured: false,
+    //   status: 'Live'
+    // },
+    // {
+    //   title: 'Social Media Automation',
+    //   description: 'Multi-platform social media management tool with AI content generation, scheduled posting, and comprehensive analytics tracking.',
+    //   image: '/placeholder.svg',
+    //   tags: ['React', 'Python', 'MongoDB', 'Redis'],
+    //   githubUrl: '#',
+    //   liveUrl: '#',
+    //   featured: false,
+    //   status: 'Development'
+    // }
   ];
 
   const featuredProjects = projects.filter(p => p.featured);

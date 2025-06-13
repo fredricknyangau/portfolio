@@ -184,16 +184,8 @@ const HeroSection = () => {
       </div>
 
       <Modal isOpen={resumeOpen} onClose={() => setResumeOpen(false)}>
-        <div className="flex justify-end mb-4 gap-2 print:hidden">
-          <Button
-            onClick={handlePrint}
-            className="bg-primary text-white hover:bg-primary/90 px-6 py-2 rounded-lg shadow-md transition-all"
-          >
-            Print / Save as PDF
-          </Button>
-        </div>
         <div ref={resumeRef} className="print:bg-white">
-          <Resume hideExport onPrint={handlePrint} ref={resumeRef} />
+          <Resume onPrint={handlePrint} ref={resumeRef} />
         </div>
         <div className="flex justify-end mt-4 gap-2 print:hidden">
           <Button variant="secondary" onClick={() => setResumeOpen(false)}>

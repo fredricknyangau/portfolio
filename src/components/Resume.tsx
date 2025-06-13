@@ -10,23 +10,16 @@ interface ResumeProps {
 }
 
 const Resume = forwardRef<HTMLDivElement, ResumeProps>(
-  ({ hideExport, onPrint }, ref) => {
+  ({ hideExport, onPrint }, _ref) => {
     const resumeRef = useRef<HTMLDivElement>(null);
-    // Use the correct ref for printing and exporting
-    const getTargetRef = () => {
-      // If a ref is provided and is a ref object, use it
-      if (ref && typeof ref !== "function" && ref.current) return ref.current;
-      // Otherwise, use the local ref
-      return resumeRef.current;
-    };
-    // react-to-print expects a function returning a DOM node
+
     const handlePrint = useReactToPrint({
-      content: () => getTargetRef(),
+      contentRef: resumeRef,
       documentTitle: "Fredrick_Nyangau_Resume",
     });
 
     const exportToWord = () => {
-      const target = getTargetRef();
+      const target = resumeRef.current;
       if (!target) return;
       const htmlContent = target.innerHTML;
       const wordHtml = `<!DOCTYPE html><html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charSet='utf-8'><title>Resume</title></head><body>${htmlContent}</body></html>`;
@@ -55,7 +48,7 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
           </div>
         )}
         <section
-          ref={ref ? ref : resumeRef}
+          ref={resumeRef}
           className="max-w-5xl mx-auto p-8 glass-effect rounded-3xl border shadow-2xl print:shadow-none print:bg-white"
         >
           {/* Header */}

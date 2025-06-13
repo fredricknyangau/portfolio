@@ -86,24 +86,32 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="section-padding bg-gradient-to-b from-background to-secondary/20">
+    <section
+      id="projects"
+      className="section-padding bg-gradient-to-b from-background to-secondary/20"
+    >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-20">
-          <span className="text-primary font-semibold text-lg mb-4 block">Portfolio</span>
+          <span className="text-primary font-semibold text-lg mb-4 block">
+            Portfolio
+          </span>
           <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
             Featured Projects
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            A curated selection of projects that demonstrate my expertise in creating 
-            innovative solutions for complex challenges
+            A curated selection of projects that demonstrate my expertise in
+            creating innovative solutions for complex challenges
           </p>
         </div>
 
         {/* Featured Projects */}
         <div className="grid lg:grid-cols-2 gap-10 mb-20">
           {featuredProjects.map((project) => (
-            <Card key={project.title} className="glass-effect border-0 overflow-hidden hover-lift group">
+            <Card
+              key={project.title}
+              className="glass-effect border-0 overflow-hidden hover-lift group"
+            >
               <div className="relative overflow-hidden">
                 <img
                   src={project.image}
@@ -122,13 +130,16 @@ const ProjectsSection = () => {
                   </Badge>
                 </div>
               </div>
-              
+
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-2xl group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </CardTitle>
-                  <Badge variant="secondary" className="bg-primary/10 text-primary">
+                  <Badge
+                    variant="secondary"
+                    className="bg-primary/10 text-primary"
+                  >
                     Featured
                   </Badge>
                 </div>
@@ -138,35 +149,52 @@ const ProjectsSection = () => {
                       <Star size={14} className="text-yellow-500" />
                       {project.metrics.stars}
                     </div>
-                    <div>
-                      {project.metrics.forks} forks
-                    </div>
+                    <div>{project.metrics.forks} forks</div>
                   </div>
                 )}
               </CardHeader>
-              
+
               <CardContent className="space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
                   {project.description}
                 </p>
-                
+
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+                    >
                       {tag}
                     </Badge>
                   ))}
                 </div>
-                
+
                 <div className="flex gap-4 pt-4">
-                  <Button variant="outline" size="sm" asChild className="hover-lift">
-                    <a href={project.githubUrl} className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    asChild
+                    className="hover-lift"
+                  >
+                    <a
+                      href={project.githubUrl}
+                      className="flex items-center gap-2"
+                    >
                       <Github size={16} />
                       Source Code
                     </a>
                   </Button>
-                  <Button size="sm" asChild className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90">
-                    <a href={project.liveUrl} className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    asChild
+                    className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+                  >
+                    <a
+                      href={project.liveUrl}
+                      className="flex items-center gap-2"
+                    >
                       <ExternalLink size={16} />
                       Live Demo
                     </a>
@@ -179,16 +207,25 @@ const ProjectsSection = () => {
 
         {/* Other Projects */}
         <div>
-          <h3 className="text-3xl font-bold mb-12 text-center">More Projects</h3>
+          <h3 className="text-3xl font-bold mb-12 text-center">
+            More Projects
+          </h3>
           <div className="grid md:grid-cols-2 gap-8">
             {otherProjects.map((project) => (
-              <Card key={project.title} className="glass-effect border-0 hover-lift group">
+              <Card
+                key={project.title}
+                className="glass-effect border-0 hover-lift group"
+              >
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
                       {project.title}
                     </CardTitle>
-                    <Badge className={`${getStatusColor(project.status)} border text-xs`}>
+                    <Badge
+                      className={`${getStatusColor(
+                        project.status
+                      )} border text-xs`}
+                    >
                       {project.status}
                     </Badge>
                   </div>
@@ -199,7 +236,11 @@ const ProjectsSection = () => {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
+                      <Badge
+                        key={tag}
+                        variant="outline"
+                        className="text-xs hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+                      >
                         {tag}
                       </Badge>
                     ))}
@@ -229,10 +270,17 @@ const ProjectsSection = () => {
               Want to see more of my work?
             </h3>
             <p className="text-muted-foreground mb-8 text-lg max-w-2xl mx-auto">
-              Check out my GitHub for additional projects, contributions, and code samples.
+              Check out my GitHub for additional projects, contributions, and
+              code samples.
             </p>
-            <Button asChild className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90">
-              <a href="#" className="flex items-center gap-2">
+            <Button
+              asChild
+              className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+            >
+              <a
+                href="https://github.com/fredricknyangau"
+                className="flex items-center gap-2"
+              >
                 <Github size={20} />
                 View All Repositories
               </a>

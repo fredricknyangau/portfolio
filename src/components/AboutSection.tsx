@@ -23,18 +23,23 @@ const AboutSection = () => {
   ];
 
   const stats = [
-    { number: '5+', label: 'Years Experience' },
-    { number: '50+', label: 'Projects Completed' },
+    { number: '4+', label: 'Years Experience' },
+    { number: '10+', label: 'Projects Completed' },
     { number: '100%', label: 'Client Satisfaction' },
     { number: '24/7', label: 'Support Available' }
   ];
 
   return (
-    <section id="about" className="section-padding bg-gradient-to-b from-background to-secondary/20">
+    <section
+      id="about"
+      className="section-padding bg-gradient-to-b from-background to-secondary/20"
+    >
       <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-20">
           <div className="inline-block">
-            <span className="text-primary font-semibold text-lg mb-4 block">About Me</span>
+            <span className="text-primary font-semibold text-lg mb-4 block">
+              About Me
+            </span>
             <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
               Passionate Developer
             </h2>
@@ -46,16 +51,29 @@ const AboutSection = () => {
           <div className="space-y-8">
             <div className="prose prose-lg max-w-none">
               <p className="text-xl text-muted-foreground leading-relaxed mb-6">
-                I'm a passionate full-stack developer who believes that 
-                <span className="text-primary font-semibold"> great code tells a story</span>. 
-                With over 5 years of crafting digital experiences, I've learned that the best 
-                solutions come from understanding both the technical challenges and human needs.
+                I'm a passionate full-stack developer who believes that
+                <span className="text-primary font-semibold">
+                  {" "}
+                  great code tells a story
+                </span>
+                . With over 4 years of crafting digital experiences, I've
+                learned that the best solutions come from understanding both the
+                technical challenges and human needs.
               </p>
-              
+
               <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                My journey started with curiosity and evolved into expertise across modern web technologies. 
-                I specialize in creating applications that not only function flawlessly but also 
-                inspire and engage users at every touchpoint.
+                My journey began in 2021 at Kabarak University in Nakuru, Kenya,
+                where I was first introduced to the world of technology through
+                foundational computer skills and MS Office applications. From
+                these humble beginnings, I took my first steps into programming
+                by crafting simple "Hello World" pages using HTML, CSS, and
+                JavaScript. That spark of curiosity quickly grew into a deep
+                passion for building intuitive and impactful digital
+                experiences. Over the years, I've developed a strong command of
+                modern web technologies and frameworks, with a focus on creating
+                seamless, performant, and user-centric applications that not
+                only function flawlessly but also inspire and engage users at
+                every touchpoint.
               </p>
             </div>
 
@@ -73,7 +91,13 @@ const AboutSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'Docker', 'Next.js', 'TailwindCSS'].map((tech) => (
+              {[
+                "React",
+                "TypeScript",
+                "Node.js",
+                "Django",
+                "TailwindCSS",
+              ].map((tech) => (
                 <span
                   key={tech}
                   className="px-4 py-2 glass-effect rounded-full text-sm font-medium border hover:border-primary hover:text-primary transition-all duration-300 hover:scale-105"
@@ -86,7 +110,10 @@ const AboutSection = () => {
 
           <div className="grid gap-6">
             {highlights.map(({ icon: Icon, title, description }, index) => (
-              <Card key={title} className="glass-effect border-0 hover-lift group">
+              <Card
+                key={title}
+                className="glass-effect border-0 hover-lift group"
+              >
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-6">
                     <div className="p-4 rounded-2xl bg-gradient-to-br from-primary to-purple-600 text-white group-hover:scale-110 transition-transform duration-300">
@@ -114,12 +141,15 @@ const AboutSection = () => {
               Ready to bring your ideas to life?
             </h3>
             <p className="text-muted-foreground mb-8 text-lg">
-              Let's collaborate and create something extraordinary together. 
-              I'm always excited to tackle new challenges and push creative boundaries.
+              Let's collaborate and create something extraordinary together. I'm
+              always excited to tackle new challenges and push creative
+              boundaries.
             </p>
             <div className="flex items-center justify-center gap-4">
               <Coffee className="text-primary" size={24} />
-              <span className="text-muted-foreground">Let's grab a coffee and chat!</span>
+              <span className="text-muted-foreground">
+                Let's grab a coffee and chat!
+              </span>
             </div>
           </div>
         </div>

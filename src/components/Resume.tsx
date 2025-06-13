@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef } from "react";
+import React, { useRef, forwardRef, useImperativeHandle } from "react";
 import { Mail, Github, Linkedin, MapPin, Globe } from "lucide-react";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "@/components/ui/button";
@@ -10,11 +10,14 @@ interface ResumeProps {
 }
 
 const Resume = forwardRef<HTMLDivElement, ResumeProps>(
-  ({ hideExport, onPrint }, _ref) => {
+  ({ hideExport, onPrint }, ref) => {
     const resumeRef = useRef<HTMLDivElement>(null);
 
+    // Forward internal ref to parent
+    useImperativeHandle(ref, () => resumeRef.current as HTMLDivElement);
+
     const handlePrint = useReactToPrint({
-      contentRef: resumeRef,
+      content: () => resumeRef.current,
       documentTitle: "Fredrick_Nyangau_Resume",
     });
 
@@ -54,28 +57,55 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
           {/* Header */}
           <header className="flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-border/50 pb-8 mb-8">
             <div className="flex-1">
-              <h1 className="text-5xl font-bold gradient-text mb-3">
+              <h1 className="text-5xl print:text-3xl font-bold gradient-text mb-3">
                 Fredrick Nyang'au
               </h1>
-              <p className="text-xl text-muted-foreground mb-4 font-light">
+              <p className="text-xl print:text-lg text-muted-foreground mb-4 font-light">
                 Software Developer | React | Flutter | Tailwind CSS | SMC Trader
               </p>
               <div className="flex flex-wrap gap-4 text-sm">
                 {[
-                  { icon: MapPin, text: "Nairobi, Kenya" },
-                  { icon: Mail, text: "nyangaufredrick443@gmail.com" },
-                  { icon: Globe, text: "fredricknyangau.vercel.app" },
-                  { icon: Github, text: "fredricknyangau" },
-                  { icon: Linkedin, text: "LinkedIn" },
-                ].map(({ icon: Icon, text }, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center gap-2 px-3 py-2 glass-effect rounded-full border hover:border-primary/50 transition-all duration-300 hover-lift"
-                  >
-                    <Icon size={16} className="text-primary" />
-                    <span className="text-foreground">{text}</span>
-                  </div>
-                ))}
+                  {
+                    icon: MapPin,
+                    text: "Nairobi, Kenya",
+                  },
+                  {
+                    icon: Mail,
+                    text: "nyangaufredrick443@gmail.com",
+                    href: "mailto:nyangaufredrick443@gmail.com",
+                  },
+                  {
+                    icon: Globe,
+                    text: "fredricknyangau.vercel.app",
+                    href: "https://fredricknyangau.vercel.app",
+                  },
+                  {
+                    icon: Github,
+                    text: "fredricknyangau",
+                    href: "https://github.com/fredricknyangau",
+                  },
+                  {
+                    icon: Linkedin,
+                    text: "LinkedIn",
+                    href: "https://linkedin.com/in/fredrick-nyang-au-857b75233",
+                  },
+                ].map(({ icon: Icon, text, href }, index) => {
+                  const Tag = href ? "a" : "div";
+                  return (
+                    <Tag
+                      key={index}
+                      {...(href && {
+                        href,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      })}
+                      className="flex items-center gap-2 px-3 py-2 glass-effect rounded-full border hover:border-primary/50 transition-all duration-300 hover-lift"
+                    >
+                      <Icon size={16} className="text-primary" />
+                      <span className="text-foreground">{text}</span>
+                    </Tag>
+                  );
+                })}
               </div>
             </div>
             <div className="mt-6 lg:mt-0 lg:ml-8">
@@ -83,14 +113,15 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
                 <div className="absolute -inset-2 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-xl opacity-30 group-hover:opacity-50 transition-all duration-500"></div>
                 <img
                   src="/profile.jpg"
-                  alt="Avatar"
+                  alt="Fredrick Nyang'au Profile"
+                  loading="lazy"
                   className="relative w-32 h-32 rounded-full object-cover glass-effect border-4 border-primary/20 hover-lift"
                 />
               </div>
             </div>
           </header>
 
-          {/* About Me */}
+           {/* About Me */}
           <section className="mb-10">
             <h2 className="text-2xl font-bold text-foreground mb-4 flex items-center">
               <span className="w-2 h-8 bg-gradient-to-b from-primary to-purple-500 rounded-full mr-3"></span>
@@ -230,6 +261,6 @@ const Resume = forwardRef<HTMLDivElement, ResumeProps>(
     );
   }
 );
-Resume.displayName = "Resume";
 
+Resume.displayName = "Resume";
 export default Resume;

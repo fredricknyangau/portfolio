@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Palette, Server, Wrench } from 'lucide-react';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 
@@ -8,29 +9,29 @@ const SkillsSection = () => {
   const skillCategories = [
     {
       title: 'Frontend Excellence',
-      icon: '🎨',
+      icon: <Palette />,
       color: 'from-blue-500 to-purple-600',
       skills: [
-        { name: 'React/Next.js', level: 95, category: 'Framework' },
+        { name: 'React.js', level: 95, category: 'Library' },
         { name: 'TypeScript', level: 90, category: 'Language' },
         { name: 'Tailwind CSS', level: 88, category: 'Styling' },
-        { name: 'Vue.js', level: 82, category: 'Framework' }
+        { name: 'Shadcn UI', level: 82, category: 'UI Library' }
       ]
     },
     {
       title: 'Backend Mastery',
-      icon: '⚡',
+      icon: <Server />,
       color: 'from-green-500 to-emerald-600',
       skills: [
         { name: 'Node.js', level: 92, category: 'Runtime' },
-        { name: 'Python', level: 85, category: 'Language' },
-        { name: 'PostgreSQL', level: 80, category: 'Database' },
-        { name: 'GraphQL', level: 78, category: 'API' }
+        { name: 'Django', level: 85, category: 'Framework' },
+        { name: 'MySQL & MongoDB', level: 80, category: 'Databases' },
+        { name: 'REST API', level: 78, category: 'API' }
       ]
     },
     {
       title: 'DevOps & Tools',
-      icon: '🛠️',
+      icon: <Wrench />,
       color: 'from-orange-500 to-red-600',
       skills: [
         { name: 'Git/GitHub', level: 95, category: 'Version Control' },
@@ -100,9 +101,9 @@ const SkillsSection = () => {
           <h3 className="text-2xl font-bold text-center mb-12">Additional Technologies</h3>
           <div className="flex flex-wrap justify-center gap-4">
             {[
-              'JavaScript', 'HTML5', 'CSS3', 'SASS', 'Redux', 'Zustand',
-              'Express.js', 'FastAPI', 'MongoDB', 'Redis', 'Firebase',
-              'Vercel', 'Netlify', 'Jest', 'Cypress', 'Webpack', 'Vite'
+              'JavaScript', 'HTML5', 'CSS3', 
+              'Express.js', 'MongoDB', 'Firebase',
+              'Vercel', 'Render', 'Vite'
             ].map((tech) => (
               <Badge
                 key={tech}

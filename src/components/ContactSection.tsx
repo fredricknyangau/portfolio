@@ -36,21 +36,21 @@ const ContactSection = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'hello@johndoe.dev',
-      href: 'mailto:hello@johndoe.dev',
+      value: 'nyangaufredrick443@gmail.com',
+      href: 'mailto:nyangaufredrick443@gmail.com',
       description: 'Drop me a line anytime'
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
-      description: 'Mon-Fri 9AM-6PM EST'
+      value: '+254 746730585',
+      href: 'tel:+254746730585',
+      description: 'Mon-Fri 9AM-6PM EAT'
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Nakuru, Kenya',
       href: '#',
       description: 'Available for remote work'
     }
@@ -221,13 +221,13 @@ const ContactSection = () => {
         <div className="text-center pt-16 border-t border-border/50">
           <div className="glass-effect rounded-2xl p-8 border">
             <p className="text-muted-foreground mb-4">
-              © 2024 John Doe. Crafted with passion using React, TypeScript & Tailwind CSS.
+              © {new Date().getFullYear()} Fredrick Nyang'au. Crafted with passion using React, TypeScript & Tailwind CSS.
             </p>
-            <div className="flex justify-center items-center gap-2 text-sm text-muted-foreground">
+            {/* <div className="flex justify-center items-center gap-2 text-sm text-muted-foreground">
               <span>Made with</span>
               <span className="text-red-500 animate-pulse">❤️</span>
               <span>for the web</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

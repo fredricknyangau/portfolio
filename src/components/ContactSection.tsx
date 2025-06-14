@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {
   Mail,
   Phone,
@@ -22,7 +28,18 @@ const ContactSection = () => {
     message: "",
   });
   const [loading, setLoading] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (isCalendlyOpen && !document.getElementById("calendly-widget-script")) {
+      const script = document.createElement("script");
+      script.id = "calendly-widget-script";
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, [isCalendlyOpen]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -35,8 +52,6 @@ const ContactSection = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Basic email format check
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast({
@@ -111,7 +126,6 @@ const ContactSection = () => {
       description: "Book a 30-min consultation",
       action: "Schedule",
       color: "from-blue-500 to-purple-600",
-      href: "https://calendly.com/nyangaufredrick443",
       actionType: "schedule",
     },
     {
@@ -122,20 +136,16 @@ const ContactSection = () => {
       color: "from-green-500 to-emerald-600",
       href: "https://wa.me/254746730585",
       actionType: "chat",
-
     },
   ];
 
   const handleQuickAction = (action: (typeof quickActions)[0]) => {
-    if (action.actionType === "schedule" && action.href) {
-      window.Calendly.initPopupWidget({
-        url: "https://calendly.com/nyangaufredrick443/30min",
-      });
+    if (action.actionType === "schedule") {
+      setIsCalendlyOpen(true);
     } else if (action.actionType === "chat" && action.href) {
       window.open(action.href, "_blank");
     }
   };
-  
 
   return (
     <section id="contact" className="section-padding">
@@ -155,7 +165,7 @@ const ContactSection = () => {
         </div>
 
         <div className="grid lg:grid-cols-3 gap-12 mb-16">
-          {/* Contact Info */}
+          {/* Contact Info and Actions */}
           <div className="lg:col-span-1 space-y-8">
             <div>
               <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
@@ -178,7 +188,7 @@ const ContactSection = () => {
                         <p className="font-semibold mb-1">{title}</p>
                         <a
                           href={href}
-                          className="text-primary hover:text-primary/80 transition-colors duration-300 block mb-1"
+                          className="text-primary hover:text-primary/80 block mb-1"
                         >
                           {value}
                         </a>
@@ -263,7 +273,6 @@ const ContactSection = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="glass-effect border-0 focus:border-primary"
                     />
                     <Input
                       name="email"
@@ -272,7 +281,6 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="glass-effect border-0 focus:border-primary"
                     />
                   </div>
                   <Input
@@ -281,7 +289,6 @@ const ContactSection = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="glass-effect border-0 focus:border-primary"
                   />
                   <Textarea
                     name="message"
@@ -290,12 +297,10 @@ const ContactSection = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="glass-effect border-0 focus:border-primary resize-none"
                   />
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 hover-lift"
-                    size="lg"
+                    className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
                     disabled={loading}
                   >
                     <Send size={20} className="mr-2" />
@@ -317,6 +322,22 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Calendly Modal */}
+      <Dialog open={isCalendlyOpen} onOpenChange={setIsCalendlyOpen}>
+        <DialogContent
+          className="max-w-xl w-full p-0 overflow-hidden"
+          aria-describedby=""
+        >
+          <DialogHeader className="p-4">
+            <DialogTitle>Book a Call</DialogTitle>
+          </DialogHeader>
+          <div
+            className="calendly-inline-widget w-full h-[500px]"
+            data-url="https://calendly.com/nyangaufredrick443/30min"
+          ></div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

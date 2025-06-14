@@ -111,6 +111,8 @@ const ContactSection = () => {
       description: "Book a 30-min consultation",
       action: "Schedule",
       color: "from-blue-500 to-purple-600",
+      href: "https://calendly.com/nyangaufredrick443",
+      actionType: "schedule",
     },
     {
       icon: MessageCircle,
@@ -118,8 +120,22 @@ const ContactSection = () => {
       description: "Let's discuss your project",
       action: "Start Chat",
       color: "from-green-500 to-emerald-600",
+      href: "https://wa.me/254746730585",
+      actionType: "chat",
+
     },
   ];
+
+  const handleQuickAction = (action: (typeof quickActions)[0]) => {
+    if (action.actionType === "schedule" && action.href) {
+      window.Calendly.initPopupWidget({
+        url: "https://calendly.com/nyangaufredrick443/30min",
+      });
+    } else if (action.actionType === "chat" && action.href) {
+      window.open(action.href, "_blank");
+    }
+  };
+  
 
   return (
     <section id="contact" className="section-padding">
@@ -180,10 +196,27 @@ const ContactSection = () => {
             <div className="space-y-4">
               <h4 className="text-lg font-semibold">Quick Actions</h4>
               {quickActions.map(
-                ({ icon: Icon, title, description, action, color }) => (
+                ({
+                  icon: Icon,
+                  title,
+                  description,
+                  action,
+                  color,
+                  ...rest
+                }) => (
                   <Card
                     key={title}
                     className="glass-effect border-0 hover-lift group cursor-pointer"
+                    onClick={() =>
+                      handleQuickAction({
+                        icon: Icon,
+                        title,
+                        description,
+                        action,
+                        color,
+                        ...rest,
+                      })
+                    }
                   >
                     <CardContent className="p-4">
                       <div className="flex items-center space-x-4">

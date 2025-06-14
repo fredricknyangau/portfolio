@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Calendly Widget Script -->
+    <script 
+    type="text/javascript" 
+    src="https://assets.calendly.com/assets/external/widget.js"
+    async
+    >
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fredrick Nyang'au Elegant Resume</title>
@@ -12,10 +20,33 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://fredricknyangau.vercel.app" />
     <meta property="og:image" content="https://fredricknyangau.vercel.app/og-image.png" />
+    
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- WhatsApp Floating Chat -->
+<script type="text/javascript">
+  (function () {
+    var options = {
+      whatsapp: "+254746730585",
+      call_to_action: "Chat with me",
+      position: "right",
+    };
+    var proto = document.location.protocol,
+      host = "getbutton.io",
+      url = proto + "//static." + host;
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = url + "/widget-send-button/js/init.js";
+    s.onload = function () {
+      WhWidgetSendButton.init(host, proto, options);
+    };
+    var x = document.getElementsByTagName("script")[0];
+    x.parentNode.insertBefore(s, x);
+  })();
+</script>
   </body>
 </html>

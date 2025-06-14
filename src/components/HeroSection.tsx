@@ -86,7 +86,7 @@ const HeroSection = () => {
                   className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all duration-300"
                   onClick={() => {
                     document
-                      .getElementById("portfolio")
+                      .getElementById("projects")
                       ?.scrollIntoView({ behavior: "smooth" });
                   }}
                 >

@@ -91,20 +91,16 @@ const AboutSection = () => {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {[
-                "React",
-                "TypeScript",
-                "Node.js",
-                "Django",
-                "TailwindCSS",
-              ].map((tech) => (
-                <span
-                  key={tech}
-                  className="px-4 py-2 glass-effect rounded-full text-sm font-medium border hover:border-primary hover:text-primary transition-all duration-300 hover:scale-105"
-                >
-                  {tech}
-                </span>
-              ))}
+              {["React", "TypeScript", "TailwindCSS", "Node.js", "Django"].map(
+                (tech) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 glass-effect rounded-full text-sm font-medium border hover:border-primary hover:text-primary transition-all duration-300 hover:scale-105"
+                  >
+                    {tech}
+                  </span>
+                )
+              )}
             </div>
           </div>
 

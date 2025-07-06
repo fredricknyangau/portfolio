@@ -35,9 +35,8 @@ const SkillsSection = () => {
       color: 'from-orange-500 to-red-600',
       skills: [
         { name: 'Git/GitHub', level: 95, category: 'Version Control' },
-        { name: 'Docker', level: 82, category: 'Container' },
+        { name: 'Docker', level: 70, category: 'Container' },
         { name: 'AWS', level: 78, category: 'Cloud' },
-        { name: 'Figma', level: 88, category: 'Design' }
       ]
     }
   ];
@@ -102,7 +101,7 @@ const SkillsSection = () => {
           <div className="flex flex-wrap justify-center gap-4">
             {[
               'JavaScript', 'HTML5', 'CSS3', 
-              'Express.js', 'MongoDB', 'Firebase',
+              'Express.js', 'Firebase',
               'Vercel', 'Render', 'Vite'
             ].map((tech) => (
               <Badge

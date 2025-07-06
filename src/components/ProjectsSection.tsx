@@ -3,7 +3,9 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Github, ExternalLink, Eye, Star } from 'lucide-react';
+import { ExternalLink, Eye, Star } from 'lucide-react';
+
+
 
 const ProjectsSection = () => {
   const projects = [
@@ -29,48 +31,37 @@ const ProjectsSection = () => {
       status: "Live",
       metrics: { stars: 247, forks: 89 },
     },
-    //{
-    //title: 'DevConnect',
-    //description: 'A community-driven platform for developers to connect, share knowledge, and collaborate on projects. Features include user profiles, project showcases, discussion forums, and event calendars.',
-    //image: '/placeholder.svg',
-    //   tags: ['Next.js', 'GraphQL', 'Apollo', 'TailwindCSS'],
-    //   githubUrl: '#',
-    //   liveUrl: '#',
-    //   featured: true,
-    //   status: 'Beta',
-    //   metrics: { stars: 320, forks: 75 }
-    // },
-    // {
-    //   title: 'AI Task Management',
-    //   description: 'Intelligent project management platform with AI-powered task prioritization, collaborative workspaces, real-time team chat, automated reporting, and predictive analytics for project success.',
-    //   image: '/placeholder.svg',
-    //   tags: ['Next.js', 'FastAPI', 'OpenAI', 'Socket.io', 'TailwindCSS'],
-    //   githubUrl: '#',
-    //   liveUrl: '#',
-    //   featured: true,
-    //   status: 'Beta',
-    //   metrics: { stars: 156, forks: 43 }
-    // },
-    // {
-    //   title: 'Real-time Analytics Dashboard',
-    //   description: 'Interactive data visualization platform with real-time metrics, customizable widgets, and advanced filtering capabilities for business intelligence.',
-    //   image: '/placeholder.svg',
-    //   tags: ['Vue.js', 'D3.js', 'WebSocket', 'Express'],
-    //   githubUrl: '#',
-    //   liveUrl: '#',
-    //   featured: false,
-    //   status: 'Live'
-    // },
-    // {
-    //   title: 'Social Media Automation',
-    //   description: 'Multi-platform social media management tool with AI content generation, scheduled posting, and comprehensive analytics tracking.',
-    //   image: '/placeholder.svg',
-    //   tags: ['React', 'Python', 'MongoDB', 'Redis'],
-    //   githubUrl: '#',
-    //   liveUrl: '#',
-    //   featured: false,
-    //   status: 'Development'
-    // }
+    {
+      title: "Kabarak Find It",
+      description:
+        "A lost and found system built for Kabarak University to track, manage, and reclaim lost items on campus. It includes a CSO dashboard, image uploads, user claims with ID verification, and PDF pickup receipts. JWT-based authentication is used with role-based access for security personnel and admins.",
+      image: "/kabarak-find-it.png",
+      tags: [
+        "React",
+        "Express",
+        "MongoDB",
+        "JWT",
+        "Plain CSS",
+        "Cloudinary"
+      ],
+      githubUrl: "https://github.com/fredricknyangau/kabarak-find-it",
+      liveUrl: "https://kabarak-find-it.vercel.app",
+      featured: true,
+      status: "Beta",
+      metrics: { stars: 115, forks: 40 }
+    },
+    {
+      title: "Ukulima App",
+      description:
+        "A modular Flutter mobile app designed for Kenyan farmers. Features include livestock and crop record keeping, weather tracking, and offline data entry. Built with Riverpod for state management, clean architecture, and local database support for performance.",
+      image: "/ukulima-app.png",
+      tags: ["Flutter", "Dart"],
+      githubUrl: "https://github.com/fredricknyangau/ukulima-app",
+      liveUrl: "#",
+      featured: false,
+      status: "Development",
+      metrics: { stars: 60, forks: 20 }
+    }
   ];
 
   const featuredProjects = projects.filter(p => p.featured);
@@ -182,7 +173,7 @@ const ProjectsSection = () => {
                       href={project.githubUrl}
                       className="flex items-center gap-2"
                     >
-                      <Github size={16} />
+                      <img src="/github.svg" alt="GitHub" width={16} height={16} className="inline-block align-middle" />
                       Source Code
                     </a>
                   </Button>
@@ -248,7 +239,7 @@ const ProjectsSection = () => {
                   <div className="flex gap-3 pt-2">
                     <Button variant="outline" size="sm" asChild>
                       <a href={project.githubUrl}>
-                        <Github size={14} />
+                        <img src="/github.svg" alt="GitHub" width={14} height={14} className="inline-block align-middle" />
                       </a>
                     </Button>
                     <Button size="sm" asChild>
@@ -281,7 +272,7 @@ const ProjectsSection = () => {
                 href="https://github.com/fredricknyangau"
                 className="flex items-center gap-2"
               >
-                <Github size={20} />
+                <img src="/github.svg" alt="GitHub" width={20} height={20} className="inline-block align-middle" />
                 View All Repositories
               </a>
             </Button>

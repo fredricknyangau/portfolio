@@ -42,7 +42,7 @@ const Navigation = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
-          <div className="text-2xl font-bold gradient-text">Portfolio</div>
+          <div className="text-2xl font-bold gradient-text">Fredrick Nyang'au</div>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-1">

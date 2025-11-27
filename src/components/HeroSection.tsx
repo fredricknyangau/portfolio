@@ -62,7 +62,7 @@ const useScrollToSection = () => {
         console.warn(`Section with id "${sectionId}" not found`);
       }
     } catch (error) {
-      console.error('Error scrolling to section:', error);
+      console.error("Error scrolling to section:", error);
     }
   }, []);
 };
@@ -72,7 +72,7 @@ const usePrintResume = (resumeRef: React.RefObject<HTMLDivElement>) => {
     contentRef: resumeRef,
     documentTitle: "Fredrick_Nyangau_Resume",
     onPrintError: (error) => {
-      console.error('Error printing resume:', error);
+      console.error("Error printing resume:", error);
     },
   });
 };
@@ -98,7 +98,7 @@ const SocialLink = memo(({ src, href, label, color }: SocialLink) => (
   </a>
 ));
 
-SocialLink.displayName = 'SocialLink';
+SocialLink.displayName = "SocialLink";
 
 const ProfileImage = memo(() => (
   <div className="flex justify-center">
@@ -107,7 +107,7 @@ const ProfileImage = memo(() => (
       <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-88 md:h-88 lg:w-96 lg:h-96 rounded-full glass-effect border-4 border-primary/20 flex items-center justify-center hover-lift">
         <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-88 lg:h-88 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
           <img
-            src="/profile.jpg"
+            src="/profile.png"
             alt="Professional headshot of Fredrick Nyang'au, Junior FullStack Developer and Freelancer"
             className="w-full h-full object-cover rounded-full shadow-lg transition-transform duration-300 group-hover:scale-105"
             style={{ boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)" }}
@@ -122,7 +122,7 @@ const ProfileImage = memo(() => (
   </div>
 ));
 
-ProfileImage.displayName = 'ProfileImage';
+ProfileImage.displayName = "ProfileImage";
 
 const BackgroundElements = memo(() => (
   <>
@@ -135,71 +135,73 @@ const BackgroundElements = memo(() => (
   </>
 ));
 
-BackgroundElements.displayName = 'BackgroundElements';
+BackgroundElements.displayName = "BackgroundElements";
 
-const HeroContent = memo(({ onResumeOpen, scrollToSection }: HeroContentProps) => (
-  <div className="text-left lg:text-left">
-    <div className="space-y-6">
-      <header className="animate-fade-in-up">
-        <p className="text-lg font-medium text-primary mb-2">
-          Hello, I'm
-        </p>
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 gradient-text leading-tight">
-          Fredrick Nyang'au
-        </h1>
-      </header>
+const HeroContent = memo(
+  ({ onResumeOpen, scrollToSection }: HeroContentProps) => (
+    <div className="text-left lg:text-left">
+      <div className="space-y-6">
+        <header className="animate-fade-in-up">
+          <p className="text-lg font-medium text-primary mb-2">Hello, I'm</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 gradient-text leading-tight">
+            Fredrick Nyang'au
+          </h1>
+        </header>
 
-      <div className="animate-fade-in-up delay-200">
-        <div className="text-2xl md:text-3xl text-muted-foreground mb-8 font-light">
-          <span className="block">Junior FullStack Developer</span>
-          <span className="block text-xl md:text-2xl mt-2 text-primary">
-            & Freelancer
-          </span>
+        <div className="animate-fade-in-up delay-200">
+          <div className="text-2xl md:text-3xl text-muted-foreground mb-8 font-light">
+            <span className="block">Junior FullStack Developer</span>
+            <span className="block text-xl md:text-2xl mt-2 text-primary">
+              & Freelancer
+            </span>
+          </div>
         </div>
-      </div>
 
-      <p className="text-lg text-muted-foreground max-w-xl mb-12 leading-relaxed animate-fade-in-up delay-400">
-        I craft exceptional digital experiences through the perfect
-        blend of
-        <span className="text-primary font-medium">
-          {" "}
-          innovative design
-        </span>{" "}
-        and
-        <span className="text-primary font-medium"> clean code</span>.
-        Let's build something extraordinary together.
-      </p>
+        <p className="text-lg text-muted-foreground max-w-xl mb-12 leading-relaxed animate-fade-in-up delay-400">
+          I craft exceptional digital experiences through the perfect blend of
+          <span className="text-primary font-medium">
+            {" "}
+            innovative design
+          </span>{" "}
+          and
+          <span className="text-primary font-medium"> clean code</span>. Let's
+          build something extraordinary together.
+        </p>
 
-      <div className="flex flex-col sm:flex-row gap-6 mb-12 animate-fade-in-up delay-600">
-        <Button
-          size="lg"
-          className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          onClick={() => scrollToSection("projects")}
-          aria-label="Navigate to projects section"
+        <div className="flex flex-col sm:flex-row gap-6 mb-12 animate-fade-in-up delay-600">
+          <Button
+            size="lg"
+            className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            onClick={() => scrollToSection("projects")}
+            aria-label="Navigate to projects section"
+          >
+            <span>Explore My Work</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="border-2 hover-lift focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            onClick={onResumeOpen}
+            aria-label="Open resume modal"
+          >
+            View Resume
+          </Button>
+        </div>
+
+        <nav
+          className="flex gap-4 animate-fade-in-up delay-800"
+          aria-label="Social media links"
         >
-          <span>Explore My Work</span>
-        </Button>
-        <Button
-          variant="outline"
-          size="lg"
-          className="border-2 hover-lift focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          onClick={onResumeOpen}
-          aria-label="Open resume modal"
-        >
-          View Resume
-        </Button>
+          {SOCIAL_LINKS.map((link) => (
+            <SocialLink key={link.label} {...link} />
+          ))}
+        </nav>
       </div>
-
-      <nav className="flex gap-4 animate-fade-in-up delay-800" aria-label="Social media links">
-        {SOCIAL_LINKS.map((link) => (
-          <SocialLink key={link.label} {...link} />
-        ))}
-      </nav>
     </div>
-  </div>
-));
+  )
+);
 
-HeroContent.displayName = 'HeroContent';
+HeroContent.displayName = "HeroContent";
 
 const ScrollDownButton = memo(({ onClick }: ScrollDownButtonProps) => (
   <button
@@ -214,32 +216,38 @@ const ScrollDownButton = memo(({ onClick }: ScrollDownButtonProps) => (
   </button>
 ));
 
-ScrollDownButton.displayName = 'ScrollDownButton';
+ScrollDownButton.displayName = "ScrollDownButton";
 
-const ResumeModal = memo(({ isOpen, onClose, resumeRef, onPrint }: ResumeModalProps) => (
-  <Modal isOpen={isOpen} onClose={onClose} aria-labelledby="resume-modal-title">
-    <div ref={resumeRef} className="print:bg-white">
-      <Resume />
-    </div>
-    <div className="flex justify-end mt-4 gap-2 print:hidden">
-      <Button 
-        variant="secondary" 
-        onClick={onClose}
-        className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        aria-label="Close resume modal"
-      >
-        Close
-      </Button>
-    </div>
-  </Modal>
-));
+const ResumeModal = memo(
+  ({ isOpen, onClose, resumeRef, onPrint }: ResumeModalProps) => (
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      aria-labelledby="resume-modal-title"
+    >
+      <div ref={resumeRef} className="print:bg-white">
+        <Resume />
+      </div>
+      <div className="flex justify-end mt-4 gap-2 print:hidden">
+        <Button
+          variant="secondary"
+          onClick={onClose}
+          className="focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          aria-label="Close resume modal"
+        >
+          Close
+        </Button>
+      </div>
+    </Modal>
+  )
+);
 
-ResumeModal.displayName = 'ResumeModal';
+ResumeModal.displayName = "ResumeModal";
 
 const HeroSection = memo(() => {
   const [resumeOpen, setResumeOpen] = useState(false);
   const resumeRef = useRef<HTMLDivElement>(null);
-  
+
   const scrollToSection = useScrollToSection();
   const handlePrint = usePrintResume(resumeRef);
 
@@ -265,7 +273,7 @@ const HeroSection = memo(() => {
 
       <div className="container mx-auto px-6 text-center z-10 max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <HeroContent 
+          <HeroContent
             onResumeOpen={handleResumeOpen}
             scrollToSection={scrollToSection}
           />
@@ -285,6 +293,6 @@ const HeroSection = memo(() => {
   );
 });
 
-HeroSection.displayName = 'HeroSection';
+HeroSection.displayName = "HeroSection";
 
 export default HeroSection;

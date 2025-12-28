@@ -10,7 +10,7 @@ const SkillsSection = () => {
     {
       title: 'Frontend Excellence',
       icon: <Palette />,
-      color: 'from-blue-500 to-purple-600',
+      color: 'from-primary to-secondary',
       skills: [
         { name: 'React.js', level: 95, category: 'Library' },
         { name: 'TypeScript', level: 90, category: 'Language' },
@@ -49,7 +49,7 @@ const SkillsSection = () => {
           <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
             Expertise & Tools
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             A comprehensive toolkit refined through years of hands-on experience, 
             continuous learning, and real-world project challenges
@@ -86,7 +86,7 @@ const SkillsSection = () => {
                         value={skill.level} 
                         className="h-3 bg-muted/50"
                       />
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-purple-500/20 blur-sm"></div>
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 to-secondary/20 blur-sm"></div>
                     </div>
                   </div>
                 ))}

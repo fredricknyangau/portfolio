@@ -1,5 +1,5 @@
 import React, { useRef, useState, memo, useCallback } from "react";
-import { ArrowDown } from "lucide-react";
+import { ArrowDown, Circle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Modal from "@/components/ui/Modal";
 import Resume from "@/components/Resume";
@@ -41,7 +41,7 @@ const SOCIAL_LINKS: SocialLink[] = [
     src: "/linkedin.png",
     href: "https://linkedin.com/in/fredrick-nyang-au-857b75233",
     label: "LinkedIn",
-    color: "hover:bg-blue-600 hover:text-white",
+    color: "hover:bg-accent hover:text-white",
   },
   {
     src: "/mail.jpg",
@@ -103,9 +103,9 @@ SocialLink.displayName = "SocialLink";
 const ProfileImage = memo(() => (
   <div className="flex justify-center">
     <div className="relative group">
-      <div className="absolute -inset-4 bg-gradient-to-r from-primary via-purple-500 to-pink-500 rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-700"></div>
+      <div className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-accent rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-all duration-700"></div>
       <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-88 md:h-88 lg:w-96 lg:h-96 rounded-full glass-effect border-4 border-primary/20 flex items-center justify-center hover-lift">
-        <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-88 lg:h-88 rounded-full bg-gradient-to-br from-primary/20 to-purple-500/20 flex items-center justify-center">
+        <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-88 lg:h-88 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
           <img
             src="/profile.png"
             alt="Professional headshot of Fredrick Nyang'au, Junior FullStack Developer and Freelancer"
@@ -126,11 +126,11 @@ ProfileImage.displayName = "ProfileImage";
 
 const BackgroundElements = memo(() => (
   <>
-    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple-500/5 to-pink-500/10"></div>
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-secondary/5 to-accent/10"></div>
     <div className="absolute inset-0">
       <div className="absolute top-20 left-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
-      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float delay-2s"></div>
-      <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl animate-float delay-4s"></div>
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float delay-2s"></div>
+      <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float delay-4s"></div>
     </div>
   </>
 ));
@@ -146,13 +146,17 @@ const HeroContent = memo(
           <h1 className="text-4xl md:text-6xl font-bold mb-4 gradient-text leading-tight">
             Fredrick Nyang'au
           </h1>
+          <div className="inline-block px-4 py-1 bg-secondary/20 border border-secondary rounded-full text-sm font-medium text-secondary mb-4 flex items-center gap-2">
+            <Circle className="w-3 h-3 fill-secondary" />
+            Open to Backend Developer Roles
+          </div>
         </header>
 
         <div className="animate-fade-in-up delay-200">
           <div className="text-2xl md:text-3xl text-muted-foreground mb-8 font-light">
-            <span className="block">Junior FullStack Developer</span>
+            <span className="block font-semibold text-foreground">Backend Developer</span>
             <span className="block text-xl md:text-2xl mt-2 text-primary">
-              & Freelancer
+              Node.js, Django & Scalable API Architecture
             </span>
           </div>
         </div>
@@ -171,20 +175,37 @@ const HeroContent = memo(
         <div className="flex flex-col sm:flex-row gap-6 mb-12 animate-fade-in-up delay-600">
           <Button
             size="lg"
-            className="group bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            className="group bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             onClick={() => scrollToSection("projects")}
             aria-label="Navigate to projects section"
           >
-            <span>Explore My Work</span>
+            <span>View Backend Projects</span>
           </Button>
           <Button
             variant="outline"
             size="lg"
             className="border-2 hover-lift focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            onClick={onResumeOpen}
-            aria-label="Open resume modal"
+            asChild
           >
-            View Resume
+            <a href="/Fredrick_Nyang'au_Resume.pdf" download>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mr-2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              Download Resume
+            </a>
           </Button>
         </div>
 

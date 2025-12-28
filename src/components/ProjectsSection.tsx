@@ -70,7 +70,7 @@ const ProjectsSection = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Live': return 'bg-green-500/20 text-green-700 border-green-200';
-      case 'Beta': return 'bg-blue-500/20 text-blue-700 border-blue-200';
+      case 'Beta': return 'bg-accent/20 text-accent border-accent/20';
       case 'Development': return 'bg-orange-500/20 text-orange-700 border-orange-200';
       default: return 'bg-gray-500/20 text-gray-700 border-gray-200';
     }
@@ -89,7 +89,7 @@ const ProjectsSection = () => {
           <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
             Featured Projects
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             A curated selection of projects that demonstrate my expertise in
             creating innovative solutions for complex challenges
@@ -180,7 +180,7 @@ const ProjectsSection = () => {
                   <Button
                     size="sm"
                     asChild
-                    className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+                    className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
                   >
                     <a
                       href={project.liveUrl}
@@ -266,7 +266,7 @@ const ProjectsSection = () => {
             </p>
             <Button
               asChild
-              className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
             >
               <a
                 href="https://github.com/fredricknyangau"

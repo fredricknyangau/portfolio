@@ -7,18 +7,18 @@ const AboutSection = () => {
   const highlights = [
     {
       icon: Code2,
-      title: 'Clean Architecture',
-      description: 'Building scalable solutions with maintainable, well-documented code that stands the test of time'
+      title: 'API Architecture',
+      description: 'Designing robust RESTful APIs and microservices that scale efficiently and handle thousands of requests per minute'
     },
     {
       icon: Palette,
-      title: 'Design Excellence',
-      description: 'Creating beautiful, intuitive interfaces that delight users and drive engagement'
+      title: 'Database Design',
+      description: 'Optimizing database schemas and queries for performance, reducing response times by up to 65% through strategic indexing'
     },
     {
       icon: Zap,
-      title: 'Performance First',
-      description: 'Optimizing every interaction for speed, accessibility, and seamless user experiences'
+      title: 'System Performance',
+      description: 'Implementing caching strategies, query optimization, and background job processing for lightning-fast applications'
     }
   ];
 
@@ -43,7 +43,7 @@ const AboutSection = () => {
             <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
               Passionate Developer
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full"></div>
           </div>
         </div>
 
@@ -112,7 +112,7 @@ const AboutSection = () => {
               >
                 <CardContent className="p-8">
                   <div className="flex items-start space-x-6">
-                    <div className="p-4 rounded-2xl bg-gradient-to-br from-primary to-purple-600 text-white group-hover:scale-110 transition-transform duration-300">
+                    <div className="p-4 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white group-hover:scale-110 transition-transform duration-300">
                       <Icon size={28} />
                     </div>
                     <div className="flex-1">

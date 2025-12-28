@@ -125,7 +125,7 @@ const ContactSection = () => {
       title: "Schedule a Call",
       description: "Book a 30-min consultation",
       action: "Schedule",
-      color: "from-blue-500 to-purple-600",
+      color: "from-primary to-secondary",
       actionType: "schedule",
     },
     {
@@ -157,7 +157,7 @@ const ContactSection = () => {
           <h2 className="text-4xl md:text-6xl font-bold mb-6 gradient-text">
             Let's Work Together
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto rounded-full mb-8"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto rounded-full mb-8"></div>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Ready to transform your ideas into exceptional digital experiences?
             I'm here to help bring your vision to life.
@@ -181,7 +181,7 @@ const ContactSection = () => {
                 ({ icon: Icon, title, value, href, description }) => (
                   <div key={title} className="group">
                     <div className="flex items-start space-x-4 p-4 rounded-2xl glass-effect border hover:border-primary transition-all duration-300 hover-lift">
-                      <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-purple-600 text-white group-hover:scale-110 transition-transform duration-300">
+                      <div className="p-3 rounded-xl bg-gradient-to-br from-primary to-secondary text-white group-hover:scale-110 transition-transform duration-300">
                         <Icon size={20} />
                       </div>
                       <div className="flex-1">
@@ -300,7 +300,7 @@ const ContactSection = () => {
                   />
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90"
+                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
                     disabled={loading}
                   >
                     <Send size={20} className="mr-2" />

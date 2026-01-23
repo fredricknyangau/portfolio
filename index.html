@@ -1,77 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <!-- Calendly Widget Script -->
-    <script
-      type="text/javascript"
-      src="https://assets.calendly.com/assets/external/widget.js"
-      async
-    ></script>
-
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Fredrick Nyangau - Backend Developer | Node.js, Django, REST APIs
-    </title>
+    <title>Backend Engineer Portfolio</title>
     <meta
       name="description"
-      content="Backend Developer with 4+ years building scalable REST APIs, microservices, and database systems. Expert in Node.js, Django, MongoDB, PostgreSQL. Remote or Nairobi-based."
+      content="Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments."
     />
-    <meta name="author" content="Fredrick Nyang'au" />
-    <meta
-      name="keywords"
-      content="Backend Developer, Node.js Developer, API Developer, Django Developer, MongoDB Expert, PostgreSQL, REST API, Microservices, Database Design, System Architecture, Nairobi Developer, Remote Backend Developer, Kenya"
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+      rel="stylesheet"
     />
+    <link rel="canonical" href="https://fredbackend.com/" />
 
-    <meta property="og:title" content="Fredrick Nyangau - Backend Developer" />
-    <meta
-      property="og:description"
-      content="Expert Backend Developer specializing in Node.js, Django, REST APIs, and scalable database systems. 4+ years experience building production APIs."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://fredricknyangau.vercel.app" />
-    <meta
-      property="og:image"
-      content="https://fredricknyangau.vercel.app/og-image.png"
-    />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fredbackend.com/">
+    <meta property="og:title" content="Fred Backend | Backend Engineer">
+    <meta property="og:description" content="Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments.">
+    <meta property="og:image" content="https://fredbackend.com/assets/images/og-image.jpg">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Fredrick Nyangau - Backend Developer" />
-    <meta
-      name="twitter:description"
-      content="Backend Developer | Node.js, Django, REST APIs, MongoDB, PostgreSQL"
-    />
-    <meta
-      name="twitter:image"
-      content="https://fredricknyangau.vercel.app/og-image.png"
-    />
-  </head>
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fredbackend.com/">
+    <meta property="twitter:title" content="Fred Backend | Backend Engineer">
+    <meta property="twitter:description" content="Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments.">
+    <meta property="twitter:image" content="https://fredbackend.com/assets/images/og-image.jpg">
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- WhatsApp Floating Chat -->
-    <script type="text/javascript">
-      (function () {
-        var options = {
-          whatsapp: "+254746730585",
-          call_to_action: "Chat with me",
-          position: "right",
-        };
-        var proto = document.location.protocol,
-          host = "getbutton.io",
-          url = proto + "//static." + host;
-        var s = document.createElement("script");
-        s.type = "text/javascript";
-        s.async = true;
-        s.src = url + "/widget-send-button/js/init.js";
-        s.onload = function () {
-          WhWidgetSendButton.init(host, proto, options);
-        };
-        var x = document.getElementsByTagName("script")[0];
-        x.parentNode.insertBefore(s, x);
-      })();
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Fred Backend",
+      "url": "https://fredbackend.com",
+      "jobTitle": "Backend Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Open to Work"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/fredricknyangau",
+        "https://github.com/fredricknyangau"
+      ]
+    }
     </script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container header-container">
+        <a href="#" class="logo">Fredrick Nyang'au</a>
+        <nav class="nav" id="nav-menu">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#projects" class="nav-link">Projects</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#contact" class="nav-link btn btn-primary nav-cta">Hire Me</a>
+        </nav>
+        <div class="header-controls">
+            <button class="theme-toggle" aria-label="Toggle Dark Mode" id="theme-toggle">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <button class="mobile-toggle" aria-label="Toggle navigation" id="nav-toggle">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+        <!-- SECTION 1: HERO -->
+        <section id="hero" class="section hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-name">Fredrick Nyang'au</h1>
+                        <h2 class="hero-title">Backend Engineer | Python • FastAPI • PostgreSQL</h2>
+                        <p class="hero-value-prop">Building robust, scalable backend systems with precision and architectural depth.</p>
+                        
+                        <div class="tech-badges">
+                            <span class="badge">Python</span>
+                            <span class="badge">FastAPI</span>
+                            <span class="badge">PostgreSQL</span>
+                            <span class="badge">Docker</span>
+                            <span class="badge">Linux</span>
+                        </div>
+                    </div>
+                    <div class="hero-image-container">
+                        <img src="assets/images/profile.png" alt="Fredrick Nyang'au" class="profile-image">
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="assets/docs/Fredrick_Nyang'au_cv.pdf" class="btn btn-outline" download>Download Resume (PDF)</a>
+                </div>
+                
+                <div class="hero-socials">
+                    <a href="https://github.com/fredricknyangau" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <span class="separator">•</span>
+                    <a href="https://linkedin.com/in/fredricknyangau" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <span class="separator">•</span>
+                    <a href="mailto:nyangaufredrick443@gmail.com">Email</a>
+                </div>
+
+
+            </div>
+        </section>
+
+        <!-- SECTION 2: DASHBOARD (Bento Grid) -->
+        <section id="about" class="section bento-section">
+            <div class="container">
+                <div class="bento-grid">
+                    <!-- Box 1: About (Large) -->
+                    <div class="bento-box bento-large about-box">
+                        <h2 class="bento-title">01_system_architect</h2>
+                        <div class="about-content">
+                            <p>
+                                I am a Backend Engineer who thinks like a Senior. While early in my career, I focus heavily on <strong>system architecture</strong>, <strong>data integrity</strong>, and <strong>production readiness</strong>. My expertise lies in crafting performant APIs with <strong>FastAPI</strong> and designing normalized database schemas with <strong>PostgreSQL</strong>.
+                            </p>
+                            <p>
+                                Beyond writing code, I deploy and maintain my systems on <strong>Ubuntu</strong> servers using <strong>Docker</strong> and <strong>systemd</strong>, ensuring 99.9% uptime.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Box 2: Skills (Medium/Large) -->
+                    <div class="bento-box bento-medium skills-box">
+                        <h3 class="bento-title">02_tech_stack</h3>
+                        <div class="mini-skills-grid">
+                            <div class="skill-item">Python 3.12+</div>
+                            <div class="skill-item">FastAPI</div>
+                            <div class="skill-item">PostgreSQL</div>
+                            <div class="skill-item">Docker</div>
+                            <div class="skill-item">Linux</div>
+                            <div class="skill-item">Redis</div>
+                            <div class="skill-item">Nginx</div>
+                            <div class="skill-item">CI/CD</div>
+                            <div class="skill-item">System Design</div>
+                        </div>
+                    </div>
+
+                    <!-- Box 3: Status (Small) -->
+                    <div class="bento-box bento-small status-box">
+                         <h3 class="bento-title">03_status</h3>
+                         <div class="status-widget-bento">
+                             <span class="status-dot"></span>
+                             <div class="status-meta">
+                                <span class="status-text">Operational</span>
+                                <span class="status-ping" id="status-ping-bento">Ping: 24ms</span>
+                             </div>
+                         </div>
+                    </div>
+
+                    <!-- Box 4: Open to Work (Small) -->
+                    <div class="bento-box bento-small availability-box">
+                         <h3 class="bento-title">04_availability</h3>
+                         <p class="availability-text">
+                             Open to Work<br>
+                             <span class="role-highlight">Backend Engineer</span>
+                         </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PROJECTS -->
+        <section id="projects" class="section projects-section">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                
+                <div class="projects-grid">
+                    <!-- Project A -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Wi-Fi Billing & MikroTik Integration</h3>
+                            <div class="project-links">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
+                                <a href="#" target="_blank">API Docs</a>
+                                <a href="#" target="_blank">Architecture Diagram</a>
+                            </div>
+                        </div>
+                        <p class="project-desc">
+                            Production-deployed ISP management system integrating FastAPI with MikroTik RouterOS for automated voucher lifecycle management.
+                        </p>
+                        
+                        <div class="project-details">
+                            <div class="detail-group">
+                                <h4>Architecture Highlights</h4>
+                                <ul>
+                                    <li>RESTful voucher lifecycle management with state machines</li>
+                                    <li>Direct <strong>MikroTik API</strong> integration for session control</li>
+                                    <li><strong>PostgreSQL constraints</strong> enforcing strict state transitions</li>
+                                    <li>Deployed via <strong>Docker</strong> multi-stage builds & systemd</li>
+                                </ul>
+                            </div>
+                            <div class="detail-group">
+                                <h4>Key Metrics</h4>
+                                <ul class="metrics-list">
+                                    <li><strong>8</strong> normalized tables</li>
+                                    <li><strong>99.2%</strong> uptime (3 months)</li>
+                                    <li>Cryptographically secure voucher generation</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="badge">FastAPI</span>
+                            <span class="badge">PostgreSQL</span>
+                            <span class="badge">MikroTik RouterOS</span>
+                            <span class="badge">Docker</span>
+                            <span class="badge">Systemd</span>
+                        </div>
+                    </article>
+
+                    <!-- Project B -->
+                    <article class="project-card">
+                        <div class="project-header">
+                            <h3 class="project-title">Kukufiti Broiler Management</h3>
+                            <div class="project-links">
+                                <a href="#" target="_blank">Live Demo</a>
+                                <a href="#" target="_blank">GitHub</a>
+                                <a href="#" target="_blank">Database Schema Diagram</a>
+                            </div>
+                        </div>
+                        <p class="project-desc">
+                            Data-driven livestock management platform helping farmers track FCR (Feed Conversion Ratio) and mortality rates.
+                        </p>
+                        
+                        <div class="project-details">
+                            <div class="detail-group">
+                                <h4>Architecture Highlights</h4>
+                                <ul>
+                                    <li><strong>PostgreSQL triggers</strong> for real-time FCR calculation</li>
+                                    <li>Database constraints preventing invalid mortality states</li>
+                                    <li>Complex SQL reporting using <strong>CTEs</strong> and window functions</li>
+                                </ul>
+                            </div>
+                            <div class="detail-group">
+                                <h4>Key Metrics</h4>
+                                <ul class="metrics-list">
+                                    <li><strong>12</strong> tables, <strong>18</strong> foreign keys</li>
+                                    <li><strong>&lt;30ms</strong> aggregation queries</li>
+                                    <li>Zero invalid data states enforced at DB level</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="project-tech">
+                            <span class="badge">Python</span>
+                            <span class="badge">PostgreSQL</span>
+                            <span class="badge">Advanced SQL</span>
+                            <span class="badge">Data Modeling</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: SKILLS -->
+
+
+        <!-- SECTION 5: EXPERIENCE -->
+        <section id="experience" class="section experience-section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                <div class="experience-card">
+                    <div class="exp-header">
+                        <div>
+                            <h3 class="exp-role">ICT Intern</h3>
+                            <div class="exp-company">Public Service Office, Kenya</div>
+                        </div>
+                        <div class="exp-date">Jan 2025 – Apr 2025</div>
+                    </div>
+                    <ul class="exp-details">
+                        <li>Identified an <strong>8% data entry error rate</strong> in legacy manual systems.</li>
+                        <li>Built and deployed an Excel VBA validation macro across 3 departments.</li>
+                        <li><strong>Reduced errors to 2%</strong> (75% improvement) and saved approx. 15 minutes per application processing time.</li>
+                        <li>Automated daily report generation, eliminating 2 hours of manual work per week.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: LEADERSHIP -->
+        <section id="leadership" class="section section-alt leadership-section">
+            <div class="container">
+                <h2 class="section-title">Leadership & Community</h2>
+                <div class="leadership-card">
+                    <h3 class="lead-role">Founder | Backend Engineers 2026</h3>
+                    <p class="lead-desc">
+                        Founded and currently lead a community of <strong>25+ active members</strong> focused on mastering production-grade backend engineering.
+                    </p>
+                    <ul class="lead-activities">
+                        <li>Facilitate weekly discussions on <strong>system architecture</strong> and <strong>database design</strong>.</li>
+                        <li>Conduct code reviews focusing on <strong>security</strong>, <strong>performance</strong>, and <strong>maintainability</strong>.</li>
+                        <li>Mentor junior members on Docker deployment and Linux server management.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: CONTACT -->
+        <section id="contact" class="section contact-section">
+            <div class="container text-center">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="contact-text">
+                    I am actively seeking <strong>Junior Backend Engineer</strong> opportunities where I can apply my skills in Python, API design, and system architecture.
+                </p>
+
+                <div class="curl-card">
+                    <div class="curl-header">
+                        <span>bash</span>
+                        <button class="copy-btn" id="copy-curl" aria-label="Copy to clipboard">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        </button>
+                    </div>
+                    <code class="curl-code" id="curl-code">
+curl -X POST https://api.fredbackend.com/contact \
+  -H "Content-Type: application/json" \
+  -d '{"subject": "Hello", "message": "Let'\''s chat!"}'
+                    </code>
+                </div>
+
+                <div class="contact-actions">
+                    <a href="mailto:nyangaufredrick443@gmail.com" class="btn btn-primary">Send Email</a>
+                    <a href="https://linkedin.com/in/fredricknyangau" target="_blank" class="btn btn-outline" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://github.com/fredricknyangau" target="_blank" class="btn btn-outline" rel="noopener noreferrer">GitHub</a>
+                    <a href="assets/docs/Fredrick_Nyang'au_cv.pdf" class="btn btn-outline" download>Download Resume</a>
+                </div>
+                <div class="contact-info">
+                    <span>Nakuru, Kenya</span>
+                    <span class="separator">•</span>
+                    <span>Open to Remote / Hybrid / On-site</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-name">Fredrick Nyang'au</div>
+                <div class="footer-links">
+                    <a href="#hero">Home</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-copy">
+                    &copy; <span id="year"></span> Fred Backend. All rights reserved. • Built with raw HTML/CSS. <br>
+                    <span class="last-updated">Last updated: January 2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dev Mode Terminal -->
+    <div id="terminal-toggle" class="terminal-toggle" aria-label="Open Terminal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+    </div>
+
+    <div id="terminal-overlay" class="terminal-overlay hidden">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-title">fred@portfolio:~/skills</div>
+                <button id="terminal-close" class="terminal-close">&times;</button>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <div class="terminal-line">Welcome to Fred's Portfolio v1.0.0</div>
+                <div class="terminal-line">Type <span class="cmd-highlight">help</span> to see available commands.</div>
+                <div class="terminal-line"><br></div>
+            </div>
+            <div class="terminal-input-area">
+                <span class="prompt">fred@portfolio:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js" defer></script>
   </body>
 </html>

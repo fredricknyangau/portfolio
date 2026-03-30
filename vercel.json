@@ -1,5 +1,6 @@
 {
   "buildCommand": "python build.py",
+  "outputDirectory": ".",
   "headers": [
     {
       "source": "/assets/(.*)",

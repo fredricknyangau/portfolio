@@ -25,3 +25,21 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Python / Project Rules
+.env
+*.pyc
+__pycache__/
+.venv/
+*.egg-info/
+dist/
+.pytest_cache/
+.mypy_cache/
+.DS_Store
+
+# Generated HTML Pages (Vercel builds these)
+/index.html
+/about.html
+/projects.html
+/skills.html
+/contact.html

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Fredrick Nyang'au - Backend Engineer Portfolio | Python, FastAPI, PostgreSQL{% endblock %}
+    </title>
+    <meta name="description"
+        content="Fredrick Nyang'au - Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments. Python developer and FastAPI expert." />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet" />
+    <link rel="canonical" href="https://frericknyangau.vercel.app/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://frericknyangau.vercel.app/">
+    <meta property="og:title" content="Fredrick Nyang'au | Backend Engineer">
+    <meta property="og:description"
+        content="Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments.">
+    <meta property="og:image" content="https://frericknyangau.vercel.app/assets/images/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://frericknyangau.vercel.app/">
+    <meta property="twitter:title" content="Fredrick Nyang'au | Backend Engineer">
+    <meta property="twitter:description"
+        content="Backend Engineer specializing in Python, FastAPI, system architecture, and production deployments.">
+    <meta property="twitter:image" content="https://frericknyangau.vercel.app/assets/images/og-image.jpg">
+
+    <!-- Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Fredrick Nyang'au",
+      "url": "https://frericknyangau.vercel.app",
+      "jobTitle": "Backend Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Open to Work"
+      },
+      "sameAs": [
+        "https://linkedin.com/in/fredricknyangau",
+        "https://github.com/fredricknyangau"
+      ]
+    }
+    </script>
+    <!-- Vercel Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Fredrick Nyang'au</a>
+            <nav class="nav" id="nav-menu">
+                <a href="about.html" class="nav-link {% if current_page == 'about.html' %}active{% endif %}">About</a>
+                <a href="projects.html"
+                    class="nav-link {% if current_page == 'projects.html' %}active{% endif %}">Projects</a>
+                <a href="skills.html"
+                    class="nav-link {% if current_page == 'skills.html' %}active{% endif %}">Skills</a>
+                <a href="contact.html"
+                    class="nav-link btn btn-primary nav-cta {% if current_page == 'contact.html' %}active{% endif %}">Hire
+                    Me</a>
+            </nav>
+            <div class="header-controls">
+                <button class="theme-toggle" aria-label="Toggle Dark Mode" id="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="mobile-toggle" aria-label="Toggle navigation" id="nav-toggle">
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-name">Fredrick Nyang'au</div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="projects.html">Projects</a>
+                    <a href="skills.html">Skills</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-copy">
+                    &copy; <span id="year"></span> Fredrick Nyang'au. All rights reserved. • Built with raw HTML/CSS.
+                    <br>
+                    <span class="last-updated">Last updated: January 2026</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dev Mode Terminal -->
+    <div id="terminal-toggle" class="terminal-toggle" aria-label="Open Terminal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+    </div>
+
+    <div id="terminal-overlay" class="terminal-overlay hidden">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-title">fred@portfolio:~/skills</div>
+                <button id="terminal-close" class="terminal-close">&times;</button>
+            </div>
+            <div class="terminal-body" id="terminal-output">
+                <div class="terminal-line">Welcome to Fred's Portfolio v1.0.0</div>
+                <div class="terminal-line">Type <span class="cmd-highlight">help</span> to see available commands.</div>
+                <div class="terminal-line"><br></div>
+            </div>
+            <div class="terminal-input-area">
+                <span class="prompt">fred@portfolio:~$</span>
+                <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/main.js" defer></script>
+</body>
+
+</html>

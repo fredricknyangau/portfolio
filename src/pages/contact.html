@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block title %}Contact | Fredrick Nyang'au{% endblock %}
+
+{% block content %}
+<!-- SECTION 7: CONTACT -->
+<section id="contact" class="section contact-section">
+    <div class="container text-center">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="contact-text">
+            I am actively seeking <strong>Junior Backend Engineer</strong> opportunities where I can apply my
+            skills in Python, API design, and system architecture.
+        </p>
+
+        <div class="curl-card">
+            <div class="curl-header">
+                <span>bash</span>
+                <button class="copy-btn" id="copy-curl" aria-label="Copy to clipboard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+            <code class="curl-code" id="curl-code">
+curl -X POST https://api.frericknyangau.vercel.app/contact \
+  -H "Content-Type: application/json" \
+  -d '{"subject": "Hello", "message": "Let'\''s chat!"}'
+            </code>
+        </div>
+
+        <div class="contact-actions">
+            <a href="mailto:nyangaufredrick443@gmail.com" class="btn btn-primary">Send Email</a>
+            <a href="https://linkedin.com/in/fredricknyangau" target="_blank" class="btn btn-outline"
+                rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/fredricknyangau" target="_blank" class="btn btn-outline"
+                rel="noopener noreferrer">GitHub</a>
+            <a href="assets/docs/Fredrick_Nyang'au_cv.pdf" class="btn btn-outline" download>Download Resume</a>
+        </div>
+        <div class="contact-info">
+            <span>Nakuru, Kenya</span>
+            <span class="separator">•</span>
+            <span>Open to Remote / Hybrid / On-site</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

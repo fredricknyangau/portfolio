@@ -1,0 +1,112 @@
+{% extends "_base.html" %}
+
+{% block title %}About | Fredrick Nyang'au{% endblock %}
+
+{% block content %}
+<!-- SECTION 2: DASHBOARD (Bento Grid) -->
+<section id="about" class="section bento-section">
+    <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="bento-grid">
+            <!-- Box 1: About (Large) -->
+            <div class="bento-box bento-large about-box">
+                <h2 class="bento-title">01_system_architect</h2>
+                <div class="about-content">
+                    <p>
+                        I am a Backend Engineer who thinks like a Senior. While early in my career, I focus
+                        heavily on <strong>system architecture</strong>, <strong>data integrity</strong>, and
+                        <strong>production readiness</strong>. My expertise lies in crafting performant APIs
+                        with <strong>FastAPI</strong> and designing normalized database schemas with
+                        <strong>PostgreSQL</strong>.
+                    </p>
+                    <p>
+                        Beyond writing code, I deploy and maintain my systems on <strong>Ubuntu</strong> servers
+                        using <strong>Docker</strong> and <strong>systemd</strong>, ensuring 99.9% uptime.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Box 2: Skills (Medium/Large) -->
+            <div class="bento-box bento-medium skills-box">
+                <h3 class="bento-title">02_tech_stack</h3>
+                <div class="mini-skills-grid">
+                    <div class="skill-item">Python 3.12+</div>
+                    <div class="skill-item">FastAPI</div>
+                    <div class="skill-item">PostgreSQL</div>
+                    <div class="skill-item">Docker</div>
+                    <div class="skill-item">Linux</div>
+                    <div class="skill-item">Redis</div>
+                    <div class="skill-item">Nginx</div>
+                    <div class="skill-item">CI/CD</div>
+                    <div class="skill-item">System Design</div>
+                </div>
+            </div>
+
+            <!-- Box 3: Status (Small) -->
+            <div class="bento-box bento-small status-box">
+                <h3 class="bento-title">03_status</h3>
+                <div class="status-widget-bento">
+                    <span class="status-dot"></span>
+                    <div class="status-meta">
+                        <span class="status-text">Operational</span>
+                        <span class="status-ping" id="status-ping-bento">Ping: 24ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Box 4: Open to Work (Small) -->
+            <div class="bento-box bento-small availability-box">
+                <h3 class="bento-title">04_availability</h3>
+                <p class="availability-text">
+                    Open to Work<br>
+                    <span class="role-highlight">Backend Engineer</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 5: EXPERIENCE -->
+<section id="experience" class="section experience-section">
+    <div class="container">
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-card">
+            <div class="exp-header">
+                <div>
+                    <h3 class="exp-role">ICT Intern</h3>
+                    <div class="exp-company">Public Service Office, Kenya</div>
+                </div>
+                <div class="exp-date">Jan 2025 – Apr 2025</div>
+            </div>
+            <ul class="exp-details">
+                <li>Identified an <strong>8% data entry error rate</strong> in legacy manual systems.</li>
+                <li>Built and deployed an Excel VBA validation macro across 3 departments.</li>
+                <li><strong>Reduced errors to 2%</strong> (75% improvement) and saved approx. 15 minutes per
+                    application processing time.</li>
+                <li>Automated daily report generation, eliminating 2 hours of manual work per week.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SECTION 6: LEADERSHIP -->
+<section id="leadership" class="section section-alt leadership-section">
+    <div class="container">
+        <h2 class="section-title">Leadership & Community</h2>
+        <div class="leadership-card">
+            <h3 class="lead-role">Founder | Backend Engineers 2026</h3>
+            <p class="lead-desc">
+                Founded and currently lead a community of <strong>4+ active members</strong> focused on
+                mastering production-grade backend engineering.
+            </p>
+            <ul class="lead-activities">
+                <li>Facilitate weekly discussions on <strong>system architecture</strong> and <strong>database
+                        design</strong>.</li>
+                <li>Conduct code reviews focusing on <strong>security</strong>, <strong>performance</strong>,
+                    and <strong>maintainability</strong>.</li>
+                <li>Mentor junior members on Docker deployment and Linux server management.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}

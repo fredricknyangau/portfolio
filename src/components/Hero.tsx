@@ -36,10 +36,10 @@ function HeroVariantA() {
         <p className="text-[15px] sm:text-[17px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-7 sm:mb-11">
           Building{' '}
           <strong className="text-text font-medium">production-grade APIs</strong>{' '}
-          for East Africa's mobile-first economy. FastAPI backends, PostgreSQL databases,
-          Flutter mobile clients — connected to the{' '}
+          and data systems for East Africa's mobile-first economy — FastAPI backends,
+          PostgreSQL databases, and the{' '}
           <strong className="text-text font-medium">real infrastructure</strong>{' '}
-          that moves money and data across the region.
+          that moves money across the region.
         </p>
 
         {/* CTAs */}
@@ -227,18 +227,20 @@ export default function Hero(): JSX.Element {
       {/* Render Variant */}
       {variant === 'A' ? <HeroVariantA /> : <HeroVariantB />}
 
-      {/* A/B Test Active Indicator (Demonstration Purposes) */}
-      <div
-        className="absolute bottom-4 right-4 z-50 text-[10px] font-mono border border-amber/30 bg-amber/5 text-amber px-2 py-1 rounded cursor-pointer hover:bg-amber/20 transition-colors"
-        onClick={() => {
-          const toggled = variant === 'A' ? 'B' : 'A';
-          setVariant(toggled);
-          localStorage.setItem('hero_ab_variant', toggled);
-        }}
-        title="Click to toggle variant"
-      >
-        A/B TEST ACTIVE : VARIANT {variant}
-      </div>
+      {/* A/B Test Active Indicator — dev only */}
+      {import.meta.env.DEV && (
+        <div
+          className="absolute bottom-4 right-4 z-50 text-[10px] font-mono border border-amber/30 bg-amber/5 text-amber px-2 py-1 rounded cursor-pointer hover:bg-amber/20 transition-colors"
+          onClick={() => {
+            const toggled = variant === 'A' ? 'B' : 'A';
+            setVariant(toggled);
+            localStorage.setItem('hero_ab_variant', toggled);
+          }}
+          title="Click to toggle variant"
+        >
+          A/B TEST ACTIVE : VARIANT {variant}
+        </div>
+      )}
     </section>
   );
 }

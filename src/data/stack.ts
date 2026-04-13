@@ -39,9 +39,8 @@ export const stackColumns: StackColumn[] = [
     items: [
       { name: 'M-Pesa Daraja API', note: 'payments' },
       { name: 'JWT / bcrypt', note: 'auth' },
+      { name: 'Nginx', note: 'reverse proxy' },
       { name: 'Git / GitHub' },
-      { name: 'Ubuntu 24.04' },
-      { name: 'VS Code' },
       { name: 'Pydantic v2' },
       { name: 'Uvicorn / ASGI' },
     ],

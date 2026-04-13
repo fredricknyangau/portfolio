@@ -1,4 +1,4 @@
-import { ExternalLink, BookOpen } from 'lucide-react';
+import { ExternalLink, BookOpen, Lock } from 'lucide-react';
 import { GitHubIcon } from '@/components/SocialIcons';
 import { useFadeUp } from '@/hooks/useFadeUp';
 import { Link } from 'react-router-dom';
@@ -19,7 +19,6 @@ function tagClasses(variant: 'live' | 'wip' | 'default'): string {
 
 export default function ProjectCard({ project }: Props): JSX.Element {
   const ref = useFadeUp<HTMLDivElement>();
-  const isFeatured = project.featured ?? false;
 
   return (
     <div
@@ -36,7 +35,6 @@ export default function ProjectCard({ project }: Props): JSX.Element {
         className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       />
 
-      {/* ── Left column (or full for non-featured) ── */}
       <div>
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-5">
@@ -90,20 +88,40 @@ export default function ProjectCard({ project }: Props): JSX.Element {
 
         {/* Links */}
         <div className="flex gap-3 flex-wrap">
-          <a
-            href={project.liveUrl}
-            className={[
-              'inline-flex items-center gap-1.5 bg-amber text-bg',
-              'font-sans text-[13px] font-semibold',
-              'px-5 py-2.5 rounded transition-colors duration-200 hover:bg-amber-glow',
-              'no-underline',
-            ].join(' ')}
-          >
-            {isFeatured ? 'Live API' : 'Live Demo'}
-            <ExternalLink size={13} />
-          </a>
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className={[
+                'inline-flex items-center gap-1.5 bg-amber text-bg',
+                'font-sans text-[13px] font-semibold',
+                'px-5 py-2.5 rounded transition-colors duration-200 hover:bg-amber-glow',
+                'no-underline',
+              ].join(' ')}
+            >
+              {project.liveLabel ?? 'Live App'}
+              <ExternalLink size={13} />
+            </a>
+          ) : (
+            <span
+              className={[
+                'inline-flex items-center gap-1.5 text-text3',
+                'font-mono text-[13px]',
+                'border border-border-dim px-5 py-2.5 rounded',
+                'cursor-default select-none',
+              ].join(' ')}
+              title="Private deployment — available on request"
+            >
+              <Lock size={13} />
+              Private Deploy
+            </span>
+          )}
+
           <a
             href={project.codeUrl}
+            target="_blank"
+            rel="noreferrer"
             className={[
               'inline-flex items-center gap-1.5 text-text2',
               'font-mono text-[13px]',
@@ -115,6 +133,7 @@ export default function ProjectCard({ project }: Props): JSX.Element {
             <GitHubIcon size={13} />
             View code
           </a>
+
           {project.star && (
             <Link
               to={`/case-study/${project.id}`}
@@ -123,7 +142,7 @@ export default function ProjectCard({ project }: Props): JSX.Element {
                 'font-mono text-[13px]',
                 'border border-border2 px-5 py-2.5 rounded',
                 'transition-all duration-200 hover:text-text hover:border-text3 cursor-pointer bg-transparent',
-                'no-underline'
+                'no-underline',
               ].join(' ')}
             >
               <BookOpen size={13} />

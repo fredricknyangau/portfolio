@@ -17,8 +17,11 @@ export interface Project {
   problem: string;
   metrics: Metric[];
   stack: string[];
-  liveUrl: string;
+  /** null = no live demo available — hides the live button */
+  liveUrl: string | null;
   codeUrl: string;
+  /** Custom label for the live button. Defaults to "Live App". */
+  liveLabel?: string;
   featured?: boolean;
   star?: STAR;
   c4Diagram?: string;
@@ -45,13 +48,14 @@ export const projects: Project[] = [
     ],
     stack: ['Python', 'PostgreSQL', 'FastAPI', 'Advanced SQL', 'Data Modeling'],
     liveUrl: 'https://kukufiti.vercel.app/',
+    liveLabel: 'Live App',
     codeUrl: 'https://github.com/fredricknyangau/broiler_management_app_backend',
     star: {
       situation: 'Broiler farmers in Kenya were relying on manual notebook tracking for critical metrics. This lack of digitization made it impossible to calculate FCR in real-time or detect disease patterns early enough to take action.',
       task: 'Engineer a robust backend system capable of maintaining absolute data integrity for thousands of records while providing real-time analytics on flock performance.',
       action: 'I architected the system using Python and FastAPI. I implemented complex SQL reporting using CTEs and window functions in PostgreSQL. To ensure data reliability, I utilized triggers for automatic FCR calculation and enforced strict business logic at the database level with constraints.',
-      result: 'The platform successfully eliminates invalid mortality states and provides sub-30ms performance on complex aggregations, enabling farmers to make faster, data-backed decisions for their flocks.'
-    }
+      result: 'The platform successfully eliminates invalid mortality states and provides sub-30ms performance on complex aggregations, enabling farmers to make faster, data-backed decisions for their flocks.',
+    },
   },
   {
     id: 'wifi-billing',
@@ -70,14 +74,14 @@ export const projects: Project[] = [
       { highlight: 'Dockerized', description: 'multi-stage production builds' },
     ],
     stack: ['FastAPI', 'PostgreSQL', 'MikroTik API', 'Docker', 'Systemd'],
-    liveUrl: '#',
+    liveUrl: null, // Private deployment — no public demo
     codeUrl: 'https://github.com/fredricknyangau/wifi-billing',
     star: {
       situation: 'Local ISP providers required a way to automate the lifecycle of Wi-Fi vouchers—creation, activation, and expiration—without manual intervention on the router level.',
       task: 'Bridge the gap between a billing web interface and MikroTik RouterOS hardware to manage user sessions dynamically and securely.',
       action: 'I developed a RESTful API using FastAPI that integrates directly with MikroTik RouterOS for session control. I implemented a state-machine based voucher lifecycle and used PostgreSQL constraints to prevent unauthorized state transitions. The deployment was hardened using Docker and systemd for process management.',
-      result: 'The system has maintained a 99.2% uptime in a production environment, automating thousands of vouchers and providing a seamless self-service experience for end-users.'
-    }
+      result: 'The system has maintained a 99.2% uptime in a production environment, automating thousands of vouchers and providing a seamless self-service experience for end-users.',
+    },
   },
   {
     id: 'mmgateway',
@@ -96,13 +100,13 @@ export const projects: Project[] = [
       { highlight: 'Audit trail', description: 'full transaction idempotency' },
     ],
     stack: ['FastAPI', 'PostgreSQL', 'Redis', 'Docker', 'Nginx'],
-    liveUrl: 'https://gateway.fn-portfolio.demo',
+    liveUrl: null, // Staging environment — available on request
     codeUrl: 'https://github.com/fredricknyangau/mmgateway',
     star: {
       situation: 'Integrating mobile money APIs like Safaricom Daraja is complex for local merchants, often leading to dropped webhooks and inconsistent terminal states.',
       task: 'Build a multi-tenant gateway that normalizes error codes, ensures webhook delivery, and protects backend infrastructure.',
       action: 'I engineered the proxy layer using FastAPI and Redis for high-frequency rate-limiting. I implemented an exponential backoff retry mechanism for webhooks and strictly enforced tenant isolation using Postgres RLS.',
-      result: 'The system successfully abstracts complex cryptographic requirements and guarantees transaction consistency, significantly accelerating time-to-market for merchant integrations.'
-    }
+      result: 'The system successfully abstracts complex cryptographic requirements and guarantees transaction consistency, significantly accelerating time-to-market for merchant integrations.',
+    },
   },
 ];

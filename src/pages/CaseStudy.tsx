@@ -10,7 +10,13 @@ export default function CaseStudy(): JSX.Element {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+    if (project) {
+      document.title = `${project.name} — Case Study · Fredrick Nyangau`;
+    }
+    return () => {
+      document.title = 'Fredrick Nyangau — Backend Engineer';
+    };
+  }, [id, project]);
 
   if (!project || !project.star) {
     return (

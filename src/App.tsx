@@ -1,11 +1,15 @@
-function App() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-bg text-text">
-      <h1 className="text-4xl text-amber font-serif">
-        Tailwind v4 Working
-      </h1>
-    </div>
-  )
-}
+import { Routes, Route } from 'react-router-dom';
+import Layout from '@/pages/Layout';
+import Home from '@/pages/Home';
+import CaseStudy from '@/pages/CaseStudy';
 
-export default App
+export default function App(): JSX.Element {
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="case-study/:id" element={<CaseStudy />} />
+      </Route>
+    </Routes>
+  );
+}

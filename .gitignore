@@ -12,6 +12,20 @@ dist
 dist-ssr
 *.local
 
+# Vite / React Build output
+*.tsbuildinfo
+coverage/
+.env
+
+# Legacy / Backend / Python (Global Rules)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+ENV/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

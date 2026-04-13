@@ -42,7 +42,7 @@ export default function StatsBar(): JSX.Element {
       className={[
         'border-t border-b border-border-dim',
         'grid grid-cols-2 md:grid-cols-4',
-        'py-7 px-6 md:px-12 min-h-[120px] transition-all',
+        'py-5 px-5 sm:px-6 md:px-12 md:py-7 transition-all',
       ].join(' ')}
     >
       {loading ? (

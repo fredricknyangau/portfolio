@@ -9,7 +9,7 @@ function HeroVariantA() {
       {/* Left — intro */}
       <div className="relative z-10 md:pr-[60px]">
         {/* Availability badge */}
-        <div className="inline-flex items-center gap-2 font-mono text-[12px] text-text2 tracking-[0.08em] uppercase mb-7">
+        <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] text-text2 tracking-[0.08em] uppercase mb-5 sm:mb-7">
           <span
             className="w-[7px] h-[7px] rounded-full bg-amber animate-pulse-green"
             style={{ boxShadow: '0 0 6px var(--accent-primary)' }}
@@ -19,8 +19,8 @@ function HeroVariantA() {
 
         {/* Name */}
         <h1
-          className="font-serif font-light tracking-[-0.03em] leading-none text-text mb-2.5"
-          style={{ fontSize: 'clamp(52px, 7vw, 80px)' }}
+          className="font-serif font-light tracking-[-0.03em] leading-none text-text mb-2"
+          style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}
         >
           Fredrick
           <br />
@@ -28,12 +28,12 @@ function HeroVariantA() {
         </h1>
 
         {/* Role */}
-        <p className="font-mono text-[15px] text-amber tracking-[0.12em] uppercase mb-7">
+        <p className="font-mono text-[13px] sm:text-[15px] text-amber tracking-[0.12em] uppercase mb-5 sm:mb-7">
           Backend Engineer
         </p>
 
         {/* Description */}
-        <p className="text-[17px] text-text2 leading-[1.75] max-w-[480px] mb-11">
+        <p className="text-[15px] sm:text-[17px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-7 sm:mb-11">
           Building{' '}
           <strong className="text-text font-medium">production-grade APIs</strong>{' '}
           for East Africa's mobile-first economy. FastAPI backends, PostgreSQL databases,
@@ -98,18 +98,17 @@ function HeroVariantA() {
       </div>
 
       {/* Right — Profile Image */}
-      <div className="relative z-10 mt-12 md:mt-0 flex justify-center md:justify-end animate-in fade-in slide-in-from-right-8 duration-700">
+      <div className="relative z-10 mt-8 md:mt-0 flex justify-center md:justify-end animate-in fade-in slide-in-from-right-8 duration-700">
         <div className="relative">
-          {/* Increased size: w-56 -> sm:w-80 -> lg:w-[440px] -> xl:w-[500px] */}
-          <div className="w-50 h-50 sm:w-70 sm:h-70 lg:w-[420px] lg:h-[420px] xl:w-[480px] xl:h-[480px] rounded-full border-2 border-amber/20 p-2.5 sm:p-4 bg-surface/30 backdrop-blur-sm relative z-10 overflow-hidden shadow-2xl shadow-amber/5">
+          <div className="w-40 h-40 sm:w-56 sm:h-56 lg:w-[380px] lg:h-[380px] xl:w-[440px] xl:h-[440px] rounded-full border-2 border-amber/20 p-2 sm:p-3 bg-surface/30 backdrop-blur-sm relative z-10 overflow-hidden shadow-2xl shadow-amber/5">
             <img
               src="/images/profile.png"
               alt="Fredrick Nyangau"
               className="w-full h-full rounded-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
             />
           </div>
-          {/* Enhanced decorative back-glow for the larger size */}
-          <div className="absolute inset-0 rounded-full bg-amber/10 blur-[80px] -z-10 animate-pulse" />
+          {/* Enhanced decorative back-glow */}
+          <div className="absolute inset-0 rounded-full bg-amber/10 blur-[60px] -z-10 animate-pulse" />
           <div className="absolute -inset-4 rounded-full border border-amber/10 animate-spin-slow opacity-30" />
         </div>
       </div>
@@ -205,9 +204,9 @@ export default function Hero(): JSX.Element {
     <section
       id="hero"
       className={[
-        'min-h-[90vh] relative overflow-hidden',
+        'min-h-[100dvh] md:min-h-[90vh] relative overflow-hidden',
         'grid grid-cols-1 md:grid-cols-2 gap-0',
-        'pt-[120px] pb-20 px-6 md:px-12',
+        'pt-24 pb-12 px-5 sm:pt-28 sm:pb-16 md:pt-[120px] md:pb-20 md:px-12',
         'items-center',
       ].join(' ')}
     >

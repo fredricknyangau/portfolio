@@ -5,7 +5,7 @@ export default function Stack(): JSX.Element {
   const ref = useFadeUp<HTMLDivElement>();
 
   return (
-    <section id="stack" className="bg-bg py-24 px-6 md:px-12">
+    <section id="stack" className="bg-bg py-10 sm:py-16 md:py-24 px-5 sm:px-6 md:px-12">
       <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-4">
         / technology
       </p>
@@ -15,7 +15,7 @@ export default function Stack(): JSX.Element {
       >
         The stack
       </h2>
-      <p className="text-[16px] text-text2 max-w-[560px] mb-16">
+      <p className="text-[16px] text-text2 max-w-[560px] mb-8 sm:mb-16">
         Technologies I've used in production deployments — no skill bars, no guesswork.
         The projects above are the proof.
       </p>

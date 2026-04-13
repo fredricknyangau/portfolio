@@ -1,76 +1,191 @@
-import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons';
+import { useState } from 'react';
+import { Mail, Send, CheckCircle2, MapPin, MessageCircle } from 'lucide-react';
+import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from '@/components/SocialIcons';
+import { useFadeUp } from '@/hooks/useFadeUp';
 
 export default function Contact(): JSX.Element {
+  const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+  const fadeUpRef = useFadeUp<HTMLDivElement>();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormState('sending');
+    // Simulate API call
+    setTimeout(() => setFormState('success'), 1500);
+  };
+
   return (
     <section
       id="contact"
-      className="bg-bg text-center py-[120px] px-6 md:px-12 relative overflow-hidden"
+      className="relative py-10 sm:py-16 md:py-24 px-5 sm:px-6 md:px-12 overflow-hidden bg-bg"
     >
-      {/* Radial amber glow */}
+      {/* Dynamic background lighting */}
       <div
-        aria-hidden
-        className="absolute w-[600px] h-[600px] rounded-full top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20"
         style={{
-          background: 'radial-gradient(circle, rgba(212,146,42,0.04) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%)',
         }}
       />
 
-      <div className="relative z-10">
-        <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-3">
-          / contact
-        </p>
-        <p className="text-[15px] text-text2 mb-2">
-          Open to backend engineering roles · Nairobi &amp; remote
-        </p>
+      <div ref={fadeUpRef} className="max-w-7xl mx-auto relative z-10 fade-up">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
 
-        <a
-          href="mailto:fredrick@example.com"
-          className={[
-            'font-serif font-light tracking-[-0.03em] text-text',
-            'inline-block my-6 mb-3 no-underline',
-            'border-b border-border2 pb-1',
-            'transition-colors duration-200 hover:text-amber hover:border-amber-dim',
-          ].join(' ')}
-          style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}
-        >
-          fredrick@example.com
-        </a>
+          {/* Left Column: Context & Metadata */}
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-border2 rounded-full bg-surface/30 backdrop-blur-sm text-[10px] font-mono text-amber tracking-widest uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber" />
+              Direct Communication Channel
+            </div>
 
-        <p className="text-[15px] text-text2 mb-11">
-          I read every message and reply within 24 hours.
-        </p>
+            <h2 className="font-serif text-3xl md:text-5xl font-light text-text tracking-tight mb-5 sm:mb-8">
+              Let's build <em className="not-italic text-amber">resilient</em> <br className="hidden md:block" /> systems together.
+            </h2>
 
-        <div className="flex gap-4 justify-center flex-wrap">
-          <a
-            href="https://github.com/fredricknyangau"
-            target="_blank"
-            rel="noreferrer"
-            className={[
-              'inline-flex items-center gap-2',
-              'border border-border2 text-text2',
-              'font-mono text-[13px] px-5 py-2.5 rounded',
-              'transition-all duration-200 hover:text-text hover:border-text3',
-              'no-underline',
-            ].join(' ')}
-          >
-            <GitHubIcon size={16} />
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/fredricknyangau"
-            target="_blank"
-            rel="noreferrer"
-            className={[
-              'inline-flex items-center gap-2',
-              'border border-border2 text-text2',
-              'font-mono text-[13px] px-5 py-2.5 rounded',
-              'transition-all duration-200 hover:text-text hover:border-text3',
-              'no-underline',
-            ].join(' ')}
-          >
-            <LinkedInIcon size={16} />
-            LinkedIn
-          </a>
+            <p className="text-base sm:text-lg text-text2 leading-relaxed mb-6 sm:mb-12 max-w-lg">
+              Currently available for backend engineering roles and specialized infrastructure consulting. I focus on high-load environments and mission-critical financial integrations.
+            </p>
+
+            <div className="space-y-6">
+              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
+                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Email Endpoint</h3>
+                  <a href="mailto:nyangaufredrick443@gmail.com" className="text-text hover:text-amber transition-colors font-medium">
+                    nyangaufredrick443@gmail.com
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
+                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                  <MessageCircle size={20} />
+                </div>
+                <div>
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Direct Signal</h3>
+                  <a href="https://wa.me/254746730585" target="_blank" rel="noreferrer" className="text-text hover:text-amber transition-colors font-medium">
+                    +254 746 730 585
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
+                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Current Pivot</h3>
+                  <p className="text-text font-medium">Nairobi, Kenya · Remote UTC+3</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-6 sm:mt-10">
+              <a
+                href="https://github.com/fredricknyangau"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
+                title="GitHub"
+              >
+                <GitHubIcon size={20} />
+              </a>
+              <a
+                href="https://linkedin.com/in/fredricknyangau"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
+                title="LinkedIn"
+              >
+                <LinkedInIcon size={20} />
+              </a>
+              <a
+                href="https://wa.me/254746730585"
+                target="_blank"
+                rel="noreferrer"
+                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
+                title="WhatsApp"
+              >
+                <WhatsAppIcon size={20} />
+              </a>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Form */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-amber/10 to-transparent rounded-2xl blur-md transition duration-1000 group-hover:duration-200" />
+
+            <div className="relative bg-surface/40 backdrop-blur-xl border border-border/50 rounded-2xl p-8 shadow-lg overflow-hidden min-h-[440px] flex flex-col">
+              {formState === 'success' ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-center animate-in zoom-in duration-500">
+                  <div className="w-20 h-20 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-6">
+                    <CheckCircle2 size={48} />
+                  </div>
+                  <h4 className="text-2xl font-serif text-text mb-4">Transmission Received</h4>
+                  <p className="text-text2 max-w-xs mx-auto mb-8">
+                    Your message has been routed to my primary inbox. I typically process requests within 24 standard hours.
+                  </p>
+                  <button
+                    onClick={() => setFormState('idle')}
+                    className="text-amber font-mono text-xs uppercase tracking-widest border-b border-amber/30 pb-1 hover:border-amber transition-all"
+                  >
+                    Send another signal
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-text3 mb-8">Secure Inbound Form</h4>
+                  <form onSubmit={handleSubmit} className="space-y-6 flex-1">
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Identity</label>
+                      <input
+                        required
+                        type="text"
+                        placeholder="Your Name"
+                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Return Route</label>
+                      <input
+                        required
+                        type="email"
+                        placeholder="your@email.com"
+                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Payload</label>
+                      <textarea
+                        required
+                        rows={4}
+                        placeholder="How can I help with your system architecture?"
+                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all resize-none"
+                      />
+                    </div>
+
+                    <button
+                      disabled={formState === 'sending'}
+                      type="submit"
+                      className="w-full bg-amber text-bg font-sans font-bold py-4 rounded-lg flex items-center justify-center gap-3 hover:bg-amber-glow transition-all disabled:opacity-50 disabled:cursor-wait mt-4 group/btn"
+                    >
+                      {formState === 'sending' ? (
+                        <>Encrypting & Sending...</>
+                      ) : (
+                        <>
+                          Dispatch Message
+                          <Send size={18} className="transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
+                        </>
+                      )}
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

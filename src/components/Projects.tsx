@@ -3,7 +3,7 @@ import { projects } from '@/data/projects';
 
 export default function Projects(): JSX.Element {
   return (
-    <section id="projects" className="bg-surface py-24 px-6 md:px-12">
+    <section id="projects" className="bg-surface py-10 sm:py-16 md:py-24 px-5 sm:px-6 md:px-12">
       <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-4">
         / selected work
       </p>
@@ -15,7 +15,7 @@ export default function Projects(): JSX.Element {
         <br />
         <em className="italic">real problems</em>
       </h2>
-      <p className="text-[16px] text-text2 max-w-[560px] mb-16">
+      <p className="text-[16px] text-text2 max-w-[560px] mb-8 sm:mb-16">
         Built to production standards — deployed, documented, and tested. Each project
         targets a real gap in the East African market.
       </p>

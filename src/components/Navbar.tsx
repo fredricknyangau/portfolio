@@ -32,7 +32,7 @@ export default function Navbar(): JSX.Element {
       className={[
         'fixed top-0 left-0 right-0 z-50',
         'flex items-center justify-between',
-        'px-12 py-5',
+        'px-5 sm:px-8 md:px-12 py-4 sm:py-5',
         'bg-bg/85 backdrop-blur-[12px]',
         'border-b transition-colors duration-300',
         scrolled ? 'border-border-dim' : 'border-transparent',

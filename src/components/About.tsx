@@ -34,8 +34,8 @@ export default function About(): JSX.Element {
     <section
       id="about"
       className={[
-        'bg-surface py-24 px-6 md:px-12',
-        'grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center',
+        'bg-surface py-10 md:py-24 px-5 sm:px-6 md:px-12',
+        'flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-20 items-start md:items-center',
       ].join(' ')}
     >
       {/* Left — bio text */}
@@ -53,8 +53,8 @@ export default function About(): JSX.Element {
         </h2>
 
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
-          I'm a backend engineer based in{' '}
-          <strong className="text-text font-medium">Nairobi, Kenya</strong>, focused on
+          I am a backend engineer based in{' '}
+          <strong className="text-text font-medium">Kenya</strong>, focused on
           the infrastructure layer that makes East Africa's mobile economy work —
           payments, data, APIs that handle real-world conditions like unreliable
           connections and M-Pesa callbacks.
@@ -75,78 +75,50 @@ export default function About(): JSX.Element {
         </p>
       </div>
 
-      {/* Right — Profile Image & Timeline card */}
-      <div className="flex flex-col gap-6 w-full">
-        {/* Profile Image Card */}
-        <div className="fade-up bg-bg border border-border-dim rounded-lg flex flex-col sm:flex-row items-center p-6 gap-6 relative overflow-hidden">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-amber/30 flex-shrink-0 p-1 relative z-10 bg-bg">
-            <img
-              src="/images/profile.png"
-              alt="Fredrick Nyangau"
-              className="w-full h-full rounded-full object-cover"
-            />
-          </div>
-          <div className="text-center sm:text-left relative z-10 w-full">
-            <h3 className="font-serif text-xl sm:text-2xl text-text mb-2">Ready to ship</h3>
-            <p className="text-text2 text-sm leading-relaxed mb-4">
-              I'm actively seeking roles where I can architect backend systems and drive product development forward.
-            </p>
-            <a
-              href="/docs/Fredrick_Nyangau_CV.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 text-amber text-sm font-mono border-b border-amber/30 hover:border-amber pb-1 transition-colors"
-            >
-              Download CV ↓
-            </a>
-          </div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-amber/5 to-transparent pointer-events-none" />
-        </div>
-
-        {/* Existing Timeline */}
+      {/* Right — Timeline card */}
+      <div className="w-full">
+        {/* Timeline */}
         <div
           ref={cardRef}
-          className="fade-up bg-bg border border-border-dim rounded-lg p-9 w-full"
+          className="fade-up bg-bg border border-border-dim rounded-lg p-5 sm:p-9 w-full"
         >
-        <div className="font-mono text-[11px] text-amber tracking-[0.12em] uppercase mb-5">
-          Career timeline
-        </div>
+          <div className="font-mono text-[11px] text-amber tracking-[0.12em] uppercase mb-5">
+            Career timeline
+          </div>
 
-        <ul className="flex flex-col">
-          {timelineItems.map((item, i) => (
-            <li key={item.date} className="flex gap-4 pb-6 relative">
-              {/* Vertical connector line */}
-              {i < timelineItems.length - 1 && (
+          <ul className="flex flex-col">
+            {timelineItems.map((item, i) => (
+              <li key={item.date} className="flex gap-4 pb-6 relative">
+                {/* Vertical connector line */}
+                {i < timelineItems.length - 1 && (
+                  <div
+                    aria-hidden
+                    className="absolute left-[5px] top-6 bottom-0 w-px bg-border-dim"
+                  />
+                )}
+
+                {/* Dot */}
                 <div
-                  aria-hidden
-                  className="absolute left-[5px] top-6 bottom-0 w-px bg-border-dim"
+                  className={[
+                    'w-3 h-3 rounded-full border-2 bg-bg flex-shrink-0 mt-1',
+                    item.active ? 'border-amber' : 'border-amber-dim',
+                  ].join(' ')}
+                  style={item.active ? { boxShadow: '0 0 8px rgba(212,146,42,0.3)' } : undefined}
                 />
-              )}
 
-              {/* Dot */}
-              <div
-                className={[
-                  'w-3 h-3 rounded-full border-2 bg-bg flex-shrink-0 mt-1',
-                  item.active
-                    ? 'border-amber'
-                    : 'border-amber-dim',
-                ].join(' ')}
-                style={item.active ? { boxShadow: '0 0 8px rgba(212,146,42,0.3)' } : undefined}
-              />
-
-              {/* Content */}
-              <div>
-                <div className="font-mono text-[11px] text-text3 tracking-[0.06em]">
-                  {item.date}
+                {/* Content */}
+                <div>
+                  <div className="font-mono text-[11px] text-text3 tracking-[0.06em]">
+                    {item.date}
+                  </div>
+                  <div className="text-[14px] text-text font-medium my-0.5">
+                    {item.role}
+                  </div>
+                  <div className="text-[13px] text-text2">{item.org}</div>
                 </div>
-                <div className="text-[14px] text-text font-medium my-0.5">
-                  {item.role}
-                </div>
-                <div className="text-[13px] text-text2">{item.org}</div>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

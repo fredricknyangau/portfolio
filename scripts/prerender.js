@@ -23,7 +23,7 @@ const projects = [
   }
 ];
 
-const distDir = path.resolve(__dirname, 'dist');
+const distDir = path.resolve(__dirname, '../dist');
 const caseStudyDir = path.resolve(distDir, 'case-study');
 
 // Only run if dist/index.html exists

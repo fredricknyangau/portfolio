@@ -7,11 +7,38 @@ export default function Contact(): JSX.Element {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
   const fadeUpRef = useFadeUp<HTMLDivElement>();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('sending');
-    // Simulate API call
-    setTimeout(() => setFormState('success'), 1500);
+    
+    // Web3Forms integration
+    // Get access key from https://web3forms.com/ - no account required
+    const formData = new FormData(e.currentTarget);
+    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY || "");
+
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: json
+      });
+      const data = await res.json();
+      if (data.success) {
+        setFormState('success');
+      } else {
+        setFormState('idle');
+        alert("Failed to send message. Please reach out via email directly.");
+      }
+    } catch (err) {
+      setFormState('idle');
+      alert("Network error occurred. Please try again or reach out directly.");
+    }
   };
 
   return (
@@ -76,7 +103,7 @@ export default function Contact(): JSX.Element {
                 </div>
                 <div>
                   <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Current Pivot</h3>
-                  <p className="text-text font-medium">Nairobi, Kenya · Remote UTC+3</p>
+                  <p className="text-text font-medium">Kenya · Remote</p>
                 </div>
               </div>
             </div>
@@ -142,6 +169,7 @@ export default function Contact(): JSX.Element {
                       <input
                         required
                         type="text"
+                        name="name"
                         placeholder="Your Name"
                         className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
                       />
@@ -152,6 +180,7 @@ export default function Contact(): JSX.Element {
                       <input
                         required
                         type="email"
+                        name="email"
                         placeholder="your@email.com"
                         className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
                       />
@@ -162,6 +191,7 @@ export default function Contact(): JSX.Element {
                       <textarea
                         required
                         rows={4}
+                        name="message"
                         placeholder="How can I help with your system architecture?"
                         className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all resize-none"
                       />

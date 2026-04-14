@@ -11,7 +11,7 @@ export default function Mermaid({ chart }: Props): JSX.Element {
   useEffect(() => {
     mermaid.initialize({
       startOnLoad: false,
-      theme: 'dark',
+      theme: 'base',
       securityLevel: 'loose',
       fontFamily: 'JetBrains Mono, monospace',
     });

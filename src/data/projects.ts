@@ -56,14 +56,19 @@ export const projects: Project[] = [
       action: 'I architected the system using Python and FastAPI. I implemented complex SQL reporting using CTEs and window functions in PostgreSQL. To ensure data reliability, I utilized triggers for automatic FCR calculation and enforced strict business logic at the database level with constraints.',
       result: 'The platform successfully eliminates invalid mortality states and provides sub-30ms performance on complex aggregations, enabling farmers to make faster, data-backed decisions for their flocks.',
     },
-    c4Diagram: `C4Context
-  title System Context - Kukufiti Broiler Management
-  Person(farmer, "Farmer", "A broiler farmer who tracks flock metrics")
-  System(kukufiti, "Kukufiti API", "FastAPI backend managing flock records, calculating FCR")
-  SystemDb(db, "PostgreSQL", "Stores highly normalized flock data and aggregations")
+    c4Diagram: `flowchart TD
+  %% Styles
+  classDef user fill:#161B24,stroke:#10b981,stroke-width:1px,color:#10b981
+  classDef sys fill:#10b981,stroke:#10b981,stroke-width:1px,color:#080A0D,font-weight:bold
+  classDef db fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
+
+  Farmer((Farmer)):::user
+  API["Kukufiti API (FastAPI)"]:::sys
+  DB[("PostgreSQL (Flock Records)")]:::db
   
-  Rel(farmer, kukufiti, "Submits daily mortality & feed data")
-  Rel(kukufiti, db, "Reads/Writes records, runs analytics")`,
+  Farmer -->|Submits flock data| API
+  API -->|Analytics & FCR| DB
+  DB --> API`,
   },
   {
     id: 'wifi-billing',
@@ -90,16 +95,21 @@ export const projects: Project[] = [
       action: 'I developed a RESTful API using FastAPI that integrates directly with MikroTik RouterOS for session control. I implemented a state-machine based voucher lifecycle and used PostgreSQL constraints to prevent unauthorized state transitions. The deployment was hardened using Docker and systemd for process management.',
       result: 'The system has maintained a 99.2% uptime in a production environment, automating thousands of vouchers and providing a seamless self-service experience for end-users.',
     },
-    c4Diagram: `C4Context
-  title System Context - Wi-Fi Billing & Session Control
-  Person(customer, "Wi-Fi User", "A user purchasing internet access")
-  System(billing, "Billing API", "FastAPI app managing vouchers & plans")
-  SystemDb(db, "PostgreSQL", "Stores vouchers & session state")
-  System_Ext(mikrotik, "MikroTik RouterOS", "Hardware executing firewall & session rules")
+    c4Diagram: `flowchart TD
+  %% Styles
+  classDef user fill:#161B24,stroke:#10b981,stroke-width:1px,color:#10b981
+  classDef sys fill:#10b981,stroke:#10b981,stroke-width:1px,color:#080A0D,font-weight:bold
+  classDef db fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
+  classDef ext fill:#161B24,stroke:#2C3444,stroke-width:1px,stroke-dasharray: 5 5,color:#9A9590
+
+  User((Wi-Fi User)):::user
+  API["Billing API (FastAPI)"]:::sys
+  DB[("PostgreSQL (Voucher State)")]:::db
+  MikroTik[["MikroTik RouterOS"]]:::ext
   
-  Rel(customer, billing, "Purchases/activates voucher")
-  Rel(billing, db, "Validates and updates voucher state")
-  Rel(billing, mikrotik, "Provisions dynamic session limits via API")`,
+  User -->|Purchases/activates voucher| API
+  API -->|Validates/Updates| DB
+  API -.->|Provisions session| MikroTik`,
   },
   {
     id: 'mmgateway',
@@ -126,19 +136,25 @@ export const projects: Project[] = [
       action: 'I engineered the proxy layer using FastAPI and Redis for high-frequency rate-limiting. I implemented an exponential backoff retry mechanism for webhooks and strictly enforced tenant isolation using Postgres RLS.',
       result: 'The system successfully abstracts complex cryptographic requirements and guarantees transaction consistency, significantly accelerating time-to-market for merchant integrations.',
     },
-    c4Diagram: `C4Context
-  title System Context - Mobile Money Gateway
-  Person(merchant, "Merchant System", "Third-party system requiring payment processing")
-  System(gateway, "API Gateway", "FastAPI proxy normalizing errors & scoping tenants")
-  SystemDb(redis, "Redis", "High-frequency rate-limiting")
-  SystemDb(db, "PostgreSQL", "Stores tenant routes & idempotency keys")
-  System_Ext(safaricom, "Safaricom Daraja", "External API for mobile payments")
+    c4Diagram: `flowchart TD
+  %% Styles
+  classDef user fill:#161B24,stroke:#10b981,stroke-width:1px,color:#10b981
+  classDef sys fill:#10b981,stroke:#10b981,stroke-width:1px,color:#080A0D,font-weight:bold
+  classDef cache fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
+  classDef db fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
+  classDef ext fill:#161B24,stroke:#2C3444,stroke-width:1px,stroke-dasharray: 5 5,color:#9A9590
+
+  Merchant((Third-Party Merchant)):::user
+  GW["API Gateway (FastAPI Proxy)"]:::sys
+  Redis[("Redis (Rate Limits)")]:::cache
+  DB[("PostgreSQL (RLS Tenant Data)")]:::db
+  Safaricom[["Safaricom Daraja API"]]:::ext
   
-  Rel(merchant, gateway, "Initiates payment")
-  Rel(gateway, redis, "Checks rate limits")
-  Rel(gateway, db, "Verifies tenant context")
-  Rel(gateway, safaricom, "Proxies signed payload")
-  Rel(safaricom, gateway, "Async Webhook Delivery")
-  Rel(gateway, merchant, "Forwards normalized webhook")`,
+  Merchant -->|Triggers payment| GW
+  GW -->|Check limits| Redis
+  GW -->|Check tenant| DB
+  GW -.->|Signed payload| Safaricom
+  Safaricom -.->|Async Webhook| GW
+  GW -->|Normalized webhook| Merchant`,
   },
 ];

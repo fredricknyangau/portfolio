@@ -31,6 +31,10 @@ app.add_middleware(
 app.include_router(contact.router, prefix="/api/v1/contact")
 app.include_router(telemetry.router, prefix="/api/v1/telemetry")
 
+@app.get("/", tags=["Root"])
+async def root():
+    return {"status": "ok", "message": "Portfolio backend API is running."}
+
 @app.get("/health", tags=["Health"])
 async def root_health_check():
     return {"status": "ok", "environment": settings.ENVIRONMENT}

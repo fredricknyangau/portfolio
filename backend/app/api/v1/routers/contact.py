@@ -5,7 +5,7 @@ from app.api.deps import check_rate_limit
 
 router = APIRouter()
 
-@router.post("/", response_model=ContactResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=ContactResponse, status_code=status.HTTP_201_CREATED)
 async def submit_contact_form(
     payload: ContactPayload,
     background_tasks: BackgroundTasks,

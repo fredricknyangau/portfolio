@@ -1,29 +1,46 @@
+import json
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Portfolio API"
-    ENVIRONMENT: str = "development"
+    PROJECT_NAME: str = Field(..., env="PROJECT_NAME")
+    ENVIRONMENT: str = Field(..., env="ENVIRONMENT")
     
     # Cross-Origin
-    CORS_ORIGINS: list[str] = ["http://localhost:5173", "https://fredricknyangau.vercel.app", "http://localhost:4173"]
+    CORS_ORIGINS: list[str] = Field(..., env="CORS_ORIGINS")
+
+    @field_validator("CORS_ORIGINS", mode="before")
+    @classmethod
+    def parse_cors_origins(cls, value):
+        if isinstance(value, str):
+            value = value.strip()
+            if not value:
+                return []
+            if value.startswith("[") and value.endswith("]"):
+                try:
+                    return json.loads(value)
+                except ValueError:
+                    pass
+            return [origin.strip() for origin in value.split(",") if origin.strip()]
+        return value
     
     # Redis configuration for Rate Limiting & Telemetry Cache
-    REDIS_URL: str = "redis://localhost:6379/0"
+    REDIS_URL: str = Field(..., env="REDIS_URL")
 
-    # External APIs to ping for telemetry
-    KUKUFITI_HEALTH_URL: str = "https://kukufiti-production.up.railway.app/" # Replace with actual backend
-    MMGATEWAY_HEALTH_URL: str = "https://mmgateway.onrender.com/" # Replace with actual backend
+    # External APIs to ping for telemetry: set these in production via env
+    KUKUFITI_HEALTH_URL: str = Field(..., env="KUKUFITI_HEALTH_URL")
+    MMGATEWAY_HEALTH_URL: str = Field(..., env="MMGATEWAY_HEALTH_URL")
 
     # Omni-Dispatch Pipeline Configurations
-    MONGODB_URL: str = "mongodb://localhost:27017"
+    MONGODB_URL: str = Field(..., env="MONGODB_URL")
     
-    TELEGRAM_BOT_TOKEN: str = ""
-    TELEGRAM_CHAT_ID: str = ""
+    TELEGRAM_BOT_TOKEN: str = Field(..., env="TELEGRAM_BOT_TOKEN")
+    TELEGRAM_CHAT_ID: str = Field(..., env="TELEGRAM_CHAT_ID")
     
-    SMTP_HOST: str = "smtp.gmail.com"
-    SMTP_PORT: int = 465
-    SMTP_USER: str = ""
-    SMTP_PASSWORD: str = ""
+    SMTP_HOST: str = Field(..., env="SMTP_HOST")
+    SMTP_PORT: int = Field(..., env="SMTP_PORT")
+    SMTP_USER: str = Field(..., env="SMTP_USER")
+    SMTP_PASSWORD: str = Field(..., env="SMTP_PASSWORD")
 
     model_config = SettingsConfigDict(env_file=".env", case_sensitive=True, extra="ignore")
 

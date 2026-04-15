@@ -7,7 +7,17 @@ logger = get_logger(__name__)
 
 # Initialize Redis connection pool but catch failures gracefully for robust local dev
 try:
-    redis_client = redis.from_url(settings.REDIS_URL, decode_responses=True)
+    url = settings.REDIS_URL.strip()
+    if url and not (url.startswith("redis://") or url.startswith("rediss://") or url.startswith("unix://")):
+        # Default to redis:// if scheme is missing
+        url = f"redis://{url}"
+    
+    # Use SSL options if it's a secure connection
+    connection_kwargs = {"decode_responses": True}
+    if url.startswith("rediss://"):
+        connection_kwargs["ssl_cert_reqs"] = "none"
+        
+    redis_client = redis.from_url(url, **connection_kwargs)
 except Exception as e:
     logger.warning(f"Failed to initialize Redis client: {e}")
     redis_client = None

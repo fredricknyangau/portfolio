@@ -22,7 +22,7 @@ async def ping_url(client: httpx.AsyncClient, url: str) -> tuple[bool, int]:
         is_up = response.status_code < 500
         return is_up, latency
     except Exception as e:
-        logger.warning(f"Failed to ping {url}: {e}")
+        logger.debug(f"Failed to ping {url}: {e}")
         return False, 0
 
 async def fetch_live_telemetry() -> TelemetryResponse:

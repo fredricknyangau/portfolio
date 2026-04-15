@@ -15,16 +15,20 @@ class Settings(BaseSettings):
     def parse_cors_origins(cls, value: Any) -> list[str]:
         if isinstance(value, str):
             value = value.strip()
-            if not value or value == '""' or value == "''":
+            # Handle empty strings or literal quotes
+            if not value or value in ['""', "''", '[]']:
                 return []
+            # Detect JSON list format
             if value.startswith("[") and value.endswith("]"):
                 try:
                     return json.loads(value)
                 except (json.JSONDecodeError, ValueError):
                     pass
-            return [origin.strip() for origin in value.split(",") if origin.strip()]
+            # Fallback to comma-separated list
+            return [origin.strip().strip("'").strip('"') for origin in value.split(",") if origin.strip()]
         if isinstance(value, list):
-            return value
+            # Ensure no nested internal strings
+            return [str(item).strip() for item in value if item]
         return []
     
     # Redis configuration for Rate Limiting & Telemetry Cache

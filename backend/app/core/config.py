@@ -1,4 +1,5 @@
 import json
+from typing import Any
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -7,22 +8,24 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = Field(..., env="ENVIRONMENT")
     
     # Cross-Origin
-    CORS_ORIGINS: list[str] = Field(..., env="CORS_ORIGINS")
+    CORS_ORIGINS: list[str] | str = Field(..., env="CORS_ORIGINS")
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
-    def parse_cors_origins(cls, value):
+    def parse_cors_origins(cls, value: Any) -> list[str]:
         if isinstance(value, str):
             value = value.strip()
-            if not value:
+            if not value or value == '""' or value == "''":
                 return []
             if value.startswith("[") and value.endswith("]"):
                 try:
                     return json.loads(value)
-                except ValueError:
+                except (json.JSONDecodeError, ValueError):
                     pass
             return [origin.strip() for origin in value.split(",") if origin.strip()]
-        return value
+        if isinstance(value, list):
+            return value
+        return []
     
     # Redis configuration for Rate Limiting & Telemetry Cache
     REDIS_URL: str = Field(..., env="REDIS_URL")

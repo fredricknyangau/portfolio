@@ -14,7 +14,7 @@ export default function CaseStudy(): JSX.Element {
       document.title = `${project.name} — Case Study · Fredrick Nyangau`;
     }
     return () => {
-      document.title = 'Fredrick Nyangau — Backend Engineer';
+      document.title = 'Fredrick Nyangau — Backend Software Engineer';
     };
   }, [id, project]);
 
@@ -29,8 +29,8 @@ export default function CaseStudy(): JSX.Element {
 
   return (
     <main className="min-h-screen pt-[120px] pb-24 px-6 md:px-12 max-w-5xl mx-auto">
-      <Link 
-        to="/" 
+      <Link
+        to="/"
         className="inline-flex items-center gap-2 text-text2 hover:text-amber font-mono text-[13px] transition-colors mb-10 no-underline"
       >
         <ArrowLeft size={14} /> Back to Portfolio

@@ -21,7 +21,7 @@ describe('Hero Component AB Test', () => {
   it('renders HeroVariantB when local storage has B', () => {
     localStorage.setItem('hero_ab_variant', 'B');
     render(<Hero />);
-    expect(screen.getByText('System Architect & Backend Engineer')).toBeInTheDocument();
+    expect(screen.getByText('System Architect & Backend Software Engineer')).toBeInTheDocument();
   });
 
   it('toggles variant when clicking the test indicator', () => {

@@ -1,4 +1,4 @@
-# Fredrick Nyangau – Backend Engineering Portfolio
+# Fredrick Nyangau – Backend Software Engineering Portfolio
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)

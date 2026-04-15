@@ -77,7 +77,7 @@ export default function Contact(): JSX.Element {
             </h2>
 
             <p className="text-base sm:text-lg text-text2 leading-relaxed mb-5 sm:mb-12 max-w-lg">
-              Currently available for backend engineering roles and specialized infrastructure consulting. I focus on high-load environments and mission-critical financial integrations.
+              Currently available for Backend Software Engineering roles and specialized infrastructure consulting. I focus on high-load environments and mission-critical financial integrations.
             </p>
 
             <div className="space-y-6">
@@ -99,7 +99,7 @@ export default function Contact(): JSX.Element {
                 </div>
                 <div>
                   <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Direct Signal</h3>
-                  <a href="https://wa.me/254746730585" target="_blank" rel="noreferrer" className="text-text hover:text-amber transition-colors font-medium">
+                  <a href="https://wa.me/254746730585?text=Hello%20Fredrick,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20backend%20project." target="_blank" rel="noreferrer" className="text-text hover:text-amber transition-colors font-medium">
                     +254 746 730 585
                   </a>
                 </div>
@@ -136,7 +136,7 @@ export default function Contact(): JSX.Element {
                 <LinkedInIcon size={20} />
               </a>
               <a
-                href="https://wa.me/254746730585"
+                href="https://wa.me/254746730585?text=Hello%20Fredrick,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20backend%20project."
                 target="_blank"
                 rel="noreferrer"
                 className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"

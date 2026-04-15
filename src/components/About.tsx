@@ -12,7 +12,7 @@ const timelineItems: TimelineItem[] = [
   {
     date: 'Jan 2026 – present',
     role: 'Founder & Team Lead',
-    org: 'Backend Engineers 2026 Community',
+    org: 'Backend Software Engineers 2026 Community',
     active: true,
   },
   {
@@ -54,7 +54,7 @@ export default function About(): JSX.Element {
         </h2>
 
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
-          I am a backend engineer based in{' '}
+          I am a Backend Software Engineer based in{' '}
           <strong className="text-text font-medium">Kenya</strong>, focused on
           the infrastructure layer that makes East Africa's mobile economy work —
           payments, data, APIs that handle real-world conditions like unreliable
@@ -78,8 +78,8 @@ export default function About(): JSX.Element {
         {/* GitHub Calendar embedded here */}
         <div className="w-full bg-bg/50 border border-border-dim rounded-lg p-5 mt-4 transition-colors hover:border-amber/40 overflow-x-auto custom-scrollbar">
           <div className="min-w-[750px]">
-            <GitHubCalendar 
-              username="fredricknyangau" 
+            <GitHubCalendar
+              username="fredricknyangau"
               colorScheme="dark"
               blockSize={12}
               blockMargin={4}

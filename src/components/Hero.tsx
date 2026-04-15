@@ -58,7 +58,7 @@ export default function Hero(): JSX.Element {
 
           <div className="drop-shadow-[0_0_12px_rgba(16,185,129,0.35)] flex items-center min-h-[30px]">
             <Typewriter
-              words={['Backend Engineer', 'FastAPI & PostgreSQL', 'System Architect', 'One commit every day']}
+              words={['Backend Software Engineer', 'FastAPI & PostgreSQL', 'System Architect', 'One commit every day']}
             />
           </div>
 

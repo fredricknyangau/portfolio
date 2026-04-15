@@ -12,7 +12,13 @@ db_layer = MongoDB()
 
 async def connect_to_mongo():
     logger.info("Connecting to MongoDB cluster...")
-    db_layer.client = AsyncIOMotorClient(settings.MONGODB_URL)
+    # Explicitly set tls=True and reasonable timeouts for cloud networking
+    db_layer.client = AsyncIOMotorClient(
+        settings.MONGODB_URL,
+        tls=True,
+        serverSelectionTimeoutMS=5000,
+        connectTimeoutMS=10000
+    )
     # Target standard portfolio collection space
     db_layer.db = db_layer.client["portfolio_db"]
     logger.info("MongoDB connection established.")

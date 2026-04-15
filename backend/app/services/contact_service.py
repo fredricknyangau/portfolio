@@ -199,13 +199,20 @@ async def dispatch_smtp(payload: ContactPayload) -> bool:
     message.add_alternative(html_content, subtype='html')
     
     try:
+        # Intelligently select protocol based on port
+        # Port 465 uses implicit SSL (use_tls=True)
+        # Port 587 uses explicit STARTTLS (start_tls=True)
+        use_tls = settings.SMTP_PORT == 465
+        start_tls = settings.SMTP_PORT == 587
+        
         await aiosmtplib.send(
             message,
             hostname=settings.SMTP_HOST,
             port=settings.SMTP_PORT,
             username=settings.SMTP_USER,
             password=settings.SMTP_PASSWORD,
-            use_tls=True,
+            use_tls=use_tls,
+            start_tls=start_tls,
             timeout=10.0
         )
         logger.info("SMTP email dispatched seamlessly.")

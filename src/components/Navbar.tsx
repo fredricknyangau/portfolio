@@ -32,7 +32,7 @@ export default function Navbar(): JSX.Element {
       className={[
         'fixed top-0 left-0 right-0 z-50',
         'flex items-center justify-between',
-        'px-5 sm:px-8 md:px-12 py-4 sm:py-5',
+        'px-4 sm:px-8 md:px-12 py-3 sm:py-5',
         'bg-bg/85 backdrop-blur-[12px]',
         'border-b transition-colors duration-300',
         scrolled ? 'border-border-dim' : 'border-transparent',
@@ -43,7 +43,7 @@ export default function Navbar(): JSX.Element {
         href="/#hero"
         className="font-serif text-[22px] font-normal tracking-[-0.02em] text-text no-underline"
       >
-        fn<span className="text-amber">.</span>
+        fredrick<span className="text-amber">.</span>nyang'au
       </a>
 
       {/* Desktop right side */}
@@ -118,7 +118,7 @@ export default function Navbar(): JSX.Element {
               key={l.href}
               href={l.href}
               onClick={() => setMenuOpen(false)}
-              className="text-text2 text-sm px-6 py-3 hover:text-text hover:bg-surface2 transition-colors"
+              className="text-text2 text-sm px-6 py-4 hover:text-text hover:bg-surface2 transition-colors"
             >
               {l.label}
             </a>

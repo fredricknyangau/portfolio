@@ -1,4 +1,12 @@
-const benchmarks = [
+import { useEffect, useState } from 'react';
+
+export interface TelemetryStat {
+  value: string;
+  label: string;
+  note: string;
+}
+
+const fallbackBenchmarks: TelemetryStat[] = [
   { value: '99.99%', label: 'API Uptime', note: 'last 30 days' },
   { value: '<30ms',  label: 'DB Latency', note: 'p95 aggregation' },
   { value: '47/47',  label: 'Tests Passing', note: 'pytest suite' },
@@ -6,6 +14,30 @@ const benchmarks = [
 ];
 
 export default function StatsBar(): JSX.Element {
+  const [benchmarks, setBenchmarks] = useState<TelemetryStat[]>(fallbackBenchmarks);
+
+  useEffect(() => {
+    const fetchTelemetry = async () => {
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+        const res = await fetch(`${apiUrl}/api/v1/telemetry`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.stats && data.stats.length > 0) {
+            setBenchmarks(data.stats);
+          }
+        }
+      } catch (err) {
+        // Silently fail to static defaults if backend stream is interrupted
+        console.warn('Telemetry endpoint offline. Serving static fallbacks.');
+      }
+    };
+
+    fetchTelemetry();
+    const interval = setInterval(fetchTelemetry, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div
       className={[

@@ -12,7 +12,7 @@ export const terminalLines: TerminalLine[] = [
   { type: 'out',   text: '2c1a9f4 test: 84% coverage on auth endpoints' },
   { type: 'blank' },
   { type: 'cmd',   text: 'uvicorn app.main:app --reload' },
-  { type: 'ok',    text: 'INFO:     FastAPI running on http://0.0.0.0:8000' },
+  { type: 'ok',    text: 'INFO:     FastAPI running on http://0.0.0.0:8080' },
   { type: 'ok',    text: 'INFO:     Application startup complete.' },
   { type: 'blank' },
   { type: 'cmd',   text: 'pytest tests/ -v --tb=short' },

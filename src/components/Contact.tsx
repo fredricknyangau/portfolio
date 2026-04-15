@@ -10,41 +10,49 @@ export default function Contact(): JSX.Element {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('sending');
-    
-    // Web3Forms integration
-    // Get access key from https://web3forms.com/ - no account required
     const formData = new FormData(e.currentTarget);
-    formData.append("access_key", import.meta.env.VITE_WEB3FORMS_KEY || "");
-
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
+    const apiPayload = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      message: formData.get("message") as string
+    };
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const res = await fetch(`${apiUrl}/api/v1/contact/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json"
-        },
-        body: json
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(apiPayload)
       });
-      const data = await res.json();
-      if (data.success) {
+
+      if (res.ok) {
         setFormState('success');
-      } else {
+      } else if (res.status === 429) {
         setFormState('idle');
-        alert("Failed to send message. Please reach out via email directly.");
+        alert("Rate limit exceeded. Please wait a minute and try again.");
+      } else if (res.status === 422) {
+        // FastAPI validation errors return an array of issues
+        const data = await res.json();
+        setFormState('idle');
+        const validationMsg = Array.isArray(data.detail)
+          ? data.detail.map((err: any) => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join('\n')
+          : "Invalid data submitted.";
+        alert(`Validation Error:\n${validationMsg}`);
+      } else {
+        const data = await res.json();
+        setFormState('idle');
+        alert(data.detail || "Failed to send message. Please reach out via email directly.");
       }
     } catch (err) {
       setFormState('idle');
-      alert("Network error occurred. Please try again or reach out directly.");
+      alert("Network error occurred. The backend might be offline.");
     }
   };
 
   return (
     <section
       id="contact"
-      className="relative py-10 sm:py-16 md:py-24 px-5 sm:px-6 md:px-12 overflow-hidden bg-bg"
+      className="relative py-8 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden bg-bg"
     >
       {/* Dynamic background lighting */}
       <div
@@ -64,11 +72,11 @@ export default function Contact(): JSX.Element {
               Direct Communication Channel
             </div>
 
-            <h2 className="font-serif text-3xl md:text-5xl font-light text-text tracking-tight mb-5 sm:mb-8">
+            <h2 className="font-serif text-3xl md:text-5xl font-light text-text tracking-tight mb-4 sm:mb-8">
               Let's build <em className="not-italic text-amber">resilient</em> <br className="hidden md:block" /> systems together.
             </h2>
 
-            <p className="text-base sm:text-lg text-text2 leading-relaxed mb-6 sm:mb-12 max-w-lg">
+            <p className="text-base sm:text-lg text-text2 leading-relaxed mb-5 sm:mb-12 max-w-lg">
               Currently available for backend engineering roles and specialized infrastructure consulting. I focus on high-load environments and mission-critical financial integrations.
             </p>
 
@@ -143,7 +151,7 @@ export default function Contact(): JSX.Element {
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-amber/10 to-transparent rounded-2xl blur-md transition duration-1000 group-hover:duration-200" />
 
-            <div className="relative bg-surface/40 backdrop-blur-xl border border-border/50 rounded-2xl p-8 shadow-lg overflow-hidden min-h-[440px] flex flex-col">
+            <div className="relative bg-surface/40 backdrop-blur-xl border border-border/50 rounded-2xl p-6 sm:p-8 shadow-lg overflow-hidden min-h-[440px] flex flex-col">
               {formState === 'success' ? (
                 <div className="flex-1 flex flex-col items-center justify-center text-center animate-in zoom-in duration-500">
                   <div className="w-20 h-20 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-6">

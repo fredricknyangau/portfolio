@@ -35,12 +35,12 @@ export default function About(): JSX.Element {
     <section
       id="about"
       className={[
-        'bg-surface py-10 md:py-24 px-5 sm:px-6 md:px-12',
-        'flex flex-col md:grid md:grid-cols-2 gap-8 md:gap-20 items-start md:items-center',
+        'bg-surface py-8 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12',
+        'flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-20 items-start md:items-center',
       ].join(' ')}
     >
       {/* Left — bio text */}
-      <div ref={textRef} className="fade-up">
+      <div ref={textRef} className="fade-up w-full min-w-0">
         <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-4">
           / about
         </p>
@@ -90,7 +90,7 @@ export default function About(): JSX.Element {
       </div>
 
       {/* Right — Timeline card */}
-      <div className="w-full">
+      <div className="w-full min-w-0">
         {/* Timeline */}
         <div
           ref={cardRef}

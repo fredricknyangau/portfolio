@@ -1,8 +1,8 @@
 # Fredrick Nyangau – Backend Engineering Portfolio
 
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) 
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) 
-![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) 
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
@@ -15,20 +15,21 @@ This application is constructed as an enterprise microservice template rather th
 
 \`\`\`mermaid
 flowchart TD
-    subgraph "Production Environment (AWS ECS / Docker)"
-        Nginx[Nginx Reverse Proxy\n:8080]
-        ReactUI[Vite React SPA\nFrontend Service]
-        FastAPI[FastAPI\nMock AI Agent Service]
-        
+subgraph "Production Environment (AWS ECS / Docker)"
+Nginx[Nginx Reverse Proxy\n:8080]
+ReactUI[Vite React SPA\nFrontend Service]
+FastAPI[FastAPI\nMock AI Agent Service]
+
         Nginx -->|Serves Static Files| ReactUI
         Nginx -->|/api/*| FastAPI
     end
-    
+
     User(fa:fa-user End User Web Browser)
     User --> Nginx
 
     classDef container fill:#161B24,stroke:#2C3444,stroke-width:1px,color:#EAE6DF;
     class Nginx,ReactUI,FastAPI container;
+
 \`\`\`
 
 ## Key Features
@@ -46,18 +47,20 @@ flowchart TD
 
 ## Start the Infrastructure
 
-To run the full stack (Frontend on `:8080`, Backend on `:8000`):
+To run the full stack (Frontend on `:8080`, Backend on `:8080`):
 \`\`\`bash
 docker compose up --build
 \`\`\`
 
 ### Start Frontend Only (Standalone)
+
 \`\`\`bash
 npm ci
 npm run dev
 \`\`\`
 
 ### Start Backend Only (Standalone)
+
 \`\`\`bash
 cd backend
 python -m venv .venv
@@ -66,7 +69,7 @@ pip install -r requirements/production.txt
 uvicorn app.main:app --reload
 \`\`\`
 
-## CI/CD 
+## CI/CD
 
 This project incorporates a GitHub Actions flow (`.github/workflows/ci.yml`) triggering on pushes to `main`. It guarantees standard code lints, builds the React app, and verifies structural validity of the Docker stack.
 

@@ -1,14 +1,15 @@
 import { ArrowDown, FileText, Briefcase, ArrowUpRight, Download } from 'lucide-react';
 import { GitHubIcon } from '@/components/SocialIcons';
+import Typewriter from '@/components/Typewriter';
 
 export default function Hero(): JSX.Element {
   return (
     <section
       id="hero"
       className={[
-        'min-h-[100dvh] md:min-h-[90vh] relative overflow-hidden',
+        'min-h-[auto] md:min-h-[90vh] relative overflow-hidden',
         'grid grid-cols-1 md:grid-cols-2 gap-0',
-        'pt-24 pb-12 px-5 sm:pt-28 sm:pb-16 md:pt-[120px] md:pb-20 md:px-12',
+        'pt-20 pb-8 px-4 sm:pt-28 sm:pb-16 md:pt-[120px] md:pb-20 md:px-12',
         'items-center',
       ].join(' ')}
     >
@@ -39,7 +40,7 @@ export default function Hero(): JSX.Element {
 
         {/* Name */}
         <h1
-          className="font-serif font-light tracking-[-0.03em] leading-none text-text mb-2"
+          className="font-serif font-light tracking-[-0.03em] leading-none text-text mb-4 sm:mb-5"
           style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}
         >
           Fredrick
@@ -49,17 +50,24 @@ export default function Hero(): JSX.Element {
 
         {/* Role */}
         <div
-          className="inline-flex items-center gap-3 mb-5 sm:mb-7 pl-3 pr-4 py-[7px] rounded-sm border border-amber/30 bg-amber/5"
-          style={{ boxShadow: '0 0 16px rgba(var(--accent-rgb), 0.08), inset 0 0 12px rgba(var(--accent-rgb), 0.03)' }}
+          className="inline-flex items-center gap-3 mb-6 sm:mb-9 pl-4 pr-5 py-1.5 rounded-md border border-amber/30 bg-amber/[0.03] relative"
+          style={{ boxShadow: '0 4px 24px rgba(var(--accent-rgb), 0.12), inset 0 0 16px rgba(var(--accent-rgb), 0.04)' }}
         >
-          <span className="block w-[3px] h-[14px] rounded-full bg-amber shrink-0" />
-          <span className="font-mono text-[13px] sm:text-[14px] text-amber tracking-[0.14em] uppercase">
-            Backend Engineer
-          </span>
+          {/* Glowing accent bar */}
+          <span className="block w-1 h-[22px] rounded-full bg-amber shadow-[0_0_8px_var(--color-amber)] shrink-0 mr-1" />
+
+          <div className="drop-shadow-[0_0_12px_rgba(16,185,129,0.35)] flex items-center min-h-[30px]">
+            <Typewriter
+              words={['Backend Engineer', 'FastAPI & PostgreSQL', 'System Architect', 'One commit every day']}
+            />
+          </div>
+
+          {/* Background blurred glow */}
+          <div className="absolute inset-0 bg-amber/5 blur-xl -z-10 rounded-md pointer-events-none" />
         </div>
 
         {/* Description */}
-        <p className="text-[15px] sm:text-[17px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-7 sm:mb-11">
+        <p className="text-[15px] sm:text-[17px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-6 sm:mb-11">
           Building{' '}
           <strong className="text-text font-medium">production-grade APIs</strong>{' '}
           and data systems for East Africa's mobile-first economy — FastAPI backends,
@@ -126,7 +134,7 @@ export default function Hero(): JSX.Element {
       {/* Right — Profile Image */}
       <div className="relative z-10 mt-8 md:mt-0 flex justify-center md:justify-end animate-in fade-in slide-in-from-right-8 duration-700">
         <div className="relative">
-          <div className="w-40 h-40 sm:w-56 sm:h-56 lg:w-[380px] lg:h-[380px] xl:w-[440px] xl:h-[440px] rounded-full border-2 border-amber/20 p-2 sm:p-3 bg-surface/30 backdrop-blur-sm relative z-10 overflow-hidden shadow-2xl shadow-amber/5">
+          <div className="w-36 h-36 sm:w-56 sm:h-56 lg:w-[380px] lg:h-[380px] xl:w-[440px] xl:h-[440px] rounded-full border-2 border-amber/20 p-2 sm:p-3 bg-surface/30 backdrop-blur-sm relative z-10 overflow-hidden shadow-2xl shadow-amber/5">
             <img
               src="/images/profile.png"
               alt="Fredrick Nyangau"

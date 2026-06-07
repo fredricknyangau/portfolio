@@ -8,7 +8,7 @@ interface SEOProps {
 }
 
 export default function SEO({
-  title = "Junior Backend Engineer | FastAPI, PostgreSQL, Python | Nairobi",
+  title = "Fredrick Nyang'au | Junior Backend Engineer | Nairobi",
   description = "Junior Backend Engineer building production-ready FastAPI and PostgreSQL systems. Specializing in API development for Fintech and Agritech in Nairobi, Kenya.",
   type = "website",
   url = "https://fredricknyangau.vercel.app/",

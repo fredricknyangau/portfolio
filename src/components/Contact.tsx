@@ -42,9 +42,10 @@ export default function Contact(): JSX.Element {
         setFormState('idle');
         alert(data.detail || 'Failed to send message. Please reach out via email directly.');
       }
-    } catch {
+    } catch (err) {
       setFormState('idle');
-      alert('Network error occurred. The backend might be offline.');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
+      alert(`Network error occurred. The backend at ${apiUrl} might be offline or unreachable. Have you set VITE_API_URL in your hosting environment?`);
     }
   };
 

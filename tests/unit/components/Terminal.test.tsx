@@ -8,7 +8,7 @@ describe('Terminal', () => {
     vi.spyOn(useTerminalHook, 'useTerminal').mockReturnValue([]);
     
     render(<Terminal />);
-    expect(screen.getByText('~/dev/zealsync/backend')).toBeInTheDocument();
+    expect(screen.getByText('~/projects/kukufiti')).toBeInTheDocument();
   });
 
   it('renders correctly with given lines', () => {

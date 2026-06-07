@@ -49,3 +49,33 @@ export function WhatsAppIcon({ size = 20, className }: IconProps) {
     </svg>
   );
 }
+
+export function XIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  );
+}
+
+export function DevToIcon({ size = 20, className }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M7.42 10.96h1.51v1.89H7.42v-1.89zm15.08-9.71v21.5c0 .7-.57 1.25-1.25 1.25H2.75A1.25 1.25 0 011.5 22.75V1.25A1.25 1.25 0 012.75 0h18.5c.68 0 1.25.55 1.25 1.25zM10.1 7.22H6v9.56h4.1c1.3 0 2.22-.84 2.22-2.15v-5.27c0-1.3-.9-2.14-2.22-2.14zm5.17 7.26V7.22h-1.45v9.56h4.55v-1.3h-3.1zm4.73-4.73h-1.24v3.58h1.24v-3.58zm-1.24 4.88h1.24v1.15h-1.24v-1.15zm-7.42-3.73H8.3c-.22 0-.39.17-.39.39v4.42c0 .22.17.39.39.39h3.02c.22 0 .39-.17.39-.39v-4.42c0-.22-.17-.39-.39-.39z" />
+    </svg>
+  );
+}

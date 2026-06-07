@@ -6,7 +6,7 @@ import * as useTerminalHook from '@/hooks/useTerminal';
 describe('Terminal', () => {
   it('renders terminal traffic lights and correct path', () => {
     vi.spyOn(useTerminalHook, 'useTerminal').mockReturnValue([]);
-    
+
     render(<Terminal />);
     expect(screen.getByText('~/projects/kukufiti')).toBeInTheDocument();
   });
@@ -17,7 +17,7 @@ describe('Terminal', () => {
       { type: 'ok', text: 'Starting server...', done: true },
       { type: 'err', text: 'Failed task', done: true }
     ]);
-    
+
     render(<Terminal />);
     expect(screen.getByText('npm run backend')).toBeInTheDocument();
     expect(screen.getByText('Starting server...')).toBeInTheDocument();

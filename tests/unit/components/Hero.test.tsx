@@ -13,13 +13,13 @@ vi.mock('@/components/ApiResponseCard', () => ({
 describe('Hero Component', () => {
   it('renders name, role, and main CTA buttons', () => {
     render(<Hero />);
-    
+
     // Check main text content
     expect(screen.getByText('Fredrick')).toBeInTheDocument();
     expect(screen.getByText("Nyang'au")).toBeInTheDocument();
     expect(screen.getByText('Junior Backend Engineer')).toBeInTheDocument();
     expect(screen.getByText('Building production-ready APIs for Fintech and Agritech.')).toBeInTheDocument();
-    
+
     // Check links
     const gitHubLink = screen.getByLabelText('GitHub profile');
     expect(gitHubLink).toBeInTheDocument();
@@ -28,6 +28,14 @@ describe('Hero Component', () => {
     const linkedInLink = screen.getByLabelText('LinkedIn profile');
     expect(linkedInLink).toBeInTheDocument();
     expect(linkedInLink).toHaveAttribute('href', 'https://linkedin.com/in/fredricknyangau');
+
+    const xLink = screen.getByLabelText('X (formerly Twitter) profile');
+    expect(xLink).toBeInTheDocument();
+    expect(xLink).toHaveAttribute('href', 'https://x.com/dev_fred_');
+
+    const devToLink = screen.getByLabelText('Dev.to profile');
+    expect(devToLink).toBeInTheDocument();
+    expect(devToLink).toHaveAttribute('href', 'https://dev.to/fredricknyangau');
 
     const viewProjectsLink = screen.getByText('View Projects');
     expect(viewProjectsLink).toBeInTheDocument();

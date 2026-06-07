@@ -23,7 +23,9 @@ export default function SEO({
     url: "https://fredricknyangau.vercel.app/",
     sameAs: [
       "https://github.com/fredricknyangau",
-      "https://linkedin.com/in/fredricknyangau"
+      "https://linkedin.com/in/fredricknyangau",
+      "https://x.com/dev_fred_",
+      "https://dev.to/fredricknyangau"
     ],
     address: {
       "@type": "PostalAddress",

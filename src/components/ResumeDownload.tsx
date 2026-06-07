@@ -23,9 +23,10 @@ export default function ResumeDownload() {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Failed to generate dynamic PDF, falling back to static', error);
-      alert(`PDF Generation Error: ${error?.message || String(error)}`);
+      const errMessage = error instanceof Error ? error.message : String(error);
+      alert(`PDF Generation Error: ${errMessage}`);
       // Temporarily disabled fallback to debug the error
       // window.open('/docs/Fredrick_Nyangau_CV.pdf', '_blank');
     } finally {

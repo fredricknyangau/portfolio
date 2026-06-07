@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Mail, Send, CheckCircle2, MapPin } from 'lucide-react';
-import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from '@/components/SocialIcons';
+import { GitHubIcon, LinkedInIcon, WhatsAppIcon, XIcon, DevToIcon } from '@/components/SocialIcons';
 import { useFadeUp } from '@/hooks/useFadeUp';
 
 export default function Contact(): JSX.Element {
@@ -42,7 +42,7 @@ export default function Contact(): JSX.Element {
         setFormState('idle');
         alert(data.detail || 'Failed to send message. Please reach out via email directly.');
       }
-    } catch (err) {
+    } catch {
       setFormState('idle');
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
       alert(`Network error occurred. The backend at ${apiUrl} might be offline or unreachable. Have you set VITE_API_URL in your hosting environment?`);
@@ -142,6 +142,24 @@ export default function Contact(): JSX.Element {
                 aria-label="WhatsApp"
               >
                 <WhatsAppIcon size={18} />
+              </a>
+              <a
+                href="https://x.com/dev_fred_"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
+                aria-label="X (formerly Twitter)"
+              >
+                <XIcon size={18} />
+              </a>
+              <a
+                href="https://dev.to/fredricknyangau"
+                target="_blank"
+                rel="noreferrer"
+                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
+                aria-label="Dev.to"
+              >
+                <DevToIcon size={18} />
               </a>
               <a
                 href="/docs/Fredrick_Nyangau_CV.pdf"

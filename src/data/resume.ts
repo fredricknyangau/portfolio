@@ -10,7 +10,9 @@ export const resumeData = {
     email: "nyangaufredrick443@gmail.com",
     website: "fredricknyangau.vercel.app",
     github: "github.com/fredricknyangau",
-    linkedin: "linkedin.com/in/fredricknyangau"
+    linkedin: "linkedin.com/in/fredricknyangau",
+    x: "x.com/dev_fred_",
+    devto: "dev.to/fredricknyangau"
   },
   profile: "Junior Backend Engineer with a BSc in Information Technology (Kabarak University, Dec 2025), building production-deployed REST APIs for the East African market. KukuFiti, my flagship agritech project, is live on Render with three production modules and full Swagger documentation. I focus on the backend layer: PostgreSQL schema design, raw SQL via asyncpg, JWT and OAuth2 authentication, and modular FastAPI architecture. My work targets the problems that matter in Kenya: M-Pesa payment flows, ISP billing automation, and farm management systems built for real production conditions. Open to Junior Backend Engineering roles in Nairobi, remote-first teams, and freelance backend contracts in Fintech and Agritech.",
   skills: [

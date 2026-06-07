@@ -27,7 +27,7 @@ export default function StatsBar(): JSX.Element {
             setBenchmarks(data.stats);
           }
         }
-      } catch (err) {
+      } catch {
         // Silently fail to static defaults if backend stream is interrupted
         console.warn('Telemetry endpoint offline. Serving static fallbacks.');
       }

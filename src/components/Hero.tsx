@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
-import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons';
+import { GitHubIcon, LinkedInIcon, XIcon, DevToIcon } from '@/components/SocialIcons';
 import Terminal from '@/components/Terminal';
 import ApiResponseCard from '@/components/ApiResponseCard';
 
 import ResumeDownload from '@/components/ResumeDownload';
 
 export default function Hero(): JSX.Element {
+  const [showTerminal, setShowTerminal] = useState(false);
+
   return (
     <section
       id="hero"
@@ -121,16 +124,75 @@ export default function Hero(): JSX.Element {
               <ArrowUpRight size={13} className="opacity-50" />
             </a>
 
+            <a
+              href="https://x.com/dev_fred_"
+              target="_blank"
+              rel="noreferrer"
+              className={[
+                'inline-flex items-center justify-center gap-2',
+                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
+                'bg-surface/30 backdrop-blur-md border border-border-dim',
+                'transition-all duration-200 hover:text-text hover:border-text2',
+                'no-underline',
+              ].join(' ')}
+              aria-label="X (formerly Twitter) profile"
+            >
+              <XIcon size={15} />
+              X.com
+              <ArrowUpRight size={13} className="opacity-50" />
+            </a>
+
+            <a
+              href="https://dev.to/fredricknyangau"
+              target="_blank"
+              rel="noreferrer"
+              className={[
+                'inline-flex items-center justify-center gap-2',
+                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
+                'bg-surface/30 backdrop-blur-md border border-border-dim',
+                'transition-all duration-200 hover:text-text hover:border-text2',
+                'no-underline',
+              ].join(' ')}
+              aria-label="Dev.to profile"
+            >
+              <DevToIcon size={15} />
+              Dev.to
+              <ArrowUpRight size={13} className="opacity-50" />
+            </a>
+
             <ResumeDownload />
+          </div>
+
+          {/* Mobile Terminal Toggle Button */}
+          <div className="mt-6 md:hidden w-full">
+            <button
+              onClick={() => setShowTerminal(!showTerminal)}
+              className={[
+                'w-full inline-flex items-center justify-center gap-2.5',
+                'bg-surface/30 backdrop-blur-md border border-border-dim hover:border-amber/50',
+                'text-text font-mono text-[13px] font-medium',
+                'px-5 py-3.5 rounded-md transition-all duration-200',
+              ].join(' ')}
+            >
+              <span className={`w-2 h-2 rounded-full ${showTerminal ? 'bg-amber-glow animate-pulse' : 'bg-amber'}`} />
+              {showTerminal ? 'Hide Interactive Console' : 'Show Interactive Console'}
+            </button>
           </div>
         </div>
       </div>
 
       {/* Right - Backend UI elements */}
-      <div className="relative z-10 mt-12 md:mt-0 flex flex-col gap-4">
-        <Terminal />
-        <ApiResponseCard />
-      </div>
+      {showTerminal ? (
+        <div className="relative z-10 mt-12 md:mt-0 flex flex-col gap-4">
+          <Terminal />
+          <ApiResponseCard />
+        </div>
+      ) : (
+        <div className="relative z-10 mt-12 md:mt-0 hidden md:flex flex-col gap-4">
+          <Terminal />
+          <ApiResponseCard />
+        </div>
+      )}
     </section>
   );
 }

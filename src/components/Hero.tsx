@@ -1,6 +1,9 @@
-import { ArrowDown, FileText, Briefcase, ArrowUpRight, Download } from 'lucide-react';
-import { GitHubIcon } from '@/components/SocialIcons';
-import Typewriter from '@/components/Typewriter';
+import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { GitHubIcon, LinkedInIcon } from '@/components/SocialIcons';
+import Terminal from '@/components/Terminal';
+import ApiResponseCard from '@/components/ApiResponseCard';
+
+import ResumeDownload from '@/components/ResumeDownload';
 
 export default function Hero(): JSX.Element {
   return (
@@ -10,10 +13,10 @@ export default function Hero(): JSX.Element {
         'min-h-[auto] md:min-h-[90vh] relative overflow-hidden',
         'grid grid-cols-1 md:grid-cols-2 gap-0',
         'pt-20 pb-8 px-4 sm:pt-28 sm:pb-16 md:pt-[120px] md:pb-20 md:px-12',
-        'items-center',
+        'items-center md:items-start',
       ].join(' ')}
     >
-      {/* Decorative grid background */}
+      {/* Subtle grid background */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
@@ -27,7 +30,7 @@ export default function Hero(): JSX.Element {
         }}
       />
 
-      {/* Left — intro */}
+      {/* Left - intro */}
       <div className="relative z-10 md:pr-[60px]">
         {/* Availability badge */}
         <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] text-text2 tracking-[0.08em] uppercase mb-5 sm:mb-7">
@@ -35,7 +38,7 @@ export default function Hero(): JSX.Element {
             className="w-[7px] h-[7px] rounded-full bg-amber animate-pulse-green"
             style={{ boxShadow: '0 0 6px var(--accent-primary)' }}
           />
-          Available for Software Engineering roles · Kenya · Remote
+          Open to opportunities · Nairobi, Kenya · Remote
         </div>
 
         {/* Name */}
@@ -48,103 +51,85 @@ export default function Hero(): JSX.Element {
           <em className="not-italic text-amber font-light">Nyang'au</em>
         </h1>
 
-        {/* Role */}
-        <div
-          className="inline-flex items-center gap-3 mb-6 sm:mb-9 pl-4 pr-5 py-1.5 rounded-md border border-amber/30 bg-amber/[0.03] relative"
-          style={{ boxShadow: '0 4px 24px rgba(var(--accent-rgb), 0.12), inset 0 0 16px rgba(var(--accent-rgb), 0.04)' }}
-        >
-          {/* Glowing accent bar */}
-          <span className="block w-1 h-[22px] rounded-full bg-amber shadow-[0_0_8px_var(--color-amber)] shrink-0 mr-1" />
-
-          <div className="drop-shadow-[0_0_12px_rgba(16,185,129,0.35)] flex items-center min-h-[30px]">
-            <Typewriter
-              words={['Backend Software Engineer', 'FastAPI & PostgreSQL', 'System Architect', 'One commit every day']}
-            />
-          </div>
-
-          {/* Background blurred glow */}
-          <div className="absolute inset-0 bg-amber/5 blur-xl -z-10 rounded-md pointer-events-none" />
+        {/* Role badge */}
+        <div className="inline-flex items-center gap-3 mb-6 sm:mb-8 pl-4 pr-5 py-1.5 rounded-md border border-amber/30 bg-amber/[0.03]">
+          <span className="block w-1 h-[18px] rounded-full bg-amber shrink-0" />
+          <span className="font-mono text-[13px] text-text">Junior Backend Engineer</span>
         </div>
 
-        {/* Description */}
-        <p className="text-[15px] sm:text-[17px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-6 sm:mb-11">
-          Building{' '}
-          <strong className="text-text font-medium">production-grade APIs</strong>{' '}
-          and data systems for East Africa's mobile-first economy — FastAPI backends,
-          PostgreSQL databases, and the{' '}
-          <strong className="text-text font-medium">real infrastructure</strong>{' '}
-          that moves money across the region.
+        {/* Headline */}
+        <p className="text-[17px] sm:text-[19px] font-light text-text leading-[1.5] max-w-full md:max-w-[480px] mb-3 sm:mb-4 tracking-[-0.01em]">
+          Building production-ready APIs for Fintech and Agritech.
+        </p>
+
+        {/* Subheadline */}
+        <p className="text-[14px] sm:text-[15px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-8 sm:mb-10">
+          Deployed FastAPI systems on PostgreSQL and Docker. Backend architecture,
+          schema design, and payment integrations for real users in East Africa.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center gap-5 mt-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
           <a
             href="#projects"
             className={[
               'w-full sm:w-auto inline-flex items-center justify-center gap-2',
               'bg-amber text-bg font-sans text-sm font-semibold',
-              'px-8 py-4 rounded-md shadow-lg shadow-amber/10',
-              'transition-all duration-300 hover:bg-amber-glow hover:shadow-amber/20 hover:-translate-y-0.5',
+              'px-7 py-3.5 rounded-md',
+              'transition-all duration-200 hover:bg-amber-glow hover:-translate-y-px',
               'no-underline',
             ].join(' ')}
           >
-            <Briefcase size={18} />
-            View my work
-            <ArrowDown size={16} className="ml-0.5 opacity-70" />
+            View Projects
+            <ArrowDown size={15} className="opacity-80" />
           </a>
 
-          <div className="flex items-center gap-4 w-full sm:w-auto">
+          <div className="flex items-center flex-wrap gap-3 w-full sm:w-auto">
             <a
               href="https://github.com/fredricknyangau"
               target="_blank"
               rel="noreferrer"
               className={[
-                'flex-1 sm:flex-none inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-sm px-5 py-3.5 rounded-md',
+                'inline-flex items-center justify-center gap-2',
+                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
                 'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-300 hover:text-text hover:border-text2 hover:bg-surface/50',
+                'transition-all duration-200 hover:text-text hover:border-text2',
                 'no-underline',
               ].join(' ')}
+              aria-label="GitHub profile"
             >
-              <GitHubIcon size={16} />
+              <GitHubIcon size={15} />
               GitHub
-              <ArrowUpRight size={14} className="opacity-50" />
+              <ArrowUpRight size={13} className="opacity-50" />
             </a>
 
             <a
-              href="/docs/Fredrick_Nyangau_CV.pdf"
+              href="https://linkedin.com/in/fredricknyangau"
               target="_blank"
               rel="noreferrer"
               className={[
-                'flex-1 sm:flex-none inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-sm px-5 py-3.5 rounded-md',
+                'inline-flex items-center justify-center gap-2',
+                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
                 'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-300 hover:text-text hover:border-text2 hover:bg-surface/50',
+                'transition-all duration-200 hover:text-text hover:border-text2',
                 'no-underline',
               ].join(' ')}
+              aria-label="LinkedIn profile"
             >
-              <FileText size={16} />
-              Resume
-              <Download size={14} className="opacity-50" />
+              <LinkedInIcon size={15} />
+              LinkedIn
+              <ArrowUpRight size={13} className="opacity-50" />
             </a>
+
+            <ResumeDownload />
           </div>
         </div>
       </div>
 
-      {/* Right — Profile Image */}
-      <div className="relative z-10 mt-8 md:mt-0 flex justify-center md:justify-end animate-in fade-in slide-in-from-right-8 duration-700">
-        <div className="relative">
-          <div className="w-36 h-36 sm:w-56 sm:h-56 lg:w-[380px] lg:h-[380px] xl:w-[440px] xl:h-[440px] rounded-full border-2 border-amber/20 p-2 sm:p-3 bg-surface/30 backdrop-blur-sm relative z-10 overflow-hidden shadow-2xl shadow-amber/5">
-            <img
-              src="/images/profile.png"
-              alt="Fredrick Nyangau"
-              className="w-full h-full rounded-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-700 scale-105 hover:scale-100"
-            />
-          </div>
-          {/* Enhanced decorative back-glow */}
-          <div className="absolute inset-0 rounded-full bg-amber/10 blur-[60px] -z-10 animate-pulse" />
-          <div className="absolute -inset-4 rounded-full border border-amber/10 animate-spin-slow opacity-30" />
-        </div>
+      {/* Right - Backend UI elements */}
+      <div className="relative z-10 mt-12 md:mt-0 flex flex-col gap-4">
+        <Terminal />
+        <ApiResponseCard />
       </div>
     </section>
   );

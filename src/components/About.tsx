@@ -39,7 +39,7 @@ export default function About(): JSX.Element {
         'flex flex-col md:grid md:grid-cols-2 gap-6 md:gap-20 items-start md:items-center',
       ].join(' ')}
     >
-      {/* Left — bio text */}
+      {/* Left -bio text */}
       <div ref={textRef} className="fade-up w-full min-w-0">
         <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-4">
           / about
@@ -63,8 +63,8 @@ export default function About(): JSX.Element {
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
           BSc in Information Technology from{' '}
           <strong className="text-text font-medium">Kabarak University</strong>. My
-          academic performance on practical and project-based work — industrial
-          attachment, capstone, mobile development — showed me where I am most effective:
+          academic performance on practical and project-based work -industrial
+          attachment, capstone, mobile development -showed me where I am most effective:
           building things, not memorising theory.
         </p>
         <p className="text-[16px] text-text2 leading-[1.8] mb-8">
@@ -89,7 +89,7 @@ export default function About(): JSX.Element {
         </div>
       </div>
 
-      {/* Right — Timeline card */}
+      {/* Right -Timeline card */}
       <div className="w-full min-w-0">
         {/* Timeline */}
         <div

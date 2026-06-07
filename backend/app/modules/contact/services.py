@@ -3,7 +3,7 @@ import asyncio
 import aiosmtplib
 from email.message import EmailMessage
 from datetime import datetime, timezone
-from app.schemas.contact import ContactPayload
+from app.modules.contact.schemas import ContactPayload
 from app.core.logging import get_logger
 from app.core.config import settings
 from app.db.mongo import get_database
@@ -11,39 +11,36 @@ from app.db.mongo import get_database
 logger = get_logger(__name__)
 
 async def write_to_mongo(payload: ContactPayload) -> bool:
-    """Safely ingests the payload struct into the primary MongoDB cluster."""
     try:
         db = get_database()
         document = {
             **payload.model_dump(),
             "timestamp_utc": datetime.now(timezone.utc).isoformat(),
-            "origin": "Direct Signal Pipeline"
+            "origin": "Portfolio Contact Form"
         }
         await db.contact_messages.insert_one(document)
-        logger.info("Successfully dropped payload into MongoDB cluster.")
+        logger.info("Successfully saved contact message to MongoDB.")
         return True
     except Exception as e:
         logger.error(f"MongoDB persistence failure: {e}")
         return False
 
 async def dispatch_telegram(payload: ContactPayload) -> bool:
-    """Dispatches a payload over the Telegram Bot API natively using rich HTML formatting."""
     if not settings.TELEGRAM_BOT_TOKEN or not settings.TELEGRAM_CHAT_ID:
-        logger.warning("Telegram Bot environment variables missing. Dropping dispatch.")
+        logger.warning("Telegram Bot environment variables missing. Skipping Telegram dispatch.")
         return False
 
     url = f"https://api.telegram.org/bot{settings.TELEGRAM_BOT_TOKEN}/sendMessage"
 
-    # Advanced Telegram HTML Formatting
     message = (
-        f"🚀 <b>New Connection | Fredrick Nyang'au Portfolio</b>\n"
+        f"<b>New Portfolio Inquiry</b>\n"
         f"────────────────────────\n"
-        f"👤 <b>Identity:</b> <code>{payload.name}</code>\n"
-        f"📧 <b>Return Route:</b> <code>{payload.email}</code>\n\n"
-        f"💬 <b>Payload:</b>\n"
+        f"👤 <b>Name:</b> <code>{payload.name}</code>\n"
+        f"📧 <b>Email:</b> <code>{payload.email}</code>\n\n"
+        f"💬 <b>Message:</b>\n"
         f"<blockquote>{payload.message}</blockquote>\n"
         f"────────────────────────\n"
-        f"<i>Transmitted from Zeal Backend Microservice</i>"
+        f"<i>Sent from Fredrick Nyang'au Portfolio</i>"
     )
 
     body = {
@@ -66,26 +63,23 @@ async def dispatch_telegram(payload: ContactPayload) -> bool:
         return False
 
 async def dispatch_smtp(payload: ContactPayload) -> bool:
-    """Dispatches via formal SMTP tunnel fallback using a rich HTML template."""
     if not settings.SMTP_USER or not settings.SMTP_PASSWORD:
-        logger.warning("SMTP environment variables missing. Dropping email dispatch.")
+        logger.warning("SMTP environment variables missing. Skipping email dispatch.")
         return False
 
     message = EmailMessage()
     message["From"] = settings.SMTP_USER
     message["To"] = settings.SMTP_USER
-    message["Subject"] = f"🚀 Portfolio Inquiry: {payload.name}"
+    message["Subject"] = f"Portfolio Inquiry: {payload.name}"
 
-    # Plaintext fallback for legacy email clients
     plaintext_content = (
-        f"INBOUND TRANSMISSION (Fredrick Nyang'au Portfolio):\n\n"
+        f"New Portfolio Inquiry:\n\n"
         f"Name: {payload.name}\n"
         f"Email: {payload.email}\n"
         f"Message:\n{payload.message}"
     )
     message.set_content(plaintext_content)
 
-    # Rich HTML payload matching portfolio aesthetics
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -170,17 +164,17 @@ async def dispatch_smtp(payload: ContactPayload) -> bool:
     <body>
         <div class="container">
             <div class="header">
-                <h1 class="title">Secure Pipeline Activation</h1>
-                <div class="subtitle">Direct Signal to Fredrick Nyang'au (Zeal)</div>
+                <h1 class="title">New Portfolio Inquiry</h1>
+                <div class="subtitle">Direct message to Fredrick Nyang'au</div>
             </div>
 
             <div class="meta-block">
                 <div class="meta-row">
-                    <span class="meta-label">Identity</span>
+                    <span class="meta-label">Name</span>
                     <span class="meta-value">{payload.name}</span>
                 </div>
                 <div class="meta-row">
-                    <span class="meta-label">Return Route</span>
+                    <span class="meta-label">Email</span>
                     <a href="mailto:{payload.email}" style="color: #f59e0b; text-decoration: none;">{payload.email}</a>
                 </div>
             </div>
@@ -188,20 +182,16 @@ async def dispatch_smtp(payload: ContactPayload) -> bool:
             <div class="message-body">{payload.message}</div>
 
             <div class="footer">
-                Transmitted securely via Zeal Backend Software Engineering Infrastructure.
+                Sent from Fredrick Nyang'au Portfolio Backend.
             </div>
         </div>
     </body>
     </html>
     """
 
-    # Attach HTML version as the preferred alternative
     message.add_alternative(html_content, subtype='html')
 
     try:
-        # Intelligently select protocol based on port
-        # Port 465 uses implicit SSL (use_tls=True)
-        # Port 587 uses explicit STARTTLS (start_tls=True)
         use_tls = settings.SMTP_PORT == 465
         start_tls = settings.SMTP_PORT == 587
 
@@ -215,24 +205,18 @@ async def dispatch_smtp(payload: ContactPayload) -> bool:
             start_tls=start_tls,
             timeout=10.0
         )
-        logger.info("SMTP email dispatched seamlessly.")
+        logger.info("SMTP email dispatched successfully.")
         return True
     except Exception as e:
         logger.error(f"SMTP network/auth failure: {e}")
         return False
 
 async def dispatch_contact_notification(payload: ContactPayload):
-    """
-    Core orchestrator: guarantees MongoDB persistence first,
-    then independently races Telegram and SMTP transmissions securely.
-    """
-    # Block 1: The Source of Truth
     db_success = await write_to_mongo(payload)
     if not db_success:
-        logger.warning("MongoDB degraded! Relying purely on network transit.")
+        logger.warning("MongoDB degraded. Proceeding with notifications.")
 
-    # Block 2: Simultaneous network dispatches utilizing non-blocking gathers
-    logger.info("Initiating simultaneous OMNI-Dispatch relays...")
+    logger.info("Initiating notification dispatch...")
     results = await asyncio.gather(
         dispatch_telegram(payload),
         dispatch_smtp(payload),
@@ -244,5 +228,4 @@ async def dispatch_contact_notification(payload: ContactPayload):
 
     logger.info(f"Dispatch Cycle Completed -> Mongo: {db_success} | Telegram: {t_status} | SMTP: {s_status}")
 
-    # We return true as long as it hit ANY pipeline (or even none if variables missing, so UI doesn't crash)
     return True

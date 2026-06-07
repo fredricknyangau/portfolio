@@ -12,7 +12,7 @@ function renderLineContent(line: RenderedLine): React.ReactNode {
         <>
           <span className="text-amber-dim select-none">❯</span>
           {' '}
-          <span className="text-green-ok">~/backend</span>
+          <span className="text-green-ok">~/kukufiti</span>
           {' '}
           <span className="text-text">{display}</span>
           {!line.done && (
@@ -37,7 +37,7 @@ function renderLineContent(line: RenderedLine): React.ReactNode {
         <>
           <span className="text-amber-dim select-none">❯</span>
           {' '}
-          <span className="text-green-ok">~/backend</span>
+          <span className="text-green-ok">~/kukufiti</span>
           {' '}
           <span
             className="inline-block w-2 h-[15px] bg-amber align-middle ml-[2px] animate-blink"
@@ -68,7 +68,7 @@ export default function Terminal(): JSX.Element {
         <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
         <div className="w-3 h-3 rounded-full bg-[#28C840]" />
         <span className="font-mono text-[12px] text-text3 ml-2">
-          ~/dev/zealsync/backend
+          ~/projects/kukufiti
         </span>
       </div>
 

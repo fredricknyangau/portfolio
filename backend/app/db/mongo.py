@@ -13,9 +13,10 @@ db_layer = MongoDB()
 async def connect_to_mongo():
     logger.info("Connecting to MongoDB cluster...")
     # Explicitly set tls=True and reasonable timeouts for cloud networking
+    use_tls = settings.ENVIRONMENT != "development"
     db_layer.client = AsyncIOMotorClient(
         settings.MONGODB_URL,
-        tls=True,
+        tls=use_tls,
         serverSelectionTimeoutMS=5000,
         connectTimeoutMS=10000
     )

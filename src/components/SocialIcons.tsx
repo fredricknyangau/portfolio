@@ -1,4 +1,4 @@
-/** Inline SVG brand icons — Lucide doesn't include social brand icons */
+/** Inline SVG brand icons -Lucide doesn't include social brand icons */
 
 interface IconProps {
   size?: number;

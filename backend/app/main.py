@@ -1,23 +1,24 @@
 from contextlib import asynccontextmanager
+
+from app.core.config import settings
+from app.db.mongo import close_mongo_connection, connect_to_mongo
+from app.modules import contact
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.core.config import settings
-from app.api.v1.routers import contact, telemetry
-from app.db.mongo import connect_to_mongo, close_mongo_connection
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Boot sequence
     await connect_to_mongo()
     yield
-    # Teardown sequence
     await close_mongo_connection()
+
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    description="Backend microservice for Zeals portfolio",
+    description="Portfolio backend API for Fredrick Nyang'au",
     version="1.0.0",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -29,12 +30,13 @@ app.add_middleware(
 )
 
 app.include_router(contact.router, prefix="/api/v1/contact")
-app.include_router(telemetry.router, prefix="/api/v1/telemetry")
+
 
 @app.get("/", tags=["Root"])
 async def root():
-    return {"status": "ok", "message": "Portfolio backend API is running."}
+    return {"status": "ok", "message": "Portfolio backend is running."}
+
 
 @app.get("/health", tags=["Health"])
-async def root_health_check():
+async def health_check():
     return {"status": "ok", "environment": settings.ENVIRONMENT}

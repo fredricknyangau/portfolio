@@ -30,7 +30,7 @@ const caseStudyDir = path.resolve(distDir, 'case-study');
 const indexPath = path.resolve(distDir, 'index.html');
 if (!fs.existsSync(indexPath)) {
   console.error("No dist/index.html found. Run 'npm run build' first.");
-  process.exit(1); 
+  process.exit(1);
 }
 
 const template = fs.readFileSync(indexPath, 'utf-8');
@@ -45,7 +45,7 @@ for (const project of projects) {
     fs.mkdirSync(projDir, { recursive: true });
   }
 
-  const title = `${project.name} — Case Study`;
+  const title = `${project.name} -Case Study`;
   const desc = project.problem.replace(/"/g, '&quot;');
 
   let html = template
@@ -55,7 +55,8 @@ for (const project of projects) {
     .replace(/<meta property="og:description" content=".*?" \/>/g, `<meta property="og:description" content="${desc}" />`)
     .replace(/<meta name="twitter:title" content=".*?" \/>/g, `<meta name="twitter:title" content="${title}" />`)
     .replace(/<meta name="twitter:description" content=".*?" \/>/g, `<meta name="twitter:description" content="${desc}" />`)
-    .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="https://fredricknyangau.vercel.app/case-study/${project.id}" />`);
+    .replace(/<meta property="og:url" content=".*?" \/>/g, `<meta property="og:url" content="https://fredricknyangau.vercel.app/case-study/${project.id}" />`)
+    .replace(/<link rel="canonical" href=".*?" \/>/g, `<link rel="canonical" href="https://fredricknyangau.vercel.app/case-study/${project.id}" />`);
 
   fs.writeFileSync(path.resolve(projDir, 'index.html'), html, 'utf-8');
   console.log(`Prerendered: /case-study/${project.id}/index.html`);

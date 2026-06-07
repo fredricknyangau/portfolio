@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Send, CheckCircle2, MapPin, MessageCircle } from 'lucide-react';
+import { Mail, Send, CheckCircle2, MapPin } from 'lucide-react';
 import { GitHubIcon, LinkedInIcon, WhatsAppIcon } from '@/components/SocialIcons';
 import { useFadeUp } from '@/hooks/useFadeUp';
 
@@ -12,217 +12,221 @@ export default function Contact(): JSX.Element {
     setFormState('sending');
     const formData = new FormData(e.currentTarget);
     const apiPayload = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      message: formData.get("message") as string
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      message: formData.get('message') as string,
     };
 
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8080";
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
       const res = await fetch(`${apiUrl}/api/v1/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(apiPayload)
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(apiPayload),
       });
 
       if (res.ok) {
         setFormState('success');
       } else if (res.status === 429) {
         setFormState('idle');
-        alert("Rate limit exceeded. Please wait a minute and try again.");
+        alert('Rate limit exceeded. Please wait a minute and try again.');
       } else if (res.status === 422) {
-        // FastAPI validation errors return an array of issues
         const data = await res.json();
         setFormState('idle');
         const validationMsg = Array.isArray(data.detail)
-          ? data.detail.map((err: any) => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join('\n')
-          : "Invalid data submitted.";
+          ? data.detail.map((err: { loc: string[]; msg: string }) => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join('\n')
+          : 'Invalid data submitted.';
         alert(`Validation Error:\n${validationMsg}`);
       } else {
         const data = await res.json();
         setFormState('idle');
-        alert(data.detail || "Failed to send message. Please reach out via email directly.");
+        alert(data.detail || 'Failed to send message. Please reach out via email directly.');
       }
-    } catch (err) {
+    } catch {
       setFormState('idle');
-      alert("Network error occurred. The backend might be offline.");
+      alert('Network error occurred. The backend might be offline.');
     }
   };
 
   return (
     <section
       id="contact"
-      className="relative py-8 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden bg-bg"
+      className="relative py-10 sm:py-16 md:py-24 px-4 sm:px-6 md:px-12 overflow-hidden bg-bg"
     >
-      {/* Dynamic background lighting */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none opacity-20"
-        style={{
-          background: 'radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, transparent 70%)',
-        }}
-      />
-
       <div ref={fadeUpRef} className="max-w-7xl mx-auto relative z-10 fade-up">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
+        <p className="font-mono text-[11px] text-amber tracking-[0.16em] uppercase mb-4">
+          / contact
+        </p>
+        <h2
+          className="font-serif font-light tracking-[-0.03em] leading-[1.1] mb-4"
+          style={{ fontSize: 'clamp(32px, 4vw, 48px)' }}
+        >
+          Let's work together.
+        </h2>
+        <p className="text-[15px] text-text2 leading-[1.75] mb-10 sm:mb-14 max-w-lg">
+          Open to Junior Backend Engineering roles, backend internships, and
+          production-focused freelance work.
+        </p>
 
-          {/* Left Column: Context & Metadata */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 border border-border2 rounded-full bg-surface/30 backdrop-blur-sm text-[10px] font-mono text-amber tracking-widest uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber" />
-              Direct Communication Channel
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
+
+          {/* Left - Contact info */}
+          <div className="flex flex-col gap-4">
+            <a
+              href="mailto:nyangaufredrick443@gmail.com"
+              className="flex items-center gap-4 p-4 rounded-lg border border-border-dim bg-surface/20 hover:border-amber/30 transition-all no-underline group"
+            >
+              <div className="w-9 h-9 rounded-md bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                <Mail size={17} />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-text3 mb-0.5">Email</div>
+                <span className="text-[14px] text-text group-hover:text-amber transition-colors font-medium">
+                  nyangaufredrick443@gmail.com
+                </span>
+              </div>
+            </a>
+
+            <a
+              href="https://wa.me/254746730585?text=Hello%20Fredrick,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20backend%20project."
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-4 p-4 rounded-lg border border-border-dim bg-surface/20 hover:border-amber/30 transition-all no-underline group"
+            >
+              <div className="w-9 h-9 rounded-md bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                <WhatsAppIcon size={17} />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-text3 mb-0.5">WhatsApp</div>
+                <span className="text-[14px] text-text group-hover:text-amber transition-colors font-medium">
+                  +254 746 730 585
+                </span>
+              </div>
+            </a>
+
+            <div className="flex items-center gap-4 p-4 rounded-lg border border-border-dim bg-surface/20">
+              <div className="w-9 h-9 rounded-md bg-amber/10 flex items-center justify-center text-amber shrink-0">
+                <MapPin size={17} />
+              </div>
+              <div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-text3 mb-0.5">Location</div>
+                <p className="text-[14px] text-text font-medium">Nairobi, Kenya · Open to Remote</p>
+              </div>
             </div>
 
-            <h2 className="font-serif text-3xl md:text-5xl font-light text-text tracking-tight mb-4 sm:mb-8">
-              Let's build <em className="not-italic text-amber">resilient</em> <br className="hidden md:block" /> systems together.
-            </h2>
-
-            <p className="text-base sm:text-lg text-text2 leading-relaxed mb-5 sm:mb-12 max-w-lg">
-              Currently available for Backend Software Engineering roles and specialized infrastructure consulting. I focus on high-load environments and mission-critical financial integrations.
-            </p>
-
-            <div className="space-y-6">
-              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
-                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
-                  <Mail size={20} />
-                </div>
-                <div>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Email Endpoint</h3>
-                  <a href="mailto:nyangaufredrick443@gmail.com" className="text-text hover:text-amber transition-colors font-medium">
-                    nyangaufredrick443@gmail.com
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
-                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
-                  <MessageCircle size={20} />
-                </div>
-                <div>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Direct Signal</h3>
-                  <a href="https://wa.me/254746730585?text=Hello%20Fredrick,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20backend%20project." target="_blank" rel="noreferrer" className="text-text hover:text-amber transition-colors font-medium">
-                    +254 746 730 585
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl border border-border-dim bg-surface/20 backdrop-blur-md">
-                <div className="w-10 h-10 rounded-lg bg-amber/10 flex items-center justify-center text-amber shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <h3 className="font-mono text-xs uppercase tracking-wider text-text3 mb-1">Current Pivot</h3>
-                  <p className="text-text font-medium">Kenya · Remote</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-4 mt-6 sm:mt-10">
+            <div className="flex gap-3 mt-4 flex-wrap">
               <a
                 href="https://github.com/fredricknyangau"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
-                title="GitHub"
+                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
+                aria-label="GitHub"
               >
-                <GitHubIcon size={20} />
+                <GitHubIcon size={18} />
               </a>
               <a
                 href="https://linkedin.com/in/fredricknyangau"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
-                title="LinkedIn"
+                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
+                aria-label="LinkedIn"
               >
-                <LinkedInIcon size={20} />
+                <LinkedInIcon size={18} />
               </a>
               <a
-                href="https://wa.me/254746730585?text=Hello%20Fredrick,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20backend%20project."
+                href="https://wa.me/254746730585"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3 rounded-full border border-border2 text-text3 hover:text-amber hover:border-amber transition-all"
-                title="WhatsApp"
+                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
+                aria-label="WhatsApp"
               >
-                <WhatsAppIcon size={20} />
+                <WhatsAppIcon size={18} />
+              </a>
+              <a
+                href="/docs/Fredrick_Nyangau_CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto sm:ml-auto inline-flex items-center justify-center gap-2 font-mono text-[12px] text-text2 border border-border-dim px-4 py-2 rounded-lg hover:text-text hover:border-text3 transition-all no-underline"
+              >
+                Download CV
               </a>
             </div>
           </div>
 
-          {/* Right Column: Interactive Form */}
-          <div className="relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-amber/10 to-transparent rounded-2xl blur-md transition duration-1000 group-hover:duration-200" />
-
-            <div className="relative bg-surface/40 backdrop-blur-xl border border-border/50 rounded-2xl p-6 sm:p-8 shadow-lg overflow-hidden min-h-[440px] flex flex-col">
-              {formState === 'success' ? (
-                <div className="flex-1 flex flex-col items-center justify-center text-center animate-in zoom-in duration-500">
-                  <div className="w-20 h-20 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-6">
-                    <CheckCircle2 size={48} />
-                  </div>
-                  <h4 className="text-2xl font-serif text-text mb-4">Transmission Received</h4>
-                  <p className="text-text2 max-w-xs mx-auto mb-8">
-                    Your message has been routed to my primary inbox. I typically process requests within 24 standard hours.
-                  </p>
-                  <button
-                    onClick={() => setFormState('idle')}
-                    className="text-amber font-mono text-xs uppercase tracking-widest border-b border-amber/30 pb-1 hover:border-amber transition-all"
-                  >
-                    Send another signal
-                  </button>
+          {/* Right - Contact form */}
+          <div className="bg-surface/40 border border-border-dim rounded-xl p-6 sm:p-8 min-h-[400px] flex flex-col">
+            {formState === 'success' ? (
+              <div className="flex-1 flex flex-col items-center justify-center text-center">
+                <div className="w-14 h-14 rounded-full bg-amber/10 flex items-center justify-center text-amber mb-5">
+                  <CheckCircle2 size={32} />
                 </div>
-              ) : (
-                <>
-                  <h4 className="font-mono text-xs uppercase tracking-[0.2em] text-text3 mb-8">Secure Inbound Form</h4>
-                  <form onSubmit={handleSubmit} className="space-y-6 flex-1">
-                    <div className="space-y-2">
-                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Identity</label>
-                      <input
-                        required
-                        type="text"
-                        name="name"
-                        placeholder="Your Name"
-                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
-                      />
-                    </div>
+                <h4 className="text-[18px] font-medium text-text mb-2">Message sent.</h4>
+                <p className="text-[14px] text-text2 max-w-xs mx-auto mb-7 leading-[1.7]">
+                  I will get back to you within 24 hours.
+                </p>
+                <button
+                  onClick={() => setFormState('idle')}
+                  className="font-mono text-[12px] text-amber underline-offset-4 hover:underline transition-all"
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
+              <>
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-text3 mb-7">
+                  Send a message
+                </div>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5 flex-1">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[12px] font-mono text-text2">Name</label>
+                    <input
+                      required
+                      type="text"
+                      name="name"
+                      placeholder="Your name"
+                      className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text text-[14px] placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
+                    />
+                  </div>
 
-                    <div className="space-y-2">
-                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Return Route</label>
-                      <input
-                        required
-                        type="email"
-                        name="email"
-                        placeholder="your@email.com"
-                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
-                      />
-                    </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-[12px] font-mono text-text2">Email</label>
+                    <input
+                      required
+                      type="email"
+                      name="email"
+                      placeholder="your@email.com"
+                      className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text text-[14px] placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all"
+                    />
+                  </div>
 
-                    <div className="space-y-2">
-                      <label className="text-[11px] font-mono text-text3 uppercase tracking-widest ml-1">Payload</label>
-                      <textarea
-                        required
-                        rows={4}
-                        name="message"
-                        placeholder="How can I help with your system architecture?"
-                        className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all resize-none"
-                      />
-                    </div>
+                  <div className="flex flex-col gap-1.5 flex-1">
+                    <label className="text-[12px] font-mono text-text2">Message</label>
+                    <textarea
+                      required
+                      rows={4}
+                      name="message"
+                      placeholder="What would you like to discuss?"
+                      className="w-full bg-bg/50 border border-border-dim rounded-lg px-4 py-3 text-text text-[14px] placeholder:text-text3/50 focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-all resize-none flex-1"
+                    />
+                  </div>
 
-                    <button
-                      disabled={formState === 'sending'}
-                      type="submit"
-                      className="w-full bg-amber text-bg font-sans font-bold py-4 rounded-lg flex items-center justify-center gap-3 hover:bg-amber-glow transition-all disabled:opacity-50 disabled:cursor-wait mt-4 group/btn"
-                    >
-                      {formState === 'sending' ? (
-                        <>Encrypting & Sending...</>
-                      ) : (
-                        <>
-                          Dispatch Message
-                          <Send size={18} className="transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </>
-              )}
-            </div>
+                  <button
+                    disabled={formState === 'sending'}
+                    type="submit"
+                    className="w-full bg-amber text-bg font-sans font-semibold text-[14px] py-3.5 rounded-lg flex items-center justify-center gap-2.5 hover:bg-amber-glow transition-all disabled:opacity-50 disabled:cursor-wait mt-1"
+                  >
+                    {formState === 'sending' ? (
+                      <>Sending...</>
+                    ) : (
+                      <>
+                        Send message
+                        <Send size={16} />
+                      </>
+                    )}
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </div>

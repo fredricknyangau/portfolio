@@ -5,11 +5,13 @@ import { useFadeUp } from '@/hooks/useFadeUp';
 
 export default function Contact(): JSX.Element {
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const fadeUpRef = useFadeUp<HTMLDivElement>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormState('sending');
+    setErrorMsg(null);
     const formData = new FormData(e.currentTarget);
     const apiPayload = {
       name: formData.get('name') as string,
@@ -29,23 +31,22 @@ export default function Contact(): JSX.Element {
         setFormState('success');
       } else if (res.status === 429) {
         setFormState('idle');
-        alert('Rate limit exceeded. Please wait a minute and try again.');
+        setErrorMsg('Rate limit exceeded. Please wait a minute and try again.');
       } else if (res.status === 422) {
         const data = await res.json();
         setFormState('idle');
         const validationMsg = Array.isArray(data.detail)
-          ? data.detail.map((err: { loc: string[]; msg: string }) => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join('\n')
+          ? data.detail.map((err: { loc: string[]; msg: string }) => `${err.loc[err.loc.length - 1]}: ${err.msg}`).join(' · ')
           : 'Invalid data submitted.';
-        alert(`Validation Error:\n${validationMsg}`);
+        setErrorMsg(`Validation error: ${validationMsg}`);
       } else {
         const data = await res.json();
         setFormState('idle');
-        alert(data.detail || 'Failed to send message. Please reach out via email directly.');
+        setErrorMsg(data.detail || 'Failed to send message. Please reach out via email directly.');
       }
     } catch {
       setFormState('idle');
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
-      alert(`Network error occurred. The backend at ${apiUrl} might be offline or unreachable. Have you set VITE_API_URL in your hosting environment?`);
+      setErrorMsg('Network error — could not reach the server. Please email me directly.');
     }
   };
 
@@ -184,7 +185,7 @@ export default function Contact(): JSX.Element {
                   I will get back to you within 24 hours.
                 </p>
                 <button
-                  onClick={() => setFormState('idle')}
+                  onClick={() => { setFormState('idle'); setErrorMsg(null); }}
                   className="font-mono text-[12px] text-amber underline-offset-4 hover:underline transition-all"
                 >
                   Send another message
@@ -196,6 +197,15 @@ export default function Contact(): JSX.Element {
                   Send a message
                 </div>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5 flex-1">
+                  {errorMsg && (
+                    <div
+                      role="alert"
+                      className="flex items-start gap-2.5 text-[13px] text-err bg-err/8 border border-err/20 rounded-lg px-4 py-3 leading-[1.6]"
+                    >
+                      <span className="shrink-0 mt-0.5">⚠</span>
+                      <span>{errorMsg}</span>
+                    </div>
+                  )}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-[12px] font-mono text-text2">Name</label>
                     <input

@@ -12,7 +12,6 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
-    "@fontsource-variable/geist": "^5.2.8",
     "@react-pdf/renderer": "^4.5.1",
     "@tailwindcss/vite": "^4.2.2",
     "@vercel/analytics": "^2.0.1",

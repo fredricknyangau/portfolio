@@ -6,7 +6,7 @@ import { Analytics } from '@vercel/analytics/react';
 
 export default function App(): JSX.Element {
   return (
-    <div>
+    <>
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
@@ -14,6 +14,6 @@ export default function App(): JSX.Element {
       </Route>
     </Routes>
     <Analytics />
-    </div>
+    </>
   );
 }

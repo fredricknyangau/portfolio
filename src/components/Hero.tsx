@@ -1,10 +1,22 @@
 import { useState } from 'react';
-import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { GitHubIcon, LinkedInIcon, XIcon, DevToIcon } from '@/components/SocialIcons';
 import Terminal from '@/components/Terminal';
-import ApiResponseCard from '@/components/ApiResponseCard';
-
 import ResumeDownload from '@/components/ResumeDownload';
+import type { ComponentType } from 'react';
+
+interface SocialLinkDef {
+  href: string;
+  label: string;
+  Icon: ComponentType<{ size?: number }>;
+}
+
+const socialLinks: SocialLinkDef[] = [
+  { href: 'https://github.com/fredricknyangau',     label: 'GitHub profile',               Icon: GitHubIcon   },
+  { href: 'https://linkedin.com/in/fredricknyangau', label: 'LinkedIn profile',             Icon: LinkedInIcon },
+  { href: 'https://x.com/dev_fred_',                label: 'X (formerly Twitter) profile', Icon: XIcon        },
+  { href: 'https://dev.to/fredricknyangau',          label: 'Dev.to profile',               Icon: DevToIcon    },
+];
 
 export default function Hero(): JSX.Element {
   const [showTerminal, setShowTerminal] = useState(false);
@@ -13,70 +25,77 @@ export default function Hero(): JSX.Element {
     <section
       id="hero"
       className={[
-        'min-h-[auto] md:min-h-[90vh] relative overflow-hidden',
-        'grid grid-cols-1 md:grid-cols-2 gap-0',
-        'pt-20 pb-8 px-4 sm:pt-28 sm:pb-16 md:pt-[120px] md:pb-20 md:px-12',
-        'items-center md:items-start',
+        'relative overflow-hidden',
+        'grid grid-cols-1 lg:grid-cols-[1fr_1.25fr]',
+        'min-h-[auto] lg:min-h-screen',
+        'pt-24 pb-16 px-4 sm:px-6 md:px-12',
+        'gap-12 lg:gap-10',
+        'items-center',
       ].join(' ')}
     >
-      {/* Subtle grid background */}
+      {/* ── Background grid ── */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(var(--accent-rgb),0.03) 1px, transparent 1px),' +
-            'linear-gradient(90deg, rgba(var(--accent-rgb),0.03) 1px, transparent 1px)',
+            'linear-gradient(rgba(var(--accent-rgb),0.04) 1px, transparent 1px),' +
+            'linear-gradient(90deg, rgba(var(--accent-rgb),0.04) 1px, transparent 1px)',
           backgroundSize: '60px 60px',
-          maskImage: 'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.4) 0%, transparent 70%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at 60% 40%, rgba(0,0,0,0.4) 0%, transparent 70%)',
+          maskImage: 'radial-gradient(ellipse at 65% 40%, rgba(0,0,0,0.5) 0%, transparent 70%)',
+          WebkitMaskImage: 'radial-gradient(ellipse at 65% 40%, rgba(0,0,0,0.5) 0%, transparent 70%)',
         }}
       />
 
-      {/* Left - intro */}
-      <div className="relative z-10 md:pr-[60px]">
+      {/* ══════════════════════════════
+          Left column — Identity
+      ══════════════════════════════ */}
+      <div className="relative z-10 lg:pr-8 flex flex-col">
+
         {/* Availability badge */}
-        <div className="inline-flex items-center gap-2 font-mono text-[11px] sm:text-[12px] text-text2 tracking-[0.08em] uppercase mb-5 sm:mb-7">
+        <div className="inline-flex items-center gap-2.5 font-mono text-[11px] text-text2 tracking-[0.08em] uppercase mb-9 w-fit">
           <span
-            className="w-[7px] h-[7px] rounded-full bg-amber animate-pulse-green"
-            style={{ boxShadow: '0 0 6px var(--accent-primary)' }}
+            className="w-2 h-2 rounded-full bg-amber animate-pulse-green shrink-0"
+            style={{ boxShadow: '0 0 8px var(--accent-primary)' }}
           />
           Open to opportunities · Nairobi, Kenya · Remote
         </div>
 
-        {/* Name */}
+        {/* Name ── large serif */}
         <h1
-          className="font-serif font-light tracking-[-0.03em] leading-none text-text mb-4 sm:mb-5"
-          style={{ fontSize: 'clamp(44px, 7vw, 80px)' }}
+          className="font-serif font-light tracking-[-0.04em] leading-[0.9] text-text mb-7"
+          style={{ fontSize: 'clamp(54px, 8vw, 96px)' }}
         >
           Fredrick
           <br />
-          <em className="not-italic text-amber font-light">Nyang'au</em>
+          <em className="not-italic text-amber">Nyang'au</em>
         </h1>
 
-        {/* Role badge */}
-        <div className="inline-flex items-center gap-3 mb-6 sm:mb-8 pl-4 pr-5 py-1.5 rounded-md border border-amber/30 bg-amber/[0.03]">
-          <span className="block w-1 h-[18px] rounded-full bg-amber shrink-0" />
-          <span className="font-mono text-[13px] text-text">Junior Backend Engineer</span>
+        {/* Role line with extending gradient divider */}
+        <div className="flex items-center gap-4 mb-7">
+          <span className="block w-[3px] h-6 rounded-full bg-amber shrink-0" />
+          <span className="font-mono text-[13px] text-text tracking-[0.02em]">
+            Junior Backend Engineer
+          </span>
+          <div className="flex-1 h-px bg-gradient-to-r from-amber/40 to-transparent" />
         </div>
 
         {/* Headline */}
-        <p className="text-[17px] sm:text-[19px] font-light text-text leading-[1.5] max-w-full md:max-w-[480px] mb-3 sm:mb-4 tracking-[-0.01em]">
-          Building production-ready APIs for Fintech and Agritech.
+        <p className="text-[18px] sm:text-[20px] font-light text-text leading-[1.45] max-w-[460px] mb-3 tracking-[-0.01em]">
+          Building production-ready APIs.
         </p>
 
-        {/* Subheadline */}
-        <p className="text-[14px] sm:text-[15px] text-text2 leading-[1.75] max-w-full md:max-w-[480px] mb-8 sm:mb-10">
-          Deployed FastAPI systems on PostgreSQL and Docker. Backend architecture,
-          schema design, and payment integrations for real users in East Africa.
+        {/* Stack strip */}
+        <p className="font-mono text-[11px] text-text3 tracking-[0.1em] max-w-[440px] mb-10 leading-[1.8]">
+          FASTAPI · POSTGRESQL · DOCKER · PAYMENT INTEGRATIONS · M-PESA DARAJA
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
+        {/* ── Primary CTAs ── */}
+        <div className="flex flex-wrap gap-3 mb-9">
           <a
             href="#projects"
             className={[
-              'w-full sm:w-auto inline-flex items-center justify-center gap-2',
+              'inline-flex items-center gap-2',
               'bg-amber text-bg font-sans text-sm font-semibold',
               'px-7 py-3.5 rounded-md',
               'transition-all duration-200 hover:bg-amber-glow hover:-translate-y-px',
@@ -84,115 +103,87 @@ export default function Hero(): JSX.Element {
             ].join(' ')}
           >
             View Projects
-            <ArrowDown size={15} className="opacity-80" />
+            <ArrowDown size={14} className="opacity-80" />
           </a>
+          <a
+            href="#contact"
+            className={[
+              'inline-flex items-center gap-2',
+              'text-text font-sans text-sm font-medium',
+              'px-7 py-3.5 rounded-md',
+              'border border-border2',
+              'transition-all duration-200 hover:border-amber/50 hover:text-amber',
+              'no-underline',
+            ].join(' ')}
+          >
+            Get in Touch
+            <ArrowRight size={14} className="opacity-60" />
+          </a>
+        </div>
 
-          <div className="flex items-center flex-wrap gap-3 w-full sm:w-auto">
+        {/* ── Icon-only social row + divider + Resume ── */}
+        <div className="flex items-center gap-2 flex-wrap">
+          {socialLinks.map(({ href, label, Icon }) => (
             <a
-              href="https://github.com/fredricknyangau"
+              key={href}
+              href={href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              aria-label={label}
               className={[
-                'inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
-                'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-200 hover:text-text hover:border-text2',
-                'no-underline',
+                'p-2.5 rounded-lg border border-border-dim',
+                'text-text3 hover:text-amber hover:border-amber/40',
+                'transition-all duration-200',
               ].join(' ')}
-              aria-label="GitHub profile"
             >
-              <GitHubIcon size={15} />
-              GitHub
-              <ArrowUpRight size={13} className="opacity-50" />
+              <Icon size={17} />
             </a>
+          ))}
+          <div className="w-px h-5 bg-border-dim mx-1" aria-hidden />
+          <ResumeDownload />
+        </div>
 
-            <a
-              href="https://linkedin.com/in/fredricknyangau"
-              target="_blank"
-              rel="noreferrer"
-              className={[
-                'inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
-                'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-200 hover:text-text hover:border-text2',
-                'no-underline',
-              ].join(' ')}
-              aria-label="LinkedIn profile"
-            >
-              <LinkedInIcon size={15} />
-              LinkedIn
-              <ArrowUpRight size={13} className="opacity-50" />
-            </a>
-
-            <a
-              href="https://x.com/dev_fred_"
-              target="_blank"
-              rel="noreferrer"
-              className={[
-                'inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
-                'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-200 hover:text-text hover:border-text2',
-                'no-underline',
-              ].join(' ')}
-              aria-label="X (formerly Twitter) profile"
-            >
-              <XIcon size={15} />
-              X.com
-              <ArrowUpRight size={13} className="opacity-50" />
-            </a>
-
-            <a
-              href="https://dev.to/fredricknyangau"
-              target="_blank"
-              rel="noreferrer"
-              className={[
-                'inline-flex items-center justify-center gap-2',
-                'text-text2 font-mono text-[13px] px-4 py-3 rounded-md',
-                'bg-surface/30 backdrop-blur-md border border-border-dim',
-                'transition-all duration-200 hover:text-text hover:border-text2',
-                'no-underline',
-              ].join(' ')}
-              aria-label="Dev.to profile"
-            >
-              <DevToIcon size={15} />
-              Dev.to
-              <ArrowUpRight size={13} className="opacity-50" />
-            </a>
-
-            <ResumeDownload />
-          </div>
-
-          {/* Mobile Terminal Toggle Button */}
-          <div className="mt-6 md:hidden w-full">
-            <button
-              onClick={() => setShowTerminal(!showTerminal)}
-              className={[
-                'w-full inline-flex items-center justify-center gap-2.5',
-                'bg-surface/30 backdrop-blur-md border border-border-dim hover:border-amber/50',
-                'text-text font-mono text-[13px] font-medium',
-                'px-5 py-3.5 rounded-md transition-all duration-200',
-              ].join(' ')}
-            >
-              <span className={`w-2 h-2 rounded-full ${showTerminal ? 'bg-amber-glow animate-pulse' : 'bg-amber'}`} />
-              {showTerminal ? 'Hide Interactive Console' : 'Show Interactive Console'}
-            </button>
-          </div>
+        {/* ── Mobile terminal toggle ── */}
+        <div className="mt-8 lg:hidden">
+          <button
+            onClick={() => setShowTerminal((v) => !v)}
+            className={[
+              'w-full inline-flex items-center justify-center gap-2.5',
+              'bg-surface/40 backdrop-blur-md border border-border-dim',
+              'hover:border-amber/40 hover:text-text',
+              'text-text2 font-mono text-[12px] font-medium',
+              'px-5 py-3.5 rounded-md transition-all duration-200',
+            ].join(' ')}
+          >
+            <span
+              className={`w-2 h-2 rounded-full shrink-0 ${showTerminal ? 'bg-amber animate-pulse-green' : 'bg-amber'}`}
+            />
+            {showTerminal ? 'Hide terminal' : 'View terminal →'}
+          </button>
         </div>
       </div>
 
-      {/* Right - Backend UI elements */}
-      {showTerminal ? (
-        <div className="relative z-10 mt-12 md:mt-0 flex flex-col gap-4">
-          <Terminal />
-          <ApiResponseCard />
-        </div>
-      ) : (
-        <div className="relative z-10 mt-12 md:mt-0 hidden md:flex flex-col gap-4">
-          <Terminal />
-          <ApiResponseCard />
-        </div>
-      )}
+      {/* ══════════════════════════════
+          Right column — Merged Terminal
+      ══════════════════════════════ */}
+      <div
+        className={[
+          'relative z-10 flex flex-col justify-center',
+          showTerminal ? 'flex' : 'hidden lg:flex',
+          'mt-4 lg:mt-0',
+        ].join(' ')}
+      >
+        {/* Ambient glow behind terminal */}
+        <div
+          aria-hidden
+          className="absolute -inset-10 pointer-events-none rounded-[40px]"
+          style={{
+            background: 'radial-gradient(ellipse at 50% 45%, rgba(var(--accent-rgb),0.13) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+          }}
+        />
+        <Terminal />
+      </div>
     </section>
   );
 }

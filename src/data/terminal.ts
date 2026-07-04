@@ -1,4 +1,4 @@
-export type TerminalLineType = 'cmd' | 'out' | 'ok' | 'dim' | 'err' | 'blank' | 'prompt';
+export type TerminalLineType = 'cmd' | 'out' | 'ok' | 'dim' | 'err' | 'blank' | 'prompt' | 'http' | 'json';
 
 export interface TerminalLine {
   type: TerminalLineType;
@@ -15,10 +15,16 @@ export const terminalLines: TerminalLine[] = [
   { type: 'ok',    text: 'INFO:     FastAPI running on http://0.0.0.0:8080' },
   { type: 'ok',    text: 'INFO:     Application startup complete.' },
   { type: 'blank' },
-  { type: 'cmd',   text: 'pytest tests/ -v --tb=short' },
-  { type: 'out',   text: 'collected 47 items' },
-  { type: 'ok',    text: '....................................47 passed in 2.31s' },
-  { type: 'dim',   text: 'Coverage: 84%  ·  Branch: 79%' },
+  { type: 'cmd',   text: 'curl -s :8080/api/v1/engineer/profile' },
+  { type: 'http',  text: '200 OK  ·  application/json  ·  28ms' },
+  { type: 'json',  text: '{' },
+  { type: 'json',  text: '  "name": "Fredrick Nyang\'au",' },
+  { type: 'json',  text: '  "role": "Junior Backend Engineer",' },
+  { type: 'json',  text: '  "stack": ["FastAPI", "PostgreSQL", "Docker"],' },
+  { type: 'json',  text: '  "location": "Nairobi, Kenya",' },
+  { type: 'json',  text: '  "deployed": 3,' },
+  { type: 'json',  text: '  "available": true' },
+  { type: 'json',  text: '}' },
   { type: 'blank' },
   { type: 'prompt' },
 ];

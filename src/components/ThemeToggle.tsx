@@ -3,11 +3,12 @@ import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle(): JSX.Element {
   const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const theme = localStorage.getItem('theme') || 'dark';
-      return theme === 'dark';
-    }
-    return true;
+    if (typeof window === 'undefined') return true;
+    // localStorage preference overrides the HTML default when set
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored === 'dark';
+    // Fall back to what the HTML class actually says (class="dark" in index.html)
+    return document.documentElement.classList.contains('dark');
   });
 
   useEffect(() => {

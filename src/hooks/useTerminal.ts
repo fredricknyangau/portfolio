@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type TerminalLine, terminalLines } from '@/data/terminal';
 
 export interface RenderedLine {
@@ -26,15 +26,16 @@ function sleep(ms: number): Promise<void> {
  */
 export function useTerminal(): RenderedLine[] {
   const [lines, setLines] = useState<RenderedLine[]>([]);
+  const cancelledRef = useRef(false);
 
   useEffect(() => {
-    let cancelled = false;
+    cancelledRef.current = false;
 
     async function run() {
       await sleep(600);
 
       for (const rawLine of terminalLines) {
-        if (cancelled) break;
+        if (cancelledRef.current) break;
 
         const delay =
           rawLine.type === 'cmd'   ? DELAY_CMD_MS    :
@@ -42,7 +43,7 @@ export function useTerminal(): RenderedLine[] {
           DELAY_OUTPUT_MS;
 
         await sleep(delay);
-        if (cancelled) break;
+        if (cancelledRef.current) break;
 
         if (rawLine.type === 'cmd' && rawLine.text) {
           // Push an empty cmd line first
@@ -50,7 +51,7 @@ export function useTerminal(): RenderedLine[] {
 
           // Type character by character
           for (let i = 0; i <= rawLine.text.length; i++) {
-            if (cancelled) break;
+            if (cancelledRef.current) break;
             await sleep(TYPING_BASE_MS + Math.random() * TYPING_JITTER);
             const partial = rawLine.text.slice(0, i);
             setLines((prev) => {
@@ -66,7 +67,7 @@ export function useTerminal(): RenderedLine[] {
     }
 
     run();
-    return () => { cancelled = true; };
+    return () => { cancelledRef.current = true; };
   }, []);
 
   return lines;

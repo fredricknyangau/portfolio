@@ -1,5 +1,4 @@
 import { useFadeUp } from '@/hooks/useFadeUp';
-import { GitHubCalendar } from 'react-github-calendar';
 
 interface TimelineItem {
   date: string;
@@ -63,8 +62,8 @@ export default function About(): JSX.Element {
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
           BSc in Information Technology from{' '}
           <strong className="text-text font-medium">Kabarak University</strong>. My
-          academic performance on practical and project-based work -industrial
-          attachment, capstone, mobile development -showed me where I am most effective:
+          academic performance on practical and project-based work — industrial
+          attachment, capstone, mobile development — showed me where I am most effective:
           building things, not memorising theory.
         </p>
         <p className="text-[16px] text-text2 leading-[1.8] mb-8">
@@ -75,18 +74,6 @@ export default function About(): JSX.Element {
           </strong>
         </p>
 
-        {/* GitHub Calendar embedded here */}
-        <div className="w-full bg-bg/50 border border-border-dim rounded-lg p-5 mt-4 transition-colors hover:border-amber/40 overflow-x-auto custom-scrollbar">
-          <div className="min-w-[750px]">
-            <GitHubCalendar
-              username="fredricknyangau"
-              colorScheme="dark"
-              blockSize={12}
-              blockMargin={4}
-              fontSize={12}
-            />
-          </div>
-        </div>
       </div>
 
       {/* Right -Timeline card */}

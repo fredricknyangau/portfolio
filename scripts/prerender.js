@@ -12,7 +12,7 @@ const projects = [
     problem: 'Broiler farmers lacked data-driven tools to track Feed Conversion Ratio (FCR) and mortality rates, leading to inefficient resource allocation and undetected disease vectors.'
   },
   {
-    id: 'wifi-billing',
+    id: 'zealsync-wifi-billing',
     name: 'Wi-Fi Billing & MikroTik Integration',
     problem: 'Small ISP operators struggle with manual voucher management and lack automated session control integrated directly with their MikroTik hardware.'
   },
@@ -64,7 +64,7 @@ for (const project of projects) {
         <nav>
           <p>Explore other projects: 
             <a href="/case-study/kukufiti">KukuFiti poultry analytics backend</a>, 
-            <a href="/case-study/wifi-billing">Wi-Fi Billing RouterOS backend</a>, 
+            <a href="/case-study/zealsync-wifi-billing">Wi-Fi Billing RouterOS backend</a>, 
             <a href="/case-study/mmgateway">Mobile Money Gateway proxy</a>.
           </p>
           <p>Or return to the main portfolio of <a href="/">Fredrick Nyang'au</a>.</p>

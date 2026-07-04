@@ -27,10 +27,10 @@ export const experienceItems: ExperienceItem[] = [
     ],
   },
   {
-    id: 'wifi-billing-project',
+    id: 'zealsync-zealsync-wifi-billing',
     period: '2025',
     role: 'Backend Engineer',
-    org: 'Wi-Fi Billing System (Self-directed)',
+    org: 'ZealSync — WiFi & Fiber ISP Billing Platform (Self-directed)',
     location: 'Nairobi, Kenya',
     type: 'project',
     bullets: [

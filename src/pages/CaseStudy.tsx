@@ -202,15 +202,17 @@ export default function CaseStudy(): JSX.Element {
               Private Deploy
             </span>
           )}
-          <a
-            href={project.codeUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-text2 font-mono text-[13px] border border-border2 px-5 py-2.5 rounded transition-all duration-200 hover:text-text hover:border-text3 no-underline"
-          >
-            <GitHubIcon size={13} />
-            View code
-          </a>
+          {project.codeUrl && (
+            <a
+              href={project.codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-text2 font-mono text-[13px] border border-border2 px-5 py-2.5 rounded transition-all duration-200 hover:text-text hover:border-text3 no-underline"
+            >
+              <GitHubIcon size={13} />
+              View code
+            </a>
+          )}
         </div>
       </article>
     </main>

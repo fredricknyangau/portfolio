@@ -1,6 +1,7 @@
 import { useFadeUp } from '@/hooks/useFadeUp';
 import { experienceItems } from '@/data/experience';
 import { GitHubCalendar } from 'react-github-calendar';
+import { parseMarkdownBold } from '@/lib/parseMarkdownBold';
 
 const typeLabel: Record<string, string> = {
   work: 'Work',
@@ -79,12 +80,7 @@ export default function Experience(): JSX.Element {
                         <li key={b} className="flex gap-2.5 text-[13px] text-text2 leading-[1.65]">
                           <span className="text-amber/50 font-mono shrink-0 mt-0.5">–</span>
                           <span>
-                            {b.split(/(\*\*.*?\*\*)/g).map((part, i) => {
-                              if (part.startsWith('**') && part.endsWith('**')) {
-                                return <strong key={i} className="font-semibold text-text">{part.slice(2, -2)}</strong>;
-                              }
-                              return <span key={i}>{part}</span>;
-                            })}
+                            {parseMarkdownBold(b)}
                           </span>
                         </li>
                       ))}

@@ -28,7 +28,7 @@ export interface Project {
   stack: string[];
   /** null = no live demo available - hides the live button */
   liveUrl: string | null;
-  codeUrl: string;
+  codeUrl: string | null;
   /** Custom label for the live button. Defaults to "Live App". */
   liveLabel?: string;
   featured?: boolean;
@@ -38,10 +38,331 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'zealsync-zealsync-wifi-billing',
+    name: 'ZealSync — WiFi & Fiber ISP Billing Platform',
+    tagline:
+      'Multi-tenant SaaS billing platform for Kenyan ISPs. M-Pesa Daraja payment pipeline, MikroTik RouterOS auto-provisioning, and a React frontend — hotspot vouchers and PPPoE subscriptions in one system.',
+    featured: true,
+    tags: [
+      { label: 'Full-Stack', variant: 'live' },
+      { label: 'SaaS', variant: 'default' },
+      { label: 'FastAPI', variant: 'default' },
+      { label: 'React', variant: 'default' },
+      { label: 'M-Pesa', variant: 'default' },
+      { label: 'MikroTik', variant: 'default' },
+    ],
+
+    problem:
+      'Small ISP operators in Kenya manage WiFi billing entirely by hand: ' +
+      'reconciling M-Pesa SMS alerts against an Excel sheet, manually enabling ' +
+      'PPPoE secrets and hotspot accounts in Winbox, and physically collecting ' +
+      'cash from resellers. This consumes 3–4 hours per day per operator and ' +
+      'causes revenue leakage, delayed activations, and reseller disputes. ' +
+      'No affordable local tool provided end-to-end automation — existing ' +
+      'platforms either charge a percentage of revenue (resented by operators) ' +
+      'or require a dedicated sysadmin to run.',
+
+    architectureOverview:
+      'ZealSync is a multi-tenant SaaS platform serving many ISP businesses ' +
+      '(tenants) on one deployment. The backend is a FastAPI modular monolith ' +
+      'with hard module boundaries — each domain (auth, payments, vouchers, ' +
+      'subscriptions, wallets, routers) owns its own router, schemas, and ' +
+      'service layer. Raw SQL via asyncpg with no ORM; every financial query ' +
+      'is explicit and auditable. ' +
+      'The core payment pipeline: customer initiates M-Pesa STK Push → Daraja ' +
+      'webhook arrives → idempotency check via UNIQUE constraint on ' +
+      'mpesa_receipt_number → payment confirmed in PostgreSQL → arq background ' +
+      'job provisions a MikroTik hotspot user or PPPoE secret via the RouterOS ' +
+      'REST API → Africa\'s Talking SMS delivers the voucher code. ' +
+      'MikroTik routers are reached through a WireGuard VPN tunnel (never ' +
+      'exposed to the internet). A magic-command onboarding system generates ' +
+      'a unique RouterOS .rsc script per router — one paste in the MikroTik ' +
+      'terminal configures WireGuard, the API user, speed profiles, and firewall ' +
+      'rules in under 60 seconds. FreeRADIUS with rlm_sql handles hotspot AAA ' +
+      'authentication, scoped per tenant via NAS-Identifier. ' +
+      'The React 19 frontend serves four interfaces: a public SEO-optimised ' +
+      'landing page, an ISP admin portal, a reseller self-service portal, and ' +
+      'a customer captive-portal flow. A super admin portal (separate auth ' +
+      'context, mandatory TOTP) manages all tenants with impersonation tokens ' +
+      'for support access.',
+
+    engineeringDecisions: [
+      {
+        decision: 'UNIQUE constraint on mpesa_receipt_number as idempotency key',
+        rationale:
+          'Safaricom Daraja retries webhooks when the server does not respond ' +
+          'within the timeout window. Application-level duplicate checks using ' +
+          'SELECT-then-INSERT are vulnerable to race conditions under concurrent ' +
+          'delivery — two simultaneous webhook deliveries can both pass the ' +
+          'check and both insert. Enforcing UNIQUE at the database layer means ' +
+          'the second INSERT fails atomically regardless of concurrency. The ' +
+          'webhook handler always returns 200 to Daraja (preventing retry storms) ' +
+          'and handles the constraint violation silently.',
+      },
+      {
+        decision: 'arq (asyncio-native) over Celery for background job queue',
+        rationale:
+          'FastAPI BackgroundTasks runs in-process — a container restart during ' +
+          'a MikroTik outage silently drops the provisioning job with no recovery ' +
+          'path. Celery is sync-first and requires blocking glue code to run ' +
+          'async database calls. arq is asyncio-native, integrates cleanly with ' +
+          'asyncpg, and persists jobs in Redis so they survive process restarts. ' +
+          'A reconciliation cron runs every 5 minutes to catch any payments ' +
+          'confirmed without a corresponding voucher — the actual safety net that ' +
+          'makes "payment always results in a voucher" a durable guarantee.',
+      },
+      {
+        decision: 'WireGuard VPN tunnel for all MikroTik REST API access',
+        rationale:
+          'Exposing the MikroTik REST API on a public port makes the router\'s ' +
+          'admin interface internet-accessible. WireGuard runs natively in ' +
+          'RouterOS v7 — the magic-command onboarding script creates the ' +
+          'interface, registers the peer, and adds a firewall rule that accepts ' +
+          'port 80 only from the ZealSync VPN IP. The router is completely ' +
+          'dark to the internet. The server pre-generates the WireGuard keypair ' +
+          'and embeds the private key in the setup script (served over HTTPS, ' +
+          'single-use token, NULLed from the database on confirmation) to ' +
+          'achieve one-command setup without manual key exchange.',
+      },
+      {
+        decision: 'Append-only ledger for reseller wallet balances',
+        rationale:
+          'A mutable wallet_balance column on the users table creates a race ' +
+          'condition: two concurrent debits both read the same stale balance ' +
+          'and both succeed when only one should. An append-only ' +
+          'wallet_transactions table stores every credit and debit with a ' +
+          'balance_after column. The current balance is always the balance_after ' +
+          'of the most recent row. Concurrent debits are serialised with ' +
+          'SELECT ... FOR UPDATE on the latest ledger row — one transaction ' +
+          'blocks until the other commits, then reads the updated balance.',
+      },
+      {
+        decision: 'Raw SQL via asyncpg — no ORM',
+        rationale:
+          'Every query in a financial system must be explicit and auditable. ' +
+          'ORMs abstract query behaviour in ways that hide N+1 patterns, ' +
+          'unexpected JOINs, and lazy-loading traps. asyncpg with parameterised ' +
+          'SQL ($1, $2) gives full query control and direct access to ' +
+          'PostgreSQL features (UNIQUE constraints, FOR UPDATE locks, ' +
+          'TIMESTAMPTZ, INET, NUMERIC(10,2)) without translation layers.',
+      },
+      {
+        decision: '404 (not 403) for cross-tenant resource access',
+        rationale:
+          'Every protected endpoint queries with WHERE id = $1 AND tenant_id = $2. ' +
+          'If a resource exists but belongs to another tenant, the query returns ' +
+          'no rows and the handler raises 404. Returning 403 would confirm the ' +
+          'resource exists — enabling UUID enumeration across tenants. ' +
+          'Returning 404 leaks nothing: the attacker cannot distinguish ' +
+          '"this UUID doesn\'t exist" from "this UUID belongs to someone else."',
+      },
+      {
+        decision: 'Separate super_admins table with mandatory TOTP MFA',
+        rationale:
+          'Placing a super admin role in the tenant users table requires ' +
+          'carve-outs in every tenant-scoped service function. A separate table ' +
+          'with no tenant_id column eliminates that complexity entirely. ' +
+          'Login is a two-step flow: password check issues a short-lived ' +
+          'pre-auth token (5 minutes, single-use); TOTP verification consumes ' +
+          'that token and issues a 15-minute access token with no refresh. ' +
+          'Impersonation tokens are tenant-scoped JWTs stored in sessionStorage ' +
+          '(per-tab, not shared via localStorage) — every API call made under ' +
+          'impersonation is audit-logged against the super admin\'s identity.',
+      },
+      {
+        decision: 'TanStack Query keys include tenant_id as explicit dimension',
+        rationale:
+          'TanStack Query\'s in-memory cache is global within a browser session. ' +
+          'Without tenant-scoped cache keys, a super admin impersonation session ' +
+          'and the main session share cache entries keyed by [\'payments\', \'list\']. ' +
+          'Including tenant_id in every query key (e.g. [\'payments\', \'list\', tenantId]) ' +
+          'ensures data from different tenants is never served from the same ' +
+          'cache entry. queryClient.clear() on login and logout eliminates ' +
+          'residual cache from a previous session.',
+      },
+    ],
+
+    deploymentTarget: 'Pre-deployment (Oracle Cloud Always Free — ARM VM, Docker Compose)',
+
+    metrics: [
+      {
+        highlight: '15 PostgreSQL tables',
+        description:
+          'normalised multi-tenant schema: tenants, users, packages, payments, ' +
+          'vouchers, sessions, routers, wallet_transactions, subscriptions, ' +
+          'invoices, audit_log, refresh_tokens, radcheck, radreply, radacct',
+      },
+      {
+        highlight: '8 isolation threats closed',
+        description:
+          'systematic cross-tenant penetration test suite: UUID enumeration, ' +
+          'webhook replay, arq job contamination, RADIUS pollution, ' +
+          'cache leak, localStorage confusion, error oracle, rate limit bypass',
+      },
+      {
+        highlight: '9-section RouterOS script',
+        description:
+          'auto-configures WireGuard VPN, API user with least-privilege policy, ' +
+          'REST API service, hotspot speed profiles, firewall rules, router ' +
+          'identity, confirmation callback, and self-deletion in under 60 seconds',
+      },
+      {
+        highlight: '4 user-facing interfaces',
+        description:
+          'public SEO-optimised landing page (hotspot + fiber dual positioning), ' +
+          'ISP admin portal, reseller self-service portal, customer captive portal ' +
+          '— all built on the same React 19 + Tailwind v4 + shadcn/ui stack',
+      },
+    ],
+
+    stack: [
+      'FastAPI',
+      'Python 3.12',
+      'PostgreSQL 16',
+      'asyncpg',
+      'arq',
+      'Redis',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS v4',
+      'shadcn/ui',
+      'TanStack Query',
+      'M-Pesa Daraja',
+      'Africa\'s Talking',
+      'MikroTik RouterOS REST API',
+      'WireGuard',
+      'FreeRADIUS',
+      'KRA eTIMS',
+      'Docker',
+      'Nginx',
+    ],
+
+    liveUrl: 'https://zealsync-isp-billing-system.vercel.app',
+    liveLabel: 'Demo',
+    codeUrl: null,
+
+    star: {
+      situation:
+        'Small ISP operators in Nairobi spend 3–4 hours daily reconciling ' +
+        'M-Pesa payment alerts against router configurations in Winbox. ' +
+        'Resellers — agents who sell WiFi access in shops and cyber cafés — ' +
+        'cannot operate without calling the ISP admin for every voucher batch. ' +
+        'No affordable local tool provided end-to-end automation without taking ' +
+        'a percentage cut of voucher revenue, which operators resented as a tax ' +
+        'on their own growth.',
+
+      task:
+        'Design and build a production-grade multi-tenant SaaS platform that ' +
+        'automates the complete ISP billing lifecycle — from M-Pesa payment ' +
+        'collection through MikroTik hotspot and PPPoE provisioning to reseller ' +
+        'self-service — while maintaining hard data isolation between ISP tenants ' +
+        'and requiring zero manual router configuration from the ISP owner.',
+
+      action:
+        'I built the FastAPI modular monolith backend with raw SQL via asyncpg, ' +
+        'integrating M-Pesa Daraja STK Push and C2B webhooks with idempotency ' +
+        'enforced at the database level via a UNIQUE constraint on the M-Pesa ' +
+        'receipt number. MikroTik router provisioning runs in arq background jobs ' +
+        '(Redis-backed, durable across restarts) so Daraja webhooks return 200 ' +
+        'within the timeout window and provisioning retries automatically if the ' +
+        'router is briefly offline. I designed a magic-command onboarding system ' +
+        'that generates a per-router RouterOS .rsc script — one paste in the ' +
+        'MikroTik terminal configures WireGuard VPN, the API user, speed profiles, ' +
+        'and firewall rules in under 60 seconds with no manual steps. ' +
+        'Multi-tenancy is enforced at four layers: every SQL query includes ' +
+        'tenant_id, every background job carries tenant_id as an explicit ' +
+        'parameter, FreeRADIUS authenticates vouchers scoped by NAS-Identifier, ' +
+        'and a penetration test suite asserts 404 (never 403) on all ' +
+        'cross-tenant UUID access attempts. The React 19 frontend serves a ' +
+        'dual-service landing page (hotspot and fiber PPPoE), an ISP admin ' +
+        'portal, a reseller wallet and voucher generation portal, and a customer ' +
+        'captive portal with real-time payment status polling.',
+
+      result:
+        'ZealSync is pre-deployment stage — the complete backend and frontend ' +
+        'are built, the multi-tenancy penetration test suite passes, and the ' +
+        'full M-Pesa → MikroTik pipeline has been verified end-to-end using ' +
+        'Daraja sandbox and MikroTik CHR on VirtualBox. The system supports ' +
+        'both hotspot (session vouchers) and PPPoE (monthly subscriptions) — ' +
+        'the only locally-built ISP billing tool in the Kenyan market to ' +
+        'support both service types on one platform at a flat KES rate with ' +
+        'no percentage cut of operator revenue.',
+    },
+
+    c4Diagram: `flowchart TD
+    %% ── Styles ────────────────────────────────────────────
+    classDef user   fill:#161B24,stroke:#00c4b4,stroke-width:1px,color:#00c4b4
+    classDef web    fill:#0e0f1f,stroke:#00c4b4,stroke-width:1px,color:#e0e8ff
+    classDef api    fill:#00c4b4,stroke:#00c4b4,stroke-width:1px,color:#080912,font-weight:bold
+    classDef worker fill:#1a2a2a,stroke:#00c4b4,stroke-width:1px,color:#00c4b4
+    classDef db     fill:#080912,stroke:#2C3444,stroke-width:1px,color:#a0a8c0
+    classDef ext    fill:#161B24,stroke:#2C3444,stroke-width:1px,stroke-dasharray:5 5,color:#a0a8c0
+    classDef infra  fill:#101828,stroke:#2C3444,stroke-width:1px,color:#a0a8c0
+
+    %% ── Actors ────────────────────────────────────────────
+    ISP((ISP Admin)):::user
+    Customer((Customer)):::user
+    SA((Super Admin)):::user
+
+    %% ── Frontend ──────────────────────────────────────────
+    FE["React 19 Frontend
+    Admin · Reseller · Customer · SA Portals"]:::web
+
+    %% ── Backend ───────────────────────────────────────────
+    API["FastAPI — Modular Monolith
+    auth · packages · payments · vouchers
+    wallets · subscriptions · routers · setup"]:::api
+
+    Worker["arq Worker
+    Voucher provisioning
+    Subscription renewal · Reconciliation cron"]:::worker
+
+    %% ── Data layer ────────────────────────────────────────
+    PG[("PostgreSQL 16
+    15 tables · tenant-scoped")]:::db
+    Redis[("Redis
+    arq job queue · Rate limiting")]:::db
+    RADIUS[("FreeRADIUS
+    rlm_sql · NAS-ID tenant scope")]:::db
+
+    %% ── External services ─────────────────────────────────
+    Daraja["Safaricom Daraja API
+    STK Push · C2B Webhooks"]:::ext
+    AT["Africa's Talking
+    SMS — vouchers + dunning"]:::ext
+    eTIMS["KRA eTIMS API
+    Tax invoice compliance"]:::ext
+
+    %% ── Network infra ─────────────────────────────────────
+    WG["WireGuard VPN
+    wg0 — 10.8.0.0/24"]:::infra
+    MT["MikroTik RouterOS v7
+    Hotspot · PPPoE · REST API"]:::infra
+
+    %% ── Flows ─────────────────────────────────────────────
+    ISP -->|Manage packages, customers, routers| FE
+    Customer -->|Buy WiFi · View vouchers| FE
+    SA -->|TOTP MFA · Impersonate tenant| FE
+    FE -->|HTTPS + JWT| API
+
+    API -->|Read / Write| PG
+    API -->|Enqueue jobs| Redis
+    API -->|STK Push initiation| Daraja
+    Daraja -->|Webhook callback| API
+    API -->|Trigger SMS| AT
+    API -->|Submit invoice| eTIMS
+
+    Worker -->|Consume jobs| Redis
+    Worker -->|Read / Write| PG
+    Worker -->|Hotspot user · PPPoE secret| WG
+    WG -->|Encrypted REST API| MT
+    MT -->|RADIUS auth| RADIUS
+    RADIUS -->|Tenant-scoped lookup| PG`,
+  },
+  {
     id: 'kukufiti',
     name: 'KukuFiti',
     tagline: 'Production FastAPI backend for Kenyan poultry farmers.',
-    featured: true,
     tags: [
       { label: '● Live', variant: 'live' },
       { label: 'Agritech', variant: 'default' },
@@ -107,145 +428,5 @@ export const projects: Project[] = [
   Farmer -->|Submits flock data| API
   API -->|Analytics & FCR| DB
   DB --> API`,
-  },
-  {
-    id: 'wifi-billing',
-    name: 'Wi-Fi Billing System',
-    tagline: 'Multi-tenant ISP billing backend with MikroTik RouterOS integration.',
-    tags: [
-      { label: 'Production', variant: 'live' },
-      { label: 'Networking', variant: 'default' },
-      { label: 'FastAPI', variant: 'default' },
-    ],
-    problem:
-      'Small ISP operators were managing voucher lifecycles manually, with no automated session control tied directly to their MikroTik hardware.',
-    architectureOverview:
-      'FastAPI backend integrating with MikroTik RouterOS via its API protocol. Multi-tenant schema with per-tenant user isolation. OAuth2 for operator authentication with RBAC for admin vs. reseller roles. Automated voucher generation with cryptographic IDs. Dockerized with multi-stage builds.',
-    engineeringDecisions: [
-      {
-        decision: 'State-machine voucher lifecycle in PostgreSQL',
-        rationale:
-          'Voucher transitions (created, activated, expired, revoked) are enforced at the database constraint level. Invalid transitions are rejected before reaching application logic.',
-      },
-      {
-        decision: 'MikroTik API integration over SNMP',
-        rationale:
-          'RouterOS API provides session-level control (add/remove users, expire sessions) that SNMP monitoring alone cannot. Direct API integration enables real-time session provisioning.',
-      },
-      {
-        decision: 'OAuth2 with RBAC for multi-tenant operators',
-        rationale:
-          'Different operators need different permission scopes. OAuth2 bearer tokens with role claims allow a single auth layer to serve admin, reseller, and end-user flows.',
-      },
-      {
-        decision: 'Docker multi-stage build',
-        rationale:
-          'Keeps the production image lean. Build dependencies stay in the builder stage. Systemd manages the container lifecycle on the host.',
-      },
-    ],
-    deploymentTarget: 'Private (Docker + Systemd)',
-    metrics: [
-      { highlight: '99.2% uptime', description: 'over 3 months in production' },
-      { highlight: 'Cryptographic IDs', description: 'tamper-proof voucher generation' },
-      { highlight: '8 tables', description: 'normalized multi-tenant ISP schema' },
-      { highlight: 'OAuth2 + RBAC', description: 'role-based access control' },
-    ],
-    stack: ['FastAPI', 'PostgreSQL', 'OAuth2', 'RBAC', 'MikroTik API', 'Docker', 'Systemd'],
-    liveUrl: null,
-    codeUrl: 'https://github.com/fredricknyangau/wifi-billing',
-    star: {
-      situation:
-        'Local ISP providers required a way to automate the lifecycle of Wi-Fi vouchers - creation, activation, and expiration - without manual intervention on the router level.',
-      task: 'Bridge the gap between a billing web interface and MikroTik RouterOS hardware to manage user sessions dynamically and securely.',
-      action:
-        'I developed a RESTful API using FastAPI that integrates directly with MikroTik RouterOS for session control. I implemented a state-machine-based voucher lifecycle and used PostgreSQL constraints to prevent unauthorized state transitions. The deployment was hardened using Docker and systemd for process management.',
-      result:
-        'The system has maintained 99.2% uptime in a production environment, automating thousands of vouchers and providing a seamless self-service experience for end-users.',
-    },
-    c4Diagram: `flowchart TD
-  %% Styles
-  classDef user fill:#161B24,stroke:#10b981,stroke-width:1px,color:#10b981
-  classDef sys fill:#10b981,stroke:#10b981,stroke-width:1px,color:#080A0D,font-weight:bold
-  classDef db fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
-  classDef ext fill:#161B24,stroke:#2C3444,stroke-width:1px,stroke-dasharray: 5 5,color:#9A9590
-
-  User((Wi-Fi User)):::user
-  API["Billing API (FastAPI)"]:::sys
-  DB[("PostgreSQL (Voucher State)")]:::db
-  MikroTik[["MikroTik RouterOS"]]:::ext
-
-  User -->|Purchases/activates voucher| API
-  API -->|Validates/Updates| DB
-  API -.->|Provisions session| MikroTik`,
-  },
-  {
-    id: 'mmgateway',
-    name: 'Mobile Money Gateway',
-    tagline: 'Payment infrastructure with webhook reliability and tenant isolation.',
-    tags: [
-      { label: '● Live', variant: 'live' },
-      { label: 'Fintech', variant: 'default' },
-      { label: 'FastAPI', variant: 'default' },
-    ],
-    problem:
-      'Small businesses integrating mobile money APIs face undocumented edge cases, webhook failures, and no unified retry logic - resulting in dropped transactions and inconsistent payment states.',
-    architectureOverview:
-      'FastAPI proxy layer sitting between merchant backends and Safaricom Daraja. Redis handles per-tenant rate limiting and idempotency key storage. PostgreSQL with Row-Level Security enforces tenant isolation at the data layer. Exponential backoff webhook retry queue ensures delivery guarantees.',
-    engineeringDecisions: [
-      {
-        decision: 'Redis for rate limiting over database counters',
-        rationale:
-          'Redis atomic INCR + TTL operations handle 1,000 req/min/tenant with microsecond overhead. Database-backed counters would introduce lock contention at this throughput.',
-      },
-      {
-        decision: 'PostgreSQL Row-Level Security for tenant isolation',
-        rationale:
-          'RLS policies enforce isolation at the database layer, not just application logic. Even if application code has a tenant-scoping bug, the database will reject cross-tenant queries.',
-      },
-      {
-        decision: 'Exponential backoff with idempotency keys for webhooks',
-        rationale:
-          'Safaricom callbacks are not guaranteed to arrive once. Idempotency keys prevent double-processing; exponential backoff prevents hammering downstream systems during outages.',
-      },
-    ],
-    deploymentTarget: 'Railway (Staging)',
-    metrics: [
-      { highlight: '99.2% retention', description: 'webhook delivery with exponential backoff' },
-      { highlight: 'RLS isolation', description: 'per-tenant data scoping at DB layer' },
-      { highlight: '1,000 req/min', description: 'per-tenant rate limiting via Redis' },
-      { highlight: 'Full audit trail', description: 'transaction idempotency enforced' },
-    ],
-    stack: ['FastAPI', 'PostgreSQL', 'Redis', 'Docker', 'Nginx', 'M-Pesa Daraja'],
-    liveUrl: null,
-    codeUrl: 'https://github.com/fredricknyangau/mmgateway',
-    star: {
-      situation:
-        'Integrating mobile money APIs like Safaricom Daraja is complex for local merchants, often leading to dropped webhooks and inconsistent terminal states.',
-      task: 'Build a multi-tenant gateway that normalizes error codes, ensures webhook delivery, and protects backend infrastructure.',
-      action:
-        'I engineered the proxy layer using FastAPI and Redis for high-frequency rate-limiting. I implemented an exponential backoff retry mechanism for webhooks and strictly enforced tenant isolation using Postgres RLS.',
-      result:
-        'The system abstracts complex cryptographic requirements and guarantees transaction consistency, accelerating time-to-market for merchant integrations.',
-    },
-    c4Diagram: `flowchart TD
-  %% Styles
-  classDef user fill:#161B24,stroke:#10b981,stroke-width:1px,color:#10b981
-  classDef sys fill:#10b981,stroke:#10b981,stroke-width:1px,color:#080A0D,font-weight:bold
-  classDef cache fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
-  classDef db fill:#080A0D,stroke:#2C3444,stroke-width:1px,color:#9A9590
-  classDef ext fill:#161B24,stroke:#2C3444,stroke-width:1px,stroke-dasharray: 5 5,color:#9A9590
-
-  Merchant((Third-Party Merchant)):::user
-  GW["API Gateway (FastAPI Proxy)"]:::sys
-  Redis[("Redis (Rate Limits)")]:::cache
-  DB[("PostgreSQL (RLS Tenant Data)")]:::db
-  Safaricom[["Safaricom Daraja API"]]:::ext
-
-  Merchant -->|Triggers payment| GW
-  GW -->|Check limits| Redis
-  GW -->|Check tenant| DB
-  GW -.->|Signed payload| Safaricom
-  Safaricom -.->|Async Webhook| GW
-  GW -->|Normalized webhook| Merchant`,
   },
 ];

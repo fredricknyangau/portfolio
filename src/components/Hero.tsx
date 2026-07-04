@@ -64,7 +64,7 @@ export default function Hero(): JSX.Element {
         {/* Name ── large serif */}
         <h1
           className="font-serif font-light tracking-[-0.04em] leading-[0.9] text-text mb-7"
-          style={{ fontSize: 'clamp(54px, 8vw, 96px)' }}
+          style={{ fontSize: 'clamp(44px, 8vw, 96px)' }}
         >
           Fredrick
           <br />

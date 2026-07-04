@@ -56,7 +56,7 @@ export default function Leadership(): JSX.Element {
 
       <div className="mt-8 flex items-center gap-4 flex-wrap">
         <a
-          href="https://github.com/fredricknyangau"
+          href="https://github.com/backend-engineers-2026"
           target="_blank"
           rel="noreferrer"
           className="inline-flex items-center gap-2 font-mono text-[13px] text-text2 border border-border-dim px-5 py-2.5 rounded hover:text-text hover:border-text2 transition-all no-underline"

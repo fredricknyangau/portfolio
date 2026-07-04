@@ -150,7 +150,7 @@ export default function Terminal(): JSX.Element {
       {/* Scrollable body */}
       <div
         ref={bodyRef}
-        className="p-6 font-mono text-[13px] leading-[1.9] min-h-[460px] max-h-[560px] overflow-y-auto"
+        className="p-6 font-mono text-[13px] leading-[1.9] min-h-[460px] max-h-[560px] overflow-y-auto overflow-x-auto whitespace-pre"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         {lines.map((line, i) => (

@@ -98,15 +98,17 @@ export default function ProjectCard({ project, featured = false }: Props): JSX.E
         <div className="font-mono text-[10px] text-amber-dim tracking-[0.12em] uppercase mb-3.5">
           Outcomes
         </div>
-        <ul className={['grid gap-2', featured ? 'grid-cols-2' : 'grid-cols-1'].join(' ')}>
+        <ul className={['grid gap-2', featured ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1'].join(' ')}>
           {project.metrics.map((m) => (
             <li
               key={m.highlight}
               className="font-mono text-[12px] text-text2 flex items-baseline gap-2"
             >
               <span className="text-green-ok text-[11px] shrink-0">✓</span>
-              <strong className="text-text">{m.highlight}</strong>
-              {' '}{m.description}
+              <span className="flex-1">
+                <strong className="text-text">{m.highlight}</strong>
+                {' '}{m.description}
+              </span>
             </li>
           ))}
         </ul>

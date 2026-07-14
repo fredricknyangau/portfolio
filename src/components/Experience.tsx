@@ -1,3 +1,4 @@
+import { Component, type ReactNode } from 'react';
 import { useFadeUp } from '@/hooks/useFadeUp';
 import { experienceItems } from '@/data/experience';
 import { GitHubCalendar } from 'react-github-calendar';
@@ -8,6 +9,37 @@ const typeLabel: Record<string, string> = {
   project: 'Project',
   education: 'Education',
 };
+
+/** Catches any render-level error the calendar library throws. */
+class CalendarErrorBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  render() {
+    if (this.state.failed) return <CalendarFallback />;
+    return this.props.children;
+  }
+}
+
+function CalendarFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center h-[120px] gap-3">
+      <p className="font-mono text-[12px] text-text3 text-center leading-[1.7]">
+        Contribution graph unavailable right now.
+      </p>
+      <a
+        href="https://github.com/fredricknyangau"
+        target="_blank"
+        rel="noreferrer"
+        className="font-mono text-[12px] text-amber hover:text-amber-glow transition-colors no-underline"
+      >
+        View on GitHub →
+      </a>
+    </div>
+  );
+}
 
 export default function Experience(): JSX.Element {
   const timelineRef = useFadeUp<HTMLDivElement>();
@@ -99,13 +131,16 @@ export default function Experience(): JSX.Element {
           </div>
           <div className="w-full bg-bg/50 border border-border-dim rounded-lg p-5 transition-colors hover:border-amber/30 overflow-x-auto custom-scrollbar">
             <div className="min-w-[750px]">
-              <GitHubCalendar
-                username="fredricknyangau"
-                colorScheme="dark"
-                blockSize={12}
-                blockMargin={4}
-                fontSize={12}
-              />
+              <CalendarErrorBoundary>
+                <GitHubCalendar
+                  username="fredricknyangau"
+                  colorScheme="dark"
+                  blockSize={12}
+                  blockMargin={4}
+                  fontSize={12}
+                  throwOnError={true}
+                />
+              </CalendarErrorBoundary>
             </div>
           </div>
           <p className="text-[12px] text-text3 font-mono mt-3">

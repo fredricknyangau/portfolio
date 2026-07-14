@@ -42,9 +42,9 @@ export default function Philosophy(): JSX.Element {
         <div className="bg-bg p-7 sm:p-9 flex items-center justify-center">
           <div className="font-mono text-[12px] text-text3 text-center leading-[1.9]">
             <div className="text-amber mb-2">→</div>
-            Commit every day.
+            Complexity should be earned.
             <br />
-            No exceptions.
+            Not assumed.
           </div>
         </div>
       </div>

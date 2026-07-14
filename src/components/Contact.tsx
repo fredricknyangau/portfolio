@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Mail, Send, CheckCircle2, MapPin } from 'lucide-react';
-import { GitHubIcon, LinkedInIcon, WhatsAppIcon, XIcon, DevToIcon } from '@/components/SocialIcons';
+import { WhatsAppIcon } from '@/components/SocialIcons';
 import { useFadeUp } from '@/hooks/useFadeUp';
 
 export default function Contact(): JSX.Element {
@@ -66,8 +66,7 @@ export default function Contact(): JSX.Element {
           Let's work together.
         </h2>
         <p className="text-[15px] text-text2 leading-[1.75] mb-10 sm:mb-14 max-w-lg">
-          Open to Junior Backend Engineering roles, backend internships, and
-          production-focused freelance work.
+          Open to remote work worldwide. Available for Junior Backend Engineering roles, backend internships, and production-focused freelance work.
         </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20">
@@ -106,70 +105,15 @@ export default function Contact(): JSX.Element {
               </div>
             </a>
 
+
             <div className="flex items-center gap-4 p-4 rounded-lg border border-border-dim bg-surface/20">
               <div className="w-9 h-9 rounded-md bg-amber/10 flex items-center justify-center text-amber shrink-0">
                 <MapPin size={17} />
               </div>
               <div>
                 <div className="font-mono text-[10px] uppercase tracking-wider text-text3 mb-0.5">Location</div>
-                <p className="text-[14px] text-text font-medium">Nairobi, Kenya · Open to Remote</p>
+                <p className="text-[14px] text-text font-medium">Nairobi, Kenya · Open to remote worldwide</p>
               </div>
-            </div>
-
-            <div className="flex gap-3 mt-4 flex-wrap">
-              <a
-                href="https://github.com/fredricknyangau"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
-                aria-label="GitHub"
-              >
-                <GitHubIcon size={18} />
-              </a>
-              <a
-                href="https://linkedin.com/in/fredricknyangau"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
-                aria-label="LinkedIn"
-              >
-                <LinkedInIcon size={18} />
-              </a>
-              <a
-                href="https://wa.me/254746730585"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
-                aria-label="WhatsApp"
-              >
-                <WhatsAppIcon size={18} />
-              </a>
-              <a
-                href="https://x.com/dev_fred_"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
-                aria-label="X (formerly Twitter)"
-              >
-                <XIcon size={18} />
-              </a>
-              <a
-                href="https://dev.to/fredricknyangau"
-                target="_blank"
-                rel="noreferrer"
-                className="p-2.5 rounded-lg border border-border-dim text-text3 hover:text-amber hover:border-amber/40 transition-all"
-                aria-label="Dev.to"
-              >
-                <DevToIcon size={18} />
-              </a>
-              <a
-                href="/docs/Fredrick_Nyangau_CV.pdf"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto sm:ml-auto inline-flex items-center justify-center gap-2 font-mono text-[12px] text-text2 border border-border-dim px-4 py-2 rounded-lg hover:text-text hover:border-text3 transition-all no-underline"
-              >
-                Download CV
-              </a>
             </div>
           </div>
 

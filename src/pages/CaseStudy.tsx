@@ -79,6 +79,9 @@ export default function CaseStudy(): JSX.Element {
             <div className="font-mono text-[11px] text-amber tracking-[0.1em] uppercase mb-5 border-b border-border-dim pb-3">
               01. Architecture
             </div>
+            {/* TODO: Add a screenshot or screen recording of the live app here.
+                 Coordinate with Fredrick to supply the image asset, then replace
+                 this comment with an <img> or embed below the diagram. */}
             <Mermaid chart={project.c4Diagram} />
           </section>
         )}
@@ -147,11 +150,21 @@ export default function CaseStudy(): JSX.Element {
           </section>
         )}
 
+        {/* STAR - Task */}
+        {project.star.task && (
+          <section>
+            <div className="font-mono text-[11px] text-amber tracking-[0.1em] uppercase mb-4 border-b border-border-dim pb-3">
+              06. Objective
+            </div>
+            <p className="text-[15px] text-text2 leading-[1.8] max-w-4xl">{project.star.task}</p>
+          </section>
+        )}
+
         {/* STAR - Action */}
         {project.star.action && (
           <section>
             <div className="font-mono text-[11px] text-amber tracking-[0.1em] uppercase mb-4 border-b border-border-dim pb-3">
-              06. Implementation
+              07. Implementation
             </div>
             <p className="text-[15px] text-text2 leading-[1.8] max-w-4xl">{project.star.action}</p>
           </section>
@@ -161,7 +174,7 @@ export default function CaseStudy(): JSX.Element {
         {project.star.result && (
           <section>
             <div className="font-mono text-[11px] text-amber tracking-[0.1em] uppercase mb-4 border-b border-border-dim pb-3">
-              07. Result
+              08. Result
             </div>
             <p className="text-[15px] text-text2 leading-[1.8] max-w-4xl">{project.star.result}</p>
           </section>
@@ -170,7 +183,7 @@ export default function CaseStudy(): JSX.Element {
         {/* Tech stack */}
         <section>
           <div className="font-mono text-[11px] text-amber tracking-[0.1em] uppercase mb-4 border-b border-border-dim pb-3">
-            08. Stack
+            09. Stack
           </div>
           <div className="flex flex-wrap gap-2">
             {project.stack.map((tech) => (
@@ -202,7 +215,7 @@ export default function CaseStudy(): JSX.Element {
               Private Deploy
             </span>
           )}
-          {project.codeUrl && (
+          {project.codeUrl ? (
             <a
               href={project.codeUrl}
               target="_blank"
@@ -212,6 +225,11 @@ export default function CaseStudy(): JSX.Element {
               <GitHubIcon size={13} />
               View code
             </a>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-text3 font-mono text-[13px] border border-border-dim px-5 py-2.5 rounded cursor-default" title="Repository is private — available on request">
+              <Lock size={13} />
+              Private repository · available on request
+            </span>
           )}
         </div>
       </article>

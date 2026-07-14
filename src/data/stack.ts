@@ -18,7 +18,6 @@ export const stackCategories: StackCategory[] = [
       { name: 'FastAPI', note: 'primary framework' },
       { name: 'Pydantic v2', note: 'data validation' },
       { name: 'asyncpg', note: 'async postgres driver' },
-      { name: 'SQLAlchemy', note: 'orm layer' },
       { name: 'Uvicorn / ASGI', note: 'production server' },
     ],
   },
@@ -61,7 +60,6 @@ export const stackCategories: StackCategory[] = [
     label: 'testing',
     items: [
       { name: 'pytest', note: 'unit + integration' },
-      { name: 'Coverage.py', note: 'test coverage' },
       { name: 'httpx', note: 'async test client' },
       { name: 'Postman / curl', note: 'api testing' },
     ],
@@ -70,7 +68,7 @@ export const stackCategories: StackCategory[] = [
     title: 'Payment Integrations',
     label: 'payments',
     items: [
-      { name: 'M-Pesa Daraja API', note: 'stk push, c2b, b2c' },
+      { name: 'M-Pesa Daraja API', note: 'stk push' },
       { name: 'Webhook Retry Logic', note: 'exponential backoff' },
       { name: 'Idempotency Keys', note: 'duplicate prevention' },
       { name: 'Signature Verification', note: 'payload auth' },

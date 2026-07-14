@@ -8,8 +8,8 @@ interface SEOProps {
 }
 
 export default function SEO({
-  title = "Fredrick Nyang'au | Junior Backend Engineer | Nairobi",
-  description = "Junior Backend Engineer building production-ready FastAPI and PostgreSQL systems. Specializing in API development for Fintech and Agritech in Nairobi, Kenya.",
+  title = "Fredrick Nyang'au | Backend Engineer | Open to Remote",
+  description = "Backend Engineer building FastAPI and PostgreSQL systems for fintech and agritech. Based in Nairobi, Kenya — open to remote roles worldwide. M-Pesa integrations, multi-tenant SaaS, production infrastructure.",
   type = "website",
   url = "https://fredricknyangau.vercel.app/",
 }: SEOProps) {

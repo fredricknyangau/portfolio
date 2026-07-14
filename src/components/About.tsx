@@ -53,11 +53,8 @@ export default function About(): JSX.Element {
         </h2>
 
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
-          I am a Backend Software Engineer based in{' '}
-          <strong className="text-text font-medium">Kenya</strong>, focused on
-          the infrastructure layer that makes East Africa's mobile economy work —
-          payments, data, APIs that handle real-world conditions like unreliable
-          connections and M-Pesa callbacks.
+          Backend Software Engineer based in{' '}
+          <strong className="text-text font-medium">Kenya</strong>, building the payment and data infrastructure that East African software runs on — FastAPI APIs, PostgreSQL schemas, M-Pesa Daraja pipelines, and multi-tenant systems designed to stay up when networks don't.
         </p>
         <p className="text-[16px] text-text2 leading-[1.8] mb-5">
           BSc in Information Technology from{' '}
@@ -68,10 +65,7 @@ export default function About(): JSX.Element {
         </p>
         <p className="text-[16px] text-text2 leading-[1.8] mb-8">
           I lead a small engineering team through a structured backend roadmap: FastAPI,
-          PostgreSQL, system design. I write about what I build and review what I commit.{' '}
-          <strong className="text-text font-medium">
-            One commit every day, no exceptions.
-          </strong>
+          PostgreSQL, system design. I write about what I build and review what I commit.
         </p>
 
       </div>

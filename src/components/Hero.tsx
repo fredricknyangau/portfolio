@@ -58,7 +58,7 @@ export default function Hero(): JSX.Element {
             className="w-2 h-2 rounded-full bg-amber animate-pulse-green shrink-0"
             style={{ boxShadow: '0 0 8px var(--accent-primary)' }}
           />
-          Open to opportunities · Nairobi, Kenya · Remote
+          Open to remote & relocation · Backend roles worldwide
         </div>
 
         {/* Name ── large serif */}
@@ -82,7 +82,7 @@ export default function Hero(): JSX.Element {
 
         {/* Headline */}
         <p className="text-[18px] sm:text-[20px] font-light text-text leading-[1.45] max-w-[460px] mb-3 tracking-[-0.01em]">
-          Building production-ready APIs.
+          FastAPI & PostgreSQL systems for fintech and agritech — M-Pesa integrations, multi-tenant SaaS, and infrastructure that holds up under real East African conditions.
         </p>
 
         {/* Stack strip */}

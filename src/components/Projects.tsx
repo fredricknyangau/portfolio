@@ -17,8 +17,7 @@ export default function Projects(): JSX.Element {
         Backend systems in production.
       </h2>
       <p className="text-[15px] text-text2 max-w-[560px] mb-8 sm:mb-14 leading-[1.75]">
-        Built to production standards. Deployed, documented, and running against real users
-        in East Africa. Each project targets a concrete engineering problem.
+        Built to production standards. Each project targets a concrete engineering problem — designed, implemented, and documented to the same bar I'd hold production code to.
       </p>
 
       <div className="flex flex-col gap-[1px]">
